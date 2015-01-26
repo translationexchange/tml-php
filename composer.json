@@ -1,0 +1,27 @@
+{
+    "name": "translationexchange/tml",
+    "type": "library",
+    "description": "Translation Markup Language for PHP",
+    "keywords": ["tml","translation","internationalization","i18n","localization","l10n","t9n", "tr8n"],
+    "homepage": "https://github.com/translationexchange/tml-php",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Michael Berkovich",
+            "email": "michael@translationexchange.com",
+            "homepage": "http://translationexchange.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "tml": "library"
+        }
+    }
+}
