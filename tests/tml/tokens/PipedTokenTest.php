@@ -139,7 +139,7 @@ class PipedTokenTest extends \BaseTest {
     }
 
     public function testValueMapForContext() {
-        $context = new LanguageContext(self::loadJSON('contexts/en-US/gender.json'));
+        $context = new LanguageContext(self::loadJSON('contexts/en/gender.json'));
 
         $token = PipedToken::tokenWithName("{user:gender| other: Born on}");
         $this->assertEquals(array("other" => "Born on"), $token->generateValueMapForContext($context));
@@ -159,7 +159,7 @@ class PipedTokenTest extends \BaseTest {
         $token = PipedToken::tokenWithName("{user| He, She, She/He}");
         $this->assertEquals(array("male" => "He", "female" => "She", "other" => "She/He"), $token->generateValueMapForContext($context));
 
-        $context = new LanguageContext(self::loadJSON('contexts/en-US/number.json'));
+        $context = new LanguageContext(self::loadJSON('contexts/en/number.json'));
 
         $token = PipedToken::tokenWithName("{count|| one: message, many: messages}");
         $this->assertEquals(array("one" => "message", "many" => "messages"), $token->generateValueMapForContext($context));
@@ -185,7 +185,7 @@ class PipedTokenTest extends \BaseTest {
 
     public function testSubstitute() {
         $app = new Application(self::loadJSON('application.json'));
-        $language = $app->addLanguage(new Language(self::loadJSON('languages/en-US.json')));
+        $language = $app->addLanguage(new Language(self::loadJSON('languages/en.json')));
 
         $token = PipedToken::tokenWithName("{count|| one: message, other: messages}");
         $this->assertEquals("You have 1 message", $token->substitute("You have {count|| one: message, other: messages}", array("count" => 1), $language));

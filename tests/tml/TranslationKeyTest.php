@@ -29,7 +29,7 @@ require_once(__DIR__."/../BaseTest.php");
 class TranslationKeyTest extends \BaseTest {
 
     public function testSubstitution() {
-        $english = new Language(self::loadJSON('languages/en-US.json'));
+        $english = new Language(self::loadJSON('languages/en.json'));
         $label = "Hello World";
         $tkey = new TranslationKey(array("label" => $label, "language" => $english));
         $this->assertEquals("Hello World", $tkey->substituteTokens($label, array(), $english));

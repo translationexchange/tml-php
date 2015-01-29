@@ -18,7 +18,7 @@ class LanguageTest extends \BaseTest {
 
     protected function setUp() {
         $this->app = new Application(self::loadJSON('application.json'));
-        $this->english = $this->app->addLanguage(new Language(self::loadJSON('languages/en-US.json')));
+        $this->english = $this->app->addLanguage(new Language(self::loadJSON('languages/en.json')));
         $this->russian = $this->app->addLanguage(new Language(self::loadJSON('languages/ru.json')));
         $this->male = new \User("Michael", "male");
         $this->female = new \User("Anna", "female");
@@ -26,10 +26,10 @@ class LanguageTest extends \BaseTest {
     }
 
     public function testLoadingLanguage() {
-        $this->assertEquals('en-US', $this->english->locale);
-        $this->assertEquals('English (US)', $this->english->name);
-        $this->assertEquals('English (US)', $this->english->english_name);
-        $this->assertEquals('English (US)', $this->english->native_name);
+        $this->assertEquals('en', $this->english->locale);
+        $this->assertEquals('English', $this->english->name);
+        $this->assertEquals('English', $this->english->english_name);
+        $this->assertEquals('English', $this->english->native_name);
         $this->assertEquals(array("date", "gender", "genders", "list", "number"), array_keys($this->english->contexts));
         $this->assertEquals(array("plural", "singular", "pos", "ord", "ordinal", "times"), array_keys($this->english->cases));
 
@@ -196,7 +196,7 @@ class LanguageTest extends \BaseTest {
 //    public function testForeignTranslationsWithNoTokens() {
 //        $app = new Application(self::loadJSON('application.json'));
 //        Config::instance()->application = $app;
-//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en-US.json')));
+//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en.json')));
 //        $russian = $app->addLanguage(new Language(self::loadJSON('languages/ru.json')));
 //
 //        self::cacheTranslations($app, 'Hello World', '', array("ru" => array(
@@ -264,7 +264,7 @@ class LanguageTest extends \BaseTest {
 //    public function testForeignTranslationsWithDecorationTokens() {
 //        $app = new Application(self::loadJSON('application.json'));
 //        Config::instance()->application = $app;
-//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en-US.json')));
+//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en.json')));
 //        $russian = $app->addLanguage(new Language(self::loadJSON('languages/ru.json')));
 //
 //        Config::instance()->beginBlockWithOptions(array("dry" => true));
@@ -368,7 +368,7 @@ class LanguageTest extends \BaseTest {
 //    public function testForeignTranslationsWithTransformTokens() {
 //        $app = new Application(self::loadJSON('application.json'));
 //        Config::instance()->application = $app;
-//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en-US.json')));
+//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en.json')));
 //        $russian = $app->addLanguage(new Language(self::loadJSON('languages/ru.json')));
 //
 //        Config::instance()->beginBlockWithOptions(array("dry" => true));
@@ -518,7 +518,7 @@ class LanguageTest extends \BaseTest {
 //    public function testDefaultLanguageCases() {
 //        $app = new Application(self::loadJSON('application.json'));
 //        Config::instance()->application = $app;
-//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en-US.json')));
+//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en.json')));
 //
 //        $this->assertEquals('This is your 1st warning',
 //            $english->translate('This is your {count::ord} warning', '', array('count' => 1))
@@ -577,7 +577,7 @@ class LanguageTest extends \BaseTest {
 //    public function testTranslatedLanguageCases() {
 //        $app = new Application(self::loadJSON('application.json'));
 //        Config::instance()->application = $app;
-//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en-US.json')));
+//        $english = $app->addLanguage(new Language(self::loadJSON('languages/en.json')));
 //        $russian = $app->addLanguage(new Language(self::loadJSON('languages/ru.json')));
 //
 //        $michael = new \User("Михаил", "male");

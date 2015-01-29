@@ -20,20 +20,20 @@ class ArrayUtilsTest extends \BaseTest {
                         array(
                             array(  "label"=>"Hello {user}",
                                     "description"=>null,
-                                    "locale"=>"en-US",
+                                    "locale"=>"en",
                                     "level"=>0),
                             array(
                                     "label"=>"Documentation",
                                     "description"=>null,
-                                    "locale"=>"en-US",
+                                    "locale"=>"en",
                                     "level"=>0),
                             array(  "label"=>"Research your family history easily and instantly:",
                                     "description"=>null,
-                                    "locale"=>"en-US",
+                                    "locale"=>"en",
                                     "level"=>0),
                             array(  "label"=> "MyHeritage was founded by a team of people with a passion for genealogy and a strong grasp of Internet technology.",
                                     "description"=>null,
-                                    "locale"=>"en-US",
+                                    "locale"=>"en",
                                     "level"=>0)
                             )
                 )
@@ -46,17 +46,17 @@ class ArrayUtilsTest extends \BaseTest {
                   "keys"  =>
                   array(
                       array(  "label"=>"Hello {user}",
-                          "locale"=>"en-US",
+                          "locale"=>"en",
                           ),
                       array(
                           "label"=>"Documentation",
-                          "locale"=>"en-US",
+                          "locale"=>"en",
                           ),
                       array(  "label"=>"Research your family history easily and instantly:",
-                          "locale"=>"en-US",
+                          "locale"=>"en",
                           ),
                       array(  "label"=> "MyHeritage was founded by a team of people with a passion for genealogy and a strong grasp of Internet technology.",
-                          "locale"=>"en-US",
+                          "locale"=>"en",
                           )
                   )
               )

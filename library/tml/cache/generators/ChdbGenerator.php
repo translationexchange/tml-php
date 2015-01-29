@@ -100,11 +100,11 @@ class ChdbGenerator extends Base {
     private function cacheTranslations() {
         $this->log("Downloading translations...");
 
-        stream_wrapper_register("chdb", '\tml\Cache\Generators\ChdbStream') or die("Failed to register Chdb protocol for streaming Tml translation keys");
+        stream_wrapper_register("chdb", '\tml\cache\generators\ChdbStream') or die("Failed to register Chdb protocol for streaming Tml translation keys");
         $fp = fopen("chdb://ChdbInMemory", "r+");
 
         $ch = curl_init();
-        $url = Config::instance()->application->host . ApiClient::API_PATH . "application/translations?stream=true&client_id=" . Config::instance()->application->key;
+        $url = Config::instance()->application->host . ApiClient::API_PATH . "applications/current/translations?stream=true";
         $this->log("GET: " . $url);
 
         curl_setopt($ch, CURLOPT_URL, $url);

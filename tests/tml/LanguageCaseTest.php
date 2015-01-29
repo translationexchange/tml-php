@@ -32,7 +32,7 @@ class LanguageCaseTest extends \BaseTest {
 
     protected function setUp() {
         $this->app = new Application(self::loadJSON('application.json'));
-        $this->english = $this->app->addLanguage(new Language(self::loadJSON('languages/en-US.json')));
+        $this->english = $this->app->addLanguage(new Language(self::loadJSON('languages/en.json')));
         $this->russian = $this->app->addLanguage(new Language(self::loadJSON('languages/ru.json')));
     }
 

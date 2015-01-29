@@ -30,8 +30,8 @@ class ApplicationTest extends \BaseTest {
 
     public function testInit() {
         $app = new Application(self::loadJSON('application.json'));
-        $english = $app->addLanguage(new Language(self::loadJSON('languages/en-US.json')));
-        $this->assertEquals('en-US', $app->language('en-US')->locale);
+        $english = $app->addLanguage(new Language(self::loadJSON('languages/en.json')));
+        $this->assertEquals('en', $app->language('en')->locale);
     }
 
 }

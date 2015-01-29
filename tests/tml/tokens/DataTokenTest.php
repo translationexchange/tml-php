@@ -92,7 +92,7 @@ class DataTokenTest extends \BaseTest {
     }
 
     public function testContextForLanguage() {
-        $language = new \Tml\Language(self::loadJSON('languages/en-US.json'));
+        $language = new \Tml\Language(self::loadJSON('languages/en.json'));
 
         $token = DataToken::tokenWithName("{user:gender}");
         $this->assertEquals("gender", $token->contextForLanguage($language)->keyword);
@@ -114,7 +114,7 @@ class DataTokenTest extends \BaseTest {
     }
 
     public function testTokenValue() {
-        $language = new \Tml\Language(self::loadJSON('languages/en-US.json'));
+        $language = new \Tml\Language(self::loadJSON('languages/en.json'));
         $token = DataToken::tokenWithName("{user}");
         $user = new \User("Michael", "male");
 
@@ -158,7 +158,7 @@ class DataTokenTest extends \BaseTest {
     }
 
     public function testSanitize() {
-        $language = new \Tml\Language(self::loadJSON('languages/en-US.json'));
+        $language = new \Tml\Language(self::loadJSON('languages/en.json'));
         $token = DataToken::tokenWithName("{user}");
         $user = new \User("<b>Michael</b>", "male");
 
@@ -229,7 +229,7 @@ class DataTokenTest extends \BaseTest {
     }
 
     public function testSubstitute() {
-        $language = new \Tml\Language(self::loadJSON('languages/en-US.json'));
+        $language = new \Tml\Language(self::loadJSON('languages/en.json'));
         $token = DataToken::tokenWithName("{user}");
         $user = new \User("Michael", "male");
 
@@ -274,7 +274,7 @@ class DataTokenTest extends \BaseTest {
 
     public function testTokenValueFromArrayParam() {
         $app = new Application(self::loadJSON('application.json'));
-        $language = $app->addLanguage(new \Tml\Language(self::loadJSON('languages/en-US.json')));
+        $language = $app->addLanguage(new \Tml\Language(self::loadJSON('languages/en.json')));
 
         /** @var DataToken $token */
         $token = DataToken::tokenWithName("{user}");
@@ -302,7 +302,7 @@ class DataTokenTest extends \BaseTest {
 
     public function testTokenValueFromHashParam() {
         $app = new Application(self::loadJSON('application.json'));
-        $language = $app->addLanguage(new \Tml\Language(self::loadJSON('languages/en-US.json')));
+        $language = $app->addLanguage(new \Tml\Language(self::loadJSON('languages/en.json')));
 
         /** @var DataToken $token */
         $token = DataToken::tokenWithName("{user}");
@@ -328,7 +328,7 @@ class DataTokenTest extends \BaseTest {
 
     public function testTokenValuesFromArray() {
         $app = new Application(self::loadJSON('application.json'));
-        $language = $app->addLanguage(new \Tml\Language(self::loadJSON('languages/en-US.json')));
+        $language = $app->addLanguage(new \Tml\Language(self::loadJSON('languages/en.json')));
         $options = array();
 
         /** @var DataToken $token */
@@ -387,7 +387,7 @@ class DataTokenTest extends \BaseTest {
 
     public function testLanguageCases() {
         $app = new Application(self::loadJSON('application.json'));
-        $language = $app->addLanguage(new \Tml\Language(self::loadJSON('languages/en-US.json')));
+        $language = $app->addLanguage(new \Tml\Language(self::loadJSON('languages/en.json')));
         $options = array();
 
         /** @var DataToken $token */
