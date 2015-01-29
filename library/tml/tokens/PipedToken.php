@@ -143,14 +143,14 @@ class PipedToken extends DataToken {
      * @return array
      * @throws TmlException
      */
-    public function generateValueMapForContext($context) {
+    public function generateValueMapForContext($context, $options = array()) {
         $values = array();
 
         if (strstr($this->parameters[0], ':')) {
-           foreach($this->parameters as $param) {
-               $name_value = explode(':', $param);
-               $values[trim($name_value[0])] = trim($name_value[1]);
-           }
+            foreach($this->parameters as $param) {
+                $name_value = explode(':', $param);
+                $values[trim($name_value[0])] = trim($name_value[1]);
+            }
             return $values;
         }
 
@@ -208,12 +208,12 @@ class PipedToken extends DataToken {
                 // TODO: check if language cases are enabled
                 foreach(array_slice($parts, 1) as $case_key) {
                     $lcase = $context->language->languageCase($case_key);
-                    if ($lcase == null) {
+                    if ($lcase === null) {
                         $this->error("Language case " . $case_key . " for context " . $context->keyword . "  mapping " . $key . " is not defined");
                         return null;
                     }
 
-                    $val = $lcase->apply($val);
+                    $val = $lcase->apply($val, null, $options);
                 }
 
                 $values[$key] = str_replace($tkey, $val, $values[$key]);
@@ -246,7 +246,7 @@ class PipedToken extends DataToken {
 
         $context = $this->contextForLanguage($language);
 
-        $piped_values = $this->generateValueMapForContext($context);
+        $piped_values = $this->generateValueMapForContext($context, $options);
 
         if ($piped_values == null)
             return $label;
