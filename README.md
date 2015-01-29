@@ -8,8 +8,8 @@ Tml for PHP
 [![Build Status](https://travis-ci.org/translationexchange/tml-php.svg?branch=master)](https://travis-ci.org/translationexchange/tml-php)
 [![Coverage Status](https://coveralls.io/repos/translationexchange/tml-php/badge.svg)](https://coveralls.io/r/translationexchange/tml-php)
 [![Latest Stable Version](https://poser.pugx.org/translationexchange/tml/v/stable.png)](https://packagist.org/packages/translationexchange/tml)
-[![Dependency Status](https://www.versioneye.com/user/projects/52e36159ec1375c6f4000075/badge.png)](https://www.versioneye.com/user/projects/52e36159ec1375c6f4000075)
-[![Total Downloads](https://poser.pugx.org/tr8n/tr8n-client-sdk/downloads.png)](https://packagist.org/packages/tr8n/tr8n-client-sdk)
+[![Dependency Status](https://www.versioneye.com/user/projects/54c9c297de7924f81a00000c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54c9c297de7924f81a00000c)
+[![Total Downloads](https://poser.pugx.org/translationexchange/tml/downloads.png)](https://packagist.org/packages/translationexchange/tml)
 
 Installation
 ==================
