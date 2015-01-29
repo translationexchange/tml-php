@@ -1,21 +1,22 @@
 {
 	"application": {
-		"key": "APPLICATION_KEY",
-		"secret": "APPLICATION_SECRET"
+		"token": "APPLICATION_TOKEN"
 	},
     "log": {
         "enabled": false,
         "severity": "debug"
     },
     "local": {
-        "base_path": "/tml"
+        "base_path": "/"
     },
 	"cache": {
-		"enabled": false,
-		"adapter": "apc",
-		"version": 1,
-		"timeout": 3600
-	},
+        "enabled": true,
+        "adapter": "memcache",
+        "host": "localhost",
+        "port": 11211,
+        "version": 1,
+        "timeout": 3600
+    },
 	"html_translator": {
 		"debug": false,
 		"debug_format": "<span style='font-size:20px;color:red;'>{<\/span> {$0} <span style='font-size:20px;color:red;'>}<\/span>",
