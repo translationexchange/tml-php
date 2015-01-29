@@ -1,0 +1,8 @@
+/log/*.log
+.idea
+/cache
+build
+vendor
+composer.phar
+composer.lock
+config/config.json
