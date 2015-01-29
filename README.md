@@ -6,8 +6,8 @@ Tml for PHP
 ==================
 
 [![Build Status](https://travis-ci.org/translationexchange/tml-php.png?branch=master)](https://travis-ci.org/translationexchange/tml-php)
-[![Coverage Status](https://coveralls.io/repos/tr8n/tr8n_php_clientsdk/badge.png?branch=master)](https://coveralls.io/r/tr8n/tr8n_php_clientsdk?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/tr8n/tr8n-client-sdk/v/stable.png)](https://packagist.org/packages/tr8n/tr8n-client-sdk)
+[![Coverage Status](https://coveralls.io/repos/translationexchange/tml-php/badge.svg)](https://coveralls.io/r/translationexchange/tml-php)
+[![Latest Stable Version](https://poser.pugx.org/translationexchange/tml/v/stable.png)](https://packagist.org/packages/translationexchange/tml)
 [![Dependency Status](https://www.versioneye.com/user/projects/52e36159ec1375c6f4000075/badge.png)](https://www.versioneye.com/user/projects/52e36159ec1375c6f4000075)
 [![Total Downloads](https://poser.pugx.org/tr8n/tr8n-client-sdk/downloads.png)](https://packagist.org/packages/tr8n/tr8n-client-sdk)
 
