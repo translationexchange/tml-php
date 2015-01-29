@@ -22,7 +22,7 @@
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onClick="Tml.UI.LanguageSelector.show()"><?php tml_language_name_tag(tml_current_language(), array("flag" => true)) ?></a></li>
 
                     <?php if (tml_current_translator() == null) { ?>
-                        <li role="presentation"><?php tml_link_to('login', null , array("role" => "menuitem", "tabindex" => "-1")) ?></li>
+                        <li role="presentation"><?php link_to_function('login', 'Tml.Utils.login()') ?></li>
                     <?php } else { ?>
                         <li class="dropdown">
                             <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
@@ -42,20 +42,14 @@
                                     <?php } ?>
                                 </li>
                                 <li role="presentation" class="divider"></li>
-                                <li role="presentation"><?php tml_link_to('notifications_popup', null , array("role" => "menuitem", "tabindex" => "-1")) ?></li>
-                                <li role="presentation"><?php tml_link_to('toggle_inline', null , array("role" => "menuitem", "tabindex" => "-1")) ?></li>
+                                <li role="presentation"><?php link_to_function('Toggle Inline Translations', 'Tml.Utils.toggleInlineTranslations()') ?></li>
                                 <li role="presentation" class="divider"></li>
-                                <li role="presentation"><?php tml_link_to('app_phrases', null , array("role" => "menuitem", "tabindex" => "-1")) ?></li>
-                                <li role="presentation"><?php tml_link_to('app_translations', null , array("role" => "menuitem", "tabindex" => "-1")) ?></li>
-                                <li role="presentation"><?php tml_link_to('app_translators', null , array("role" => "menuitem", "tabindex" => "-1")) ?></li>
-                                <li role="presentation"><?php tml_link_to('app_settings', null , array("role" => "menuitem", "tabindex" => "-1")) ?></li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation"><?php tml_link_to('shortcuts_popup', null , array("role" => "menuitem", "tabindex" => "-1")) ?></li>
+                                <li role="presentation"><?php link_to_function('Shortcuts', 'Tml.Utils.openShortcuts()') ?></li>
                                 <?php if (\Tml\Config::instance()->isCacheEnabled() && !\Tml\Cache::isReadOnly()) { ?>
                                     <li role="presentation"><?php link_to("Reset Cache (v" . \Tml\Cache::version() . ")", "docs/reset_cache.php") ?></li>
                                 <?php } ?>
                                 <li role="presentation" class="divider"></li>
-                                <li role="presentation"><?php tml_link_to('logout', null , array("role" => "menuitem", "tabindex" => "-1")) ?></li>
+                                <li role="presentation"><?php link_to_function('Log Out', 'Tml.Utils.logout()') ?></li>
                             </ul>
                         </li>
                     <?php } ?>
