@@ -25,7 +25,7 @@
     <br>
     <?php if (tml_current_translator() == null) { ?>
         <p class="text-center">
-            <a href="<?php echo tml_signup_url() ?>" class="btn btn-large"><?php tre("Sign up to get started today") ?></a>
+            <a href="http://dashboard.translationexchange.com/signup" class="btn btn-large"><?php tre("Sign up to get started today") ?></a>
         </p>
     <?php } ?>
 </div>
@@ -115,7 +115,6 @@
         <p><?php tre("Administration tools allow you to configure every aspect of your application.") ?></p>
     </div>
 </div>
-
 
 <?php tml_finish_block_with_options() ?>
 

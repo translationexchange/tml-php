@@ -268,6 +268,8 @@ class Config {
      * @return string
      */
     public function loggerFilePath() {
+        $path = $this->configValue("log.path");
+        if ($path !== null) return $path;
         return __DIR__."/../../log/tml.log";
     }
 

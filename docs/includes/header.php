@@ -19,7 +19,9 @@
                     <li <?php active_link("docs/editor.php")?>><?php link_to(tr("Blog Translator"), "docs/editor.php") ?></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onClick="Tml.UI.LanguageSelector.show()"><?php tml_language_name_tag(tml_current_language(), array("flag" => true)) ?></a></li>
+                    <li role="presentation">
+                        <?php tml_language_selector_tag(array("role" => "menuitem", "tabindex" => "-1")) ?>
+                    </li>
 
                     <?php if (tml_current_translator() == null) { ?>
                         <li role="presentation"><?php link_to_function('login', 'Tml.Utils.login()') ?></li>

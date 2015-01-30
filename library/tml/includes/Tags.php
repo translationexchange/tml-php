@@ -1,5 +1,7 @@
 <?php
 
+use tml\utils\ArrayUtils;
+
 /**
  * Copyright (c) 2015 Translation Exchange, Inc
  *
@@ -56,20 +58,13 @@ function tml_language_flag_tag($language = null) {
     echo "<img src='" . $language->flagUrl() . "' style='margin-right:3px;'>";
 }
 
-/**
- * Translator login
- *
- * @return string
- */
-function tml_login_url() {
-    return tml\Config::instance()->application->host . '/login';
-}
 
 /**
- * Translator signup
- *
- * @return string
+ * Language selector
  */
-function tml_signup_url() {
-    return tml\Config::instance()->application->host . '/signup';
+function tml_language_selector_tag($opts = array()) {
+  echo "<a href='#' onClick='Tml.UI.LanguageSelector.show()' ";
+  echo  ArrayUtils::toHTMLAttributes($opts). " >";
+  tml_language_name_tag(tml_current_language(), array("flag" => true));
+  echo "</a>";
 }
