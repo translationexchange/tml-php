@@ -1,0 +1,320 @@
+{
+    "745033447c82326529000eda3e98abfd": {
+        "original": {
+            "label": "Make sure you replace {token} with the token you copied from TranslationExchange"
+        },
+        "translations": []
+    },
+    "9f499545e13c997c9d0063c12925da83": {
+        "original": {
+            "label": " Here is a full example of the source code with the above directives: "
+        },
+        "translations": []
+    },
+    "d6bed66d7393073d0e59cfae0a0f0e26": {
+        "original": {
+            "label": "Full Page Example"
+        },
+        "translations": []
+    },
+    "909af2964e36c3b6988f2a85988ea48b": {
+        "original": {
+            "label": " Add the following line as the last statement in your application: "
+        },
+        "translations": []
+    },
+    "b05b5145af9b43b8461cf27a0c0e9b6d": {
+        "original": {
+            "label": " When Tml is run in translation mode, it automatically registers new translation keys with TranslationExchange service. In order for Tml to know when to send the new keys to the service it must know when the request is completed. "
+        },
+        "translations": []
+    },
+    "037d7ac5c57996c1834f97230c8eaac1": {
+        "original": {
+            "label": "Complete Page Request"
+        },
+        "translations": []
+    },
+    "e72d5c4647f28339a60bbc3bb8c11633": {
+        "original": {
+            "label": " This directive loads all necessary classes and provides a set of tags\/includes you can use throughout your application. For instance, you now can use Tml shortcuts by pressing CTRL+SHIFT+S, language selector - CTRL+SHIFT+L, etc... "
+        },
+        "translations": []
+    },
+    "617d98c714543cf6f86dc82ee049ad25": {
+        "original": {
+            "label": " To include Tml scripts, add the following line into the head section of your php file: "
+        },
+        "translations": []
+    },
+    "4d423f4833db75cbeb6e1059de91ddab": {
+        "original": {
+            "label": " Tml scripts provide Javascript and Stylesheet necessary for enabling inline translation features as well as cross domain communication with the Tml service. "
+        },
+        "translations": []
+    },
+    "094ca5eb0228aaeeffa8e116ae296cdd": {
+        "original": {
+            "label": "Include Tml JavaScript"
+        },
+        "translations": []
+    },
+    "4e12cb1c1c68c791c81b98f9ed7ec4c6": {
+        "original": {
+            "label": " To initialize the SDK, call the initialization function with the key and secret of your application: "
+        },
+        "translations": []
+    },
+    "97190faac43a951fc4bae7cc89ea607d": {
+        "original": {
+            "label": "Initialize Tml SDK"
+        },
+        "translations": []
+    },
+    "78a582feaa165be2ace16f7c8d33db86": {
+        "original": {
+            "label": " In order to use Tml SDK in your application, you need to include the main Tml script in the header of your app: "
+        },
+        "translations": []
+    },
+    "b6f9b0868470e84b5feb1c94d20a49c6": {
+        "original": {
+            "label": "Include Tml Header"
+        },
+        "translations": []
+    },
+    "7187eba836d4173d9901dfbef108576c": {
+        "original": {
+            "label": " Before you can proceed with the integration, you need to [link]register a new application on TranslationExchange.com[\/link] and copy the key and the secret for the app. You will need to enter them in the initialization function of the Tml SDK. "
+        },
+        "translations": []
+    },
+    "0ba7cbd9a651ff7087afbd3e9567a166": {
+        "original": {
+            "label": "Now you are ready to integrate Tml into your application."
+        },
+        "translations": []
+    },
+    "db998a6b9da98a2573f21126d3e6daec": {
+        "original": {
+            "label": "Composer will automatically create a vendor folder and put the SDK into {path} directory."
+        },
+        "translations": []
+    },
+    "b001c00a96ddf066184da77c656174a3": {
+        "original": {
+            "label": "Now install Tml SDK library by executing the following command:"
+        },
+        "translations": []
+    },
+    "65d378d802108a2df57e78be514a77a2": {
+        "original": {
+            "label": "This tells composer that your application requires tml-client-sdk library to be installed."
+        },
+        "translations": []
+    },
+    "590045b9596c9f949451532a3d4760ed": {
+        "original": {
+            "label": "Create {file} in the root folder of your application, and add the following content:"
+        },
+        "translations": []
+    },
+    "cbac8dc49ff3285cac17026da8d51692": {
+        "original": {
+            "label": "Tml Client SDK for PHP can be installed using the composer dependency manager. If you don't already have composer installed on your system, you can get it using the following command:"
+        },
+        "translations": []
+    },
+    "280deb8457276e42cb6463491995ee4a": {
+        "original": {
+            "label": "APC is a self-building cache that lazily warms up by retrieving data from the Tml service and storing it in the APC store."
+        },
+        "translations": []
+    },
+    "e2e813b4a057d2c0e5cde93cf3ff3c41": {
+        "original": {
+            "label": " Tml supports a number of various Cache adapters. To change cache settings, modify config\/config.json file. "
+        },
+        "translations": []
+    },
+    "32922708d749d9769cc68af21015cf55": {
+        "original": {
+            "label": " Since pages may contain numerous translation keys, it is crucial that Tml is backed by a caching mechanism. The caching mechanism provides a local cache of the Tml objects retrieved from the service. When users view the pages in non-translation mode, the translations will be served from the cache. For translators, who enable inline translation mode, the SDK will always request the Tml service to get the most recent translations. "
+        },
+        "translations": []
+    },
+    "30d6be04bfc8ce728f1b4303a1a9cd3e": {
+        "original": {
+            "label": "Tml can even [bold: convert HTML to TML], [italic: translate TML] and [u]substitute it back into HTML[\/u]."
+        },
+        "translations": []
+    },
+    "9b7cf00065d776e0fe0a7570449c7fdf": {
+        "original": {
+            "label": "Tml provides a global translation function, called \"tr\"."
+        },
+        "translations": []
+    },
+    "474d6465aa2bb38732366317d557f670": {
+        "original": {
+            "label": " This document demonstrates how to setup and configure Tml SDK for PHP and use TML (Translation Markup Language) in a PHP application. "
+        },
+        "translations": []
+    },
+    "06b43a8b2954a1e5a622cc990ca35339": {
+        "original": {
+            "label": "Tml Documentation & Samples"
+        },
+        "translations": []
+    },
+    "7300e25fadcd582b9a712e88a7f47495": {
+        "original": {
+            "label": "Tml uses label and description together to create a unique key for each phrase."
+        },
+        "translations": []
+    },
+    "27a95cd89643e4971910f4b7048edc77": {
+        "original": {
+            "label": "{actor|| \u043f\u043e\u0434\u0430\u0440\u0438\u043b, \u043f\u043e\u0434\u0430\u0440\u0438\u043b\u0430} \u043f\u043e\u0434\u0430\u0440\u043e\u043a {target::dat}",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "d4d25fa8e7137e66c2a8352394b807cc": {
+        "original": {
+            "label": "Alex",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "1a204b5350e3c22237ae8d2e43950aee": {
+        "original": {
+            "label": "This is your {count::ordinal::ord} warning",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "45c4c8514a39d94e288b5b0a44d96956": {
+        "original": {
+            "label": "This is your {count::ordinal} warning",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "55a514f781087ce90353a12b99dbaff8": {
+        "original": {
+            "label": "This is your {count::ord} warning",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "733be10ca4dba5b91d9c3ef7a1e391e5": {
+        "original": {
+            "label": "You have already sent this message {count::times}",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "4ffa429a0f03707a0b022b833774432d": {
+        "original": {
+            "label": "{actor} updated {users::pos} profile",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "3764056d29eb78fc985b4768a068290f": {
+        "original": {
+            "label": "This is {user::pos} post",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "c614cdb57c0afb3528451feafaf7495d": {
+        "original": {
+            "label": "Paris",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "5d6cf7a6c874e55aeacafc1c2111cf99": {
+        "original": {
+            "label": "{users || has, have} arrived at {users | his, her, their} destination.",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "cd1ac573f7c1b415cbfd773b4db87c3a": {
+        "original": {
+            "label": "Tom"
+        },
+        "translations": []
+    },
+    "ecb6fba1ec188ba1d11f522e27e8eff9": {
+        "original": {
+            "label": "Peter"
+        },
+        "translations": []
+    },
+    "26c2759feea9df74ad4c9276135c7e75": {
+        "original": {
+            "label": "Jenny",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "65d1936a391c48945ab0427ed0ce54cc": {
+        "original": {
+            "label": "Kate",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "227ff93a853097520194440ed9af1ba0": {
+        "original": {
+            "label": "Anna",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "fe913870c6cac3f55d78bb09c6400ebc": {
+        "original": {
+            "label": "Mike"
+        },
+        "translations": []
+    },
+    "b0aff1d8c93ce4d75704011f5cda3c4e": {
+        "original": {
+            "label": "{users || likes, like} this post",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "bd5f0dda03f5cd69287b578a3fe6610e": {
+        "original": {
+            "label": "{users} joined the site",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "1c792bc169b76fc3219592ab627afded": {
+        "original": {
+            "label": "You can also connect to Redis using a socket:",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "dc9334c9e037d64c3c8091bf8c442217": {
+        "original": {
+            "label": "To change cache settings, modify config\/config.json file.",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "8fc6c54281be33b199106c12cbd3f77c": {
+        "original": {
+            "label": "You must have Redis running and accessible from your server.",
+            "locale": "en-US"
+        },
+        "translations": []
+    }
+}

@@ -1,6 +1,5 @@
 /log/*.log
 .idea
-/cache
 build
 vendor
 composer.phar

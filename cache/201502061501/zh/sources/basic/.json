@@ -1,0 +1,221 @@
+{
+    "1c2ab4c6d620a3d824a7713504853ad2": {
+        "original": {
+            "label": "{user|| male: \u0440\u043e\u0434\u0438\u043b\u0441\u044f, female: \u0440\u043e\u0434\u0438\u043b\u0430\u0441\u044c, other: \u0440\u043e\u0434\u0438\u043b\u0441\u044f\/\u043b\u0430\u0441\u044c } \u0432 \u0420\u043e\u0441\u0441\u0438\u0435.",
+            "locale": "ru"
+        },
+        "translations": [
+            {
+                "label": "{user}\u0440\u043e\u0434\u0438\u043b\u0441\u044f\/\u043b\u0430\u0441\u044c\u0432\u0420\u043e\u0441\u0441\u0438\u0435\u3002"
+            }
+        ]
+    },
+    "2680dce467713fd2164e59a891acdfba": {
+        "original": {
+            "label": "{user| He, She} likes this movie. "
+        },
+        "translations": [
+            {
+                "label": "\u4ed6\/\u5979\u559c\u6b22\u8fd9\u90e8\u7535\u5f71\u3002"
+            }
+        ]
+    },
+    "0fbc04656ece2db76c54a55900daed76": {
+        "original": {
+            "label": "Invite",
+            "description": "Action to invite someone"
+        },
+        "translations": [
+            {
+                "label": "\u9080\u8bf7"
+            }
+        ]
+    },
+    "cfc31f266037007d121043960c782990": {
+        "original": {
+            "label": "This is {user::pos} photo",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u8fd9\u662f{user}\u7167\u7247"
+            }
+        ]
+    },
+    "053789018da02db20878b7af67f1f52d": {
+        "original": {
+            "label": "{actor} tagged {target} in a photo {target|he, she} just uploaded.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "{actor}\u6807\u8bb0{target}\u5728\u4ed6\/\u5979\u521a\u521a\u4e0a\u4f20\u7684\u7167\u7247\u3002"
+            }
+        ]
+    },
+    "0b380402e64ac15bb886ee45d0405227": {
+        "original": {
+            "label": "You have {count||message}",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u4f60\u6709{count}\u6d88\u606f"
+            }
+        ]
+    },
+    "bbf0ffb76e58b27d55dd8f7ca6503acc": {
+        "original": {
+            "label": "Tr8n can even [bold: convert HTML to TML], [italic: translate TML] and [u]substitute it back into HTML[\/u].",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Tr8n\u751a\u81f3\u53ef\u4ee5[bold:\u8f6c\u6362\u4e3aHTML TML]\uff0c[italic:\u8f6c\u6362TML]\u548c[u]\u66ff\u6362\u5b83\u653e\u56deHTML [\/ U]\u3002"
+            }
+        ]
+    },
+    "0eff08126b236773f08f3b2e076552a7": {
+        "original": {
+            "label": "[bold: {user}], you have [italic: [link: [bold: {count}] {count|message}]]!",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "[bold:{user}]\uff0c\u5219\u6709[italic:[link:[bold:{count}]\u6d88\u606f]]\uff01"
+            }
+        ]
+    },
+    "5a24a8ce1730a78141fee7c0fc6ad0f4": {
+        "original": {
+            "label": "You have [link: {count||message}]",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u4f60\u6709[link:{count}\u7684\u6d88\u606f]"
+            }
+        ]
+    },
+    "aadfc7aa7ecfd6a296871a67ca889410": {
+        "original": {
+            "label": "Hello [bold: World]",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u60a8\u597d[bold:\u4e16\u754c]"
+            }
+        ]
+    },
+    "9bda7753182282b3a863a84f3b4cca58": {
+        "original": {
+            "label": "{user| Born on}: ",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u51fa\u751f\u4e8e\uff1a"
+            }
+        ]
+    },
+    "42a99267199ecca93a613d9a460e3d57": {
+        "original": {
+            "label": "{user| male: He, female: She} likes this movie.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u4ed6\u559c\u6b22\u8fd9\u90e8\u7535\u5f71\u3002"
+            }
+        ]
+    },
+    "7a1ee875c2b4e33d4ffc1e759f843dc1": {
+        "original": {
+            "label": "You have {count|| one: message, other: messages}",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u4f60\u6709{count}\u6d88\u606f"
+            }
+        ]
+    },
+    "4cc6028324fb98067764924f1de9ed3e": {
+        "original": {
+            "label": "You have {count|| message, messages}",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u4f60\u6709{count}\u6d88\u606f"
+            }
+        ]
+    },
+    "662956196959603e4759f13e24699d08": {
+        "original": {
+            "label": "You have {count|| message}",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u4f60\u6709{count}\u6d88\u606f"
+            }
+        ]
+    },
+    "e8e3d23551e8f24b55d630a78c03e9fa": {
+        "original": {
+            "label": "Hello {user.name}, you are a {user.gender}",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u4f60\u597d{user.name}\uff0c\u4f60\u662f\u4e00\u4e2a{user.gender}"
+            }
+        ]
+    },
+    "b553d26a13c11631add094d445c56dc5": {
+        "original": {
+            "label": "Hello {user}",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u4f60\u597d{user}"
+            }
+        ]
+    },
+    "2bdcaf673b1d5ee70f9499c713665de7": {
+        "original": {
+            "label": "Michael"
+        },
+        "translations": [
+            {
+                "label": "\u8fc8\u514b\u5c14"
+            }
+        ]
+    },
+    "e97bd268318503635e55b91c0f70a2a8": {
+        "original": {
+            "label": "Invite",
+            "locale": "en-US",
+            "description": "An invitation"
+        },
+        "translations": [
+            {
+                "label": "\u9080\u8bf7"
+            }
+        ]
+    },
+    "d541c79af1be6a05b1f16fca8b5730de": {
+        "original": {
+            "label": "Hello World",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u4f60\u597d\u4e16\u754c"
+            }
+        ]
+    }
+}

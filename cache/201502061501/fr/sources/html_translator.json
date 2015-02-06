@@ -1,0 +1,153 @@
+{
+    "6c17037e10cbddd0db89086b834ea4d6": {
+        "original": {
+            "label": "Output and Translations",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Sortie et traductions"
+            }
+        ]
+    },
+    "016211ccf1dde7c8f0c6deebf87a6fce": {
+        "original": {
+            "label": "Detach",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "D\u00e9tacher"
+            }
+        ]
+    },
+    "e143acabffd4fde4a902a51b1ded8218": {
+        "original": {
+            "label": "Numeric tokens",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Jetons num\u00e9riques"
+            }
+        ]
+    },
+    "6233485b88d1189fdca65a8b9ba9d153": {
+        "original": {
+            "label": "Special char tokens",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Jetons de caract\u00e8re sp\u00e9cial"
+            }
+        ]
+    },
+    "a8c6c526773e2c2d4a263a4c140d3cd5": {
+        "original": {
+            "label": "Split by sentence",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Diviser par phrase"
+            }
+        ]
+    },
+    "9fd7c07958e9690d903fa0a07fb505af": {
+        "original": {
+            "label": "Debug TML",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "D\u00e9boguer TML"
+            }
+        ]
+    },
+    "bce7f754901fdbd4aa4d649a986e8c6d": {
+        "original": {
+            "label": "Save & Translate",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Enregistrer & traduire"
+            }
+        ]
+    },
+    "a07931637300d5f5243f298ddb94cc04": {
+        "original": {
+            "label": "Save As...",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Enregistrer sous..."
+            }
+        ]
+    },
+    "a4632792757eda397d2ab9d3fd9ee7c1": {
+        "original": {
+            "label": "New Sample",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Nouvel \u00e9chantillon"
+            }
+        ]
+    },
+    "39582db337c3fe9e78bb316537ae1541": {
+        "original": {
+            "label": "Enter A Blog Post",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Entrez un billet de Blog"
+            }
+        ]
+    },
+    "e6c9d99c8b25839c0758fb0db67122b5": {
+        "original": {
+            "label": "Blog Translator",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Traducteur blog"
+            }
+        ]
+    },
+    "144c3a94516480629cfc9308e6d1fafe": {
+        "original": {
+            "label": "Rename"
+        },
+        "translations": [
+            {
+                "label": "Renommer"
+            }
+        ]
+    },
+    "0bda9125343625c28a35c0638ae20e5a": {
+        "original": {
+            "label": "Update"
+        },
+        "translations": [
+            {
+                "label": "Actualiser"
+            }
+        ]
+    },
+    "0de6ace931b0a1f9ff3046fbc36f4f6d": {
+        "original": {
+            "label": "Delete"
+        },
+        "translations": [
+            {
+                "label": "Supprimer"
+            }
+        ]
+    }
+}

@@ -1,0 +1,266 @@
+{
+    "70bef2d66af67ab7c77c8d284a08e0bc": {
+        "original": {
+            "label": "Source: [link: Wikipedia.org]",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Quelle: [link: Wikipedia.org]"
+            }
+        ]
+    },
+    "125fbe4701de6fca546e06db2160735f": {
+        "original": {
+            "label": "After being sent to the Moon by the Saturn V's upper stage, the astronauts separated the spacecraft from it and travelled for three days until they entered into lunar orbit. Armstrong and Aldrin then moved into the Lunar Module and landed in the [link: Sea of Tranquility]. They stayed a total of about 21 and a half hours on the lunar surface. After lifting off in the upper part of the Lunar Module and rejoining Collins in the Command Module, they returned to Earth and landed in the [link1: Pacific Ocean] on July 24.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Nachdem sie auf dem Mond durch Oberstufe der Saturn V gesendet, getrennt die Astronauten das Raumfahrzeug von ihm und reiste f\u00fcr drei Tage, bis sie in der Mondumlaufbahn eingetragen. Armstrong und Aldrin dann in die Mondlandef\u00e4hre und landete in der [link: Meer der Ruhe]. Sie blieben mit insgesamt etwa 21 und eine halbe Stunde auf der Mondoberfl\u00e4che. Nach dem Abheben im oberen Teil der Mondlandef\u00e4hre und Wiederverbinden Collins im Kommandomodul, zur Erde zur\u00fcckkehrten, und landete in der [link1: Pazifik] am 24. Juli."
+            }
+        ]
+    },
+    "0c5794506741f6f3157c6f48875520f1": {
+        "original": {
+            "label": "[strong: Lunar Module] for landing on the Moon.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "[strong: Mondmodul] f\u00fcr die Landung auf dem Mond."
+            }
+        ]
+    },
+    "32d55571f2d535c01bbae60500533869": {
+        "original": {
+            "label": "[strong: Service Module] which supported the Command Module with propulsion, electrical power, oxygen and water",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "[strong: Service-Modul], die die Kommandokapsel mit Antrieb, elektrische Energie, Sauerstoff und Wasser unterst\u00fctzt"
+            }
+        ]
+    },
+    "bcb805f9d2ba4f9efcc724fd66cf6302": {
+        "original": {
+            "label": "[strong: Command Module] with a cabin for the three astronauts which was the only part which landed back on Earth",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "[strong: Command Module] mit einer Kabine f\u00fcr die drei Astronauten, die der einzige Teil, der auf der Erde wieder gelandet war,"
+            }
+        ]
+    },
+    "cd85cac0b9937c20f466c3bbd6347a2a": {
+        "original": {
+            "label": "Launched by a [strong: Saturn V] rocket from [link]Kennedy Space Center[\/link] in Merritt Island, Florida on July 16, Apollo 11 was the fifth manned mission of [link1: NASA]'s Apollo program. The Apollo spacecraft had three parts:",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Durch eine [strong: Saturn V] Rakete aus [link]Kennedy Space Center\/link] in Merritt Island, Florida on July 16, Apollo 11 was the fifth manned mission of link1: NASA] &#39;s Apollo-Programm ins Leben gerufen. Die Apollo-Raumschiff bestand aus drei Teilen:"
+            }
+        ]
+    },
+    "f64864ee280469e068e3e2bbe62c9290": {
+        "original": {
+            "label": "Edwin \"Buzz\" E. Aldrin, Jr.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Edwin &quot;Buzz&quot; Aldrin E., Jr."
+            }
+        ]
+    },
+    "5c22ce11af54fb1f99dc5b028fc5d980": {
+        "original": {
+            "label": "Lunar Module Pilot",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Mondf\u00e4hre Versuchs"
+            }
+        ]
+    },
+    "2c3ef2e8a047d59367c67fe508a43664": {
+        "original": {
+            "label": "Michael Collins",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Michael Collins"
+            }
+        ]
+    },
+    "aa5cf6c17cb95f1d687a847095ff4f43": {
+        "original": {
+            "label": "Command Module Pilot",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Kommandomodul Versuchs"
+            }
+        ]
+    },
+    "6b6ce72fb67000a03de982225cd33fca": {
+        "original": {
+            "label": "Neil A. Armstrong",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Neil A. Armstrong"
+            }
+        ]
+    },
+    "ebc9b9295a48089e230222fa5a7282d0": {
+        "original": {
+            "label": "Commander",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Kommandant"
+            }
+        ]
+    },
+    "46d6f616d0670185f169660b6d727354": {
+        "original": {
+            "label": "Astronaut",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Astronaut"
+            }
+        ]
+    },
+    "fe541097afed5675445a501973fed7d0": {
+        "original": {
+            "label": "Mission crew",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Mission Crew"
+            }
+        ]
+    },
+    "db333dc08771376a6b527f74ed6ada49": {
+        "original": {
+            "label": "Technical details\u00a0",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Technische Details"
+            }
+        ]
+    },
+    "e94f91ec04bca1b09e1a8afa9bafba9a": {
+        "original": {
+            "label": "...\u00a0before this decade is out, of landing a man on the Moon and returning him safely to the Earth.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "... Vor dem Ende dieses Jahrzehnts, der Landung eines Menschen auf dem Mond und ihn sicher wieder zur Erde."
+            }
+        ]
+    },
+    "d2f83fd68d4126c6fe2bbb6416923483": {
+        "original": {
+            "label": "Apollo 11 effectively ended the [link: Space Race] and fulfilled a national goal proposed in 1961 by the late U.S. President [link1: John F. Kennedy] in a speech before the United States Congress:",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Apollo 11 beendete effektiv die [link: Space Race] und erf\u00fcllt eine im Jahr 1961 von dem verstorbenen US-Pr\u00e4sidenten [link1: John F. Kennedy] in einer Rede vor dem Kongress der Vereinigten Staaten vorgeschlagene nationale Ziel:"
+            }
+        ]
+    },
+    "6a95bf47bb00ddc8b32179759e127770": {
+        "original": {
+            "label": "One small step for a man, one giant leap for mankind.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Ein kleiner Schritt f\u00fcr einen Menschen, ein riesiger Sprung f\u00fcr die Menschheit."
+            }
+        ]
+    },
+    "4792535972afbdb54662e23c543f1322": {
+        "original": {
+            "label": "Broadcast on live TV to a world-wide audience, Armstrong stepped onto the lunar surface and described the event as:",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Live im Fernsehen, um ein weltweites Publikum zu \u00fcbertragen, Armstrong trat auf der Mondoberfl\u00e4che und bezeichnete die Veranstaltung als:"
+            }
+        ]
+    },
+    "bab1f22df7bffc4f4903770f64857a20": {
+        "original": {
+            "label": "Broadcasting and [em: quotes]\u00a0",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Rundfunk und [em: Zitate]"
+            }
+        ]
+    },
+    "828b6db27fa099047891029696979f69": {
+        "original": {
+            "label": "Armstrong spent about [s: three and a half] two and a half hours outside the spacecraft, Aldrin slightly less; and together they collected 47.5 pounds (21.5\u00a0kg) of lunar material for return to Earth. A third member of the mission, [link: Michael Collins], piloted the [link1: command] spacecraft alone in lunar orbit until Armstrong and Aldrin returned to it for the trip back to Earth.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Armstrong zu [s: dreieinhalb] verbrachte zwei und eine halbe Stunde au\u00dferhalb der Raumfahrzeuge, Aldrin etwas weniger; und zusammen haben sie gesammelt \u00a3 47,5 (21,5 kg) von Mondmaterial f\u00fcr die R\u00fcckkehr zur Erde. Ein drittes Mitglied der Mission, [link: Michael Collins], pilotiert den [link1: Befehl] Raumschiff allein in der Mondbahn, bis Armstrong und Aldrin zur\u00fcckgegeben, um es f\u00fcr die Reise zur\u00fcck zur Erde."
+            }
+        ]
+    },
+    "ef318e222be13b6c98538eb6ae51b406": {
+        "original": {
+            "label": "[strong: Apollo 11] was the spaceflight that landed the first humans, Americans [link: Neil Armstrong] and [link1: Buzz Aldrin], on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later on July 21 at 02:56 UTC.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "[strong: Apollo 11] war der Raumflug, der die ersten Menschen, landeten die Amerikaner [link: Neil Armstrong] und [link1: Buzz Aldrin], auf dem Mond am 20. Juli 1969 um 20:18 Uhr UTC. Armstrong war der Erste, der um 02:56 Uhr UTC auf der Mondoberfl\u00e4che 6 Stunden sp\u00e4ter am 21. Juli treten."
+            }
+        ]
+    },
+    "63e0f18c260b53524feba40051c92046": {
+        "original": {
+            "label": "{picture} Apollo 11",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "{picture} Apollo 11"
+            }
+        ]
+    },
+    "bda6b4cfa5282e1ef1fd22a20f4177b0": {
+        "original": {
+            "label": "Position",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Lage"
+            }
+        ]
+    }
+}

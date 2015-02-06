@@ -1,0 +1,131 @@
+{
+    "e02536754545039342a65c2a0e00c1fe": {
+        "original": {
+            "label": "Options (optional, JSON)",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Optionen (optional, JSON)"
+            }
+        ]
+    },
+    "03e002b473c8bb5ca73bf10e5f0454a5": {
+        "original": {
+            "label": "Translation options",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u00dcbersetzung Optionen"
+            }
+        ]
+    },
+    "7b7b7a5b98e0c75d47f04de0294be226": {
+        "original": {
+            "label": "Tokens (optional, JSON)",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Token (optional, JSON)"
+            }
+        ]
+    },
+    "039cbc1c5a492d3a3c15c0030612d743": {
+        "original": {
+            "label": "Dynamic data to be substituted",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Dynamische Daten ersetzt werden"
+            }
+        ]
+    },
+    "93ac176bb2a50399d21c83f4c9b74caa": {
+        "original": {
+            "label": "Context (optional, plain text)",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Kontext (optional, plain text)"
+            }
+        ]
+    },
+    "8f14c49323522b9ee38e100dd9922cf1": {
+        "original": {
+            "label": "If label is ambiguous, context provides a hint to translators as well as a unique key for the label.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "If label ist mehrdeutig Kontext stellt einen Hinweis f\u00fcr \u00fcbersetzer sowie einen eindeutigen Schl\u00fcssel f\u00fcr das label."
+            }
+        ]
+    },
+    "2c3a40b8e85c494d386d28339ac4f2b6": {
+        "original": {
+            "label": "try some examples"
+        },
+        "translations": [
+            {
+                "label": "versuchen Sie einige Beispiele"
+            }
+        ]
+    },
+    "189d30b6989a13c60f77b6b42cc53101": {
+        "original": {
+            "label": "Label (required, TML)",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Label (erforderlich, TML)"
+            }
+        ]
+    },
+    "1b39aef081979c61412feb60f70f309f": {
+        "original": {
+            "label": "The text that you would like to translate.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Der text, den Sie \u00fcbersetzen m\u00f6chten."
+            }
+        ]
+    },
+    "c1c603f2ec04f888319b686ac56525f2": {
+        "original": {
+            "label": "TML Interactive Console",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "TML Interactive Console"
+            }
+        ]
+    },
+    "757fef82525d0c5fc3abb8734a7d20a4": {
+        "original": {
+            "label": "Clear"
+        },
+        "translations": [
+            {
+                "label": "Entfernen"
+            }
+        ]
+    },
+    "f6f6ae7cfba58481ad1b338006d98f55": {
+        "original": {
+            "label": "Translate"
+        },
+        "translations": [
+            {
+                "label": "\u00dcbersetzen"
+            }
+        ]
+    }
+}

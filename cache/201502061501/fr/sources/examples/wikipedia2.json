@@ -1,0 +1,35 @@
+{
+    "7c5c8cea803f52513294e6581529f478": {
+        "original": {
+            "label": "[strong: [link: Archive]] \u2013 [strong: [link1: By email]] \u2013 [strong][link2]More featured articles...[\/link2][\/strong]",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "[strong: [link: Archives]] - [strong: [link1: Par courriel]] - [strong] [] link2 articles en vedette Plus ... [\/ link2] [\/ strong]"
+            }
+        ]
+    },
+    "fb24f41e0e6c3045cff43d04745e9ee0": {
+        "original": {
+            "label": "Recently featured: [link: George Herriman]\u00a0\u2013 [link1: George Went Hensley]\u00a0\u2013 [link2]George Jones (RAAF officer)[\/link2]",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "R\u00e9cemment en vedette: [link: George Herriman] - [link1: George Went Hensley] - [link2] George Jones (agent RAAF) [\/ link2]"
+            }
+        ]
+    },
+    "e88eb7ddc5c8bd8245250317e3ffbea9": {
+        "original": {
+            "label": "[strong][link: Georgette Heyer][\/strong] (1902\u201374) was a British [link1: historical romance] and [link2: detective fiction] novelist. Her writing career began in 1921, when she turned a story for her younger brother into the novel [em][link3: The Black Moth][\/em] [em](title page pictured)[\/em]. After [em][link4: These Old Shades][\/em] became popular despite its release during the [link5: General Strike], Heyer determined that publicity was not necessary for good sales and refused to give interviews thereafter. She essentially established the historical romance genre and its subgenre [link6: Regency romance]. To ensure accuracy, Heyer kept detailed notes on all aspects of Regency life. While some critics thought the novels were too detailed, others considered the detail to be her greatest asset. Beginning in 1932, Heyer released one romance novel and one [link7: thriller] each year. Her husband often provided basic plot outlines for the thrillers, leaving Heyer to develop character relationships and dialogue. Although many critics describe Heyer's detective novels as unoriginal, others praise them for their wit and plots. Her success was sometimes clouded by problems with tax inspectors and alleged plagiarists. Heyer continued writing until her death; her last book, [em][link8: My Lord John][\/em], was published posthumously. ([link][strong: Full\u00a0article...][\/link])",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "[strong]link: Georgette Heyer] [\/strong] (1902\u201374) was a British link1: roman historique] et [link2: la fiction polici\u00e8re] romancier. Sa carri\u00e8re d&#39;\u00e9crivain a commenc\u00e9 en 1921, quand elle a tourn\u00e9 une histoire pour son jeune fr\u00e8re dans le roman [em]link3: Le Black Moth] [\/em] em](title page pictured)\/em]. After em]link4: Ces vieilles Shades] [\/em] became popular despite its release during the link5: la gr\u00e8ve g\u00e9n\u00e9rale], Heyer a d\u00e9termin\u00e9 que la publicit\u00e9 ne \u00e9tait pas n\u00e9cessaire pour de bonnes ventes et a refus\u00e9 de donner des entrevues par la suite. Elle \u00e9tablit essentiellement le genre de roman historique et de son sous-genre [link6: Regency Romance]. Pour assurer l&#39;exactitude, Heyer conserv\u00e9 des notes d\u00e9taill\u00e9es sur tous les aspects de la vie de la R\u00e9gence. Alors que certains critiques pensaient que les romans \u00e9taient trop d\u00e9taill\u00e9es, d&#39;autres ont estim\u00e9 les d\u00e9tails pour \u00eatre son plus grand atout. \u00c0 partir de 1932, Heyer publi\u00e9 une roman d&#39;amour et une [link7: Thriller] chaque ann\u00e9e. Son mari souvent fournis intrigue de base d\u00e9crit pour les thrillers, laissant Heyer de d\u00e9velopper des relations et le dialogue caract\u00e8res. Bien que de nombreux critiques d\u00e9crivent romans policiers de Heyer comme originalit\u00e9, d&#39;autres les louent pour leur esprit et parcelles. Son succ\u00e8s a \u00e9t\u00e9 parfois assombri par des probl\u00e8mes avec les inspecteurs des imp\u00f4ts et plagiaires pr\u00e9sum\u00e9s. Heyer a continu\u00e9 \u00e0 \u00e9crire jusqu&#39;\u00e0 sa mort; son dernier livre, [em]link8: Mon Seigneur John] [\/em], was published posthumously. (link]strong: l&#39;article complet ...] [\/ link])"
+            }
+        ]
+    }
+}

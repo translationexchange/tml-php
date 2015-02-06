@@ -1,0 +1,45 @@
+{
+    "f241ecb0d02da86f59834d2ae7be6eb7": {
+        "original": {
+            "label": "Tml For PHP"
+        },
+        "translations": [
+            {
+                "label": "Tml pour PHP"
+            }
+        ]
+    },
+    "e6c9d99c8b25839c0758fb0db67122b5": {
+        "original": {
+            "label": "Blog Translator",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Traducteur blog"
+            }
+        ]
+    },
+    "c1c603f2ec04f888319b686ac56525f2": {
+        "original": {
+            "label": "TML Interactive Console",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "TML Console Interactive"
+            }
+        ]
+    },
+    "1bb5502c3ee0099ce1c750d633da1734": {
+        "original": {
+            "label": "Documentation & Samples",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Exemples de documentation &"
+            }
+        ]
+    }
+}

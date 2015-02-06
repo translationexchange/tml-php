@@ -1,0 +1,351 @@
+{
+    "b4ec3056e9e6446a055dd3e9b96f9b62": {
+        "original": {
+            "label": "Featured portals",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "483c38ec0d8f688b1b7bcf240e8ab694": {
+        "original": {
+            "label": "List of portals",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "df4259dc1f2d96b07c48cca45885cba6": {
+        "original": {
+            "label": "What are [link: portals]?",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "7cd845eef05af5c512de8d40f1974020": {
+        "original": {
+            "label": "Definitions"
+        },
+        "translations": []
+    },
+    "a39fab1ee2b989b62e81b71e55bb8565": {
+        "original": {
+            "label": "Learning resources"
+        },
+        "translations": []
+    },
+    "d52c8c4cee7aa818f696db465def08fa": {
+        "original": {
+            "label": "Texts",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "06e105c6a85facfaef0b6f59101b6ad5": {
+        "original": {
+            "label": "Quotations",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "c4d6f9c558d8d92ce2d229c868aab9e9": {
+        "original": {
+            "label": "Images and media",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "81755382676fce17ac6b8be99667a4c7": {
+        "original": {
+            "label": "Manuals and books",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "159b865927499ac726513813ebee6045": {
+        "original": {
+            "label": "Technology on\u00a0Wiktionary",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "981b918bd57947f741635a74cdfb9007": {
+        "original": {
+            "label": "Technology on\u00a0Wikiversity",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "abe8510175a73ccba45c3dfb332cbbb8": {
+        "original": {
+            "label": "Technology on\u00a0Wikisource",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "a9a2d3ea024e20672ccc179721b316b3": {
+        "original": {
+            "label": "Technology on\u00a0Wikiquote",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "d5b4c9faef5e855017c2155be3df508e": {
+        "original": {
+            "label": "Technology on\u00a0Wikinews",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "8db4167d30260caa713889d65b9b23d4": {
+        "original": {
+            "label": "Technology on Wikimedia Commons",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "5780411ca9a2991864946a0ef4a10d0d": {
+        "original": {
+            "label": "Technology on\u00a0Wikibooks",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "289f363343171bf5514f1f7c63426a27": {
+        "original": {
+            "label": "Associated Wikimedia",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "0046c98f0e7565d969694c2b8e6bfee9": {
+        "original": {
+            "label": "War",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "72df8eecb7fb5c8e8fc57e8d94baf749": {
+        "original": {
+            "label": "Transport",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "bd66561bf1be41108f47c992fc830958": {
+        "original": {
+            "label": "Television"
+        },
+        "translations": [
+            {
+                "label": "T\u00e9l\u00e9vision"
+            }
+        ]
+    },
+    "313f81cce7a4ae534dc6a915944f3c46": {
+        "original": {
+            "label": "Telecommunication",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "9ad7aed305897ca2b75712727d36e931": {
+        "original": {
+            "label": "Sustainable development",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "5817b84b43133499490967d8642d493b": {
+        "original": {
+            "label": "Spaceflight",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "7cabd52759217b629bde89b06078c46c": {
+        "original": {
+            "label": "Robotics",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "cc916d059b1b866ddd7427efc9efa7c3": {
+        "original": {
+            "label": "Renewable energy",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "99fa79d60f9b713d6e98ab8e2b5584a1": {
+        "original": {
+            "label": "Philosophy of science",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "cf822b878b3480ab40f500bd024ad760": {
+        "original": {
+            "label": "Nuclear technology",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "204404edd5592fe07cdf24460217dd16": {
+        "original": {
+            "label": "Mathematics"
+        },
+        "translations": []
+    },
+    "a4bc3f7a3041b4d6823f5d848666081c": {
+        "original": {
+            "label": "Information technology",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "e32b8813e5d5adcdd09834377b378c3b": {
+        "original": {
+            "label": "Infrastructure",
+            "locale": "es"
+        },
+        "translations": []
+    },
+    "b968c5482cb51e1abaa704ebe192ea3e": {
+        "original": {
+            "label": "Computer science",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "72856c73c700624c72a149d4f3622aed": {
+        "original": {
+            "label": "Bridges",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "e11f06d4aba9e0952a725117f23a3886": {
+        "original": {
+            "label": "Astronomy"
+        },
+        "translations": []
+    },
+    "168d45353c79e99b4de02eb78059bd16": {
+        "original": {
+            "label": "Agriculture and Agronomy",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "62dfd8cfea359f9e2a2634770be2d325": {
+        "original": {
+            "label": "Related portals",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "30edd57a12d7076be2caba794976d1d1": {
+        "original": {
+            "label": "[strong][link: Requested pictures]:[\/strong] [link1]Technology topics, requested pictures[\/link1]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "10cfd88cf1ab29e45d638452b45b6524": {
+        "original": {
+            "label": "[strong: [link: Notability]:] Articles with notability concerns, listed at [link1]WikiProject Notability[\/link1]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "d033b3cdb303f6094294ba7737eb2f87": {
+        "original": {
+            "label": "[strong: [link: Expand]:] check [link1: Electronics] \u00b7 [link2: Engineer] \u00b7 [link3: Optics] \u00b7 [link4: Robotics] \u00b7 [link5: Telecommunications] \u00b7 [link6: Wireless]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "ed50eeb7a24bd2e7c9fcb8d9365c3c3f": {
+        "original": {
+            "label": "[strong][link]Deletion discussions[\/link][\/strong]: Listed at [link1]Wikipedia:WikiProject Deletion sorting\/Technology[\/link1]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "3009daf3fedc6ad4a8bbb08d9479de72": {
+        "original": {
+            "label": "[strong][link: Article requests]:[\/strong] [link1]Computer science, computing, and Internet topics[\/link1] \u00b7 [link2: Engineering topics] \u00b7 [link3]Technology and tools topics[\/link3]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "e6f279d87762bebf10c7f3ad13908897": {
+        "original": {
+            "label": "Check the [strong][link: recent changes][\/strong] page for improvements, other changes, and vandalism to these articles",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "718d1fea7888a5e25b3af60fe02b7bb0": {
+        "original": {
+            "label": "Things you can do",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "75bb5d57a39a34943589676179107929": {
+        "original": {
+            "label": "May 31: [link]Highly preserved mammoth presents scientists with blood sample[\/link]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "02d4bf9f1da2e74f8f33207f5adea9e0": {
+        "original": {
+            "label": "June 12: [link]Wikinews interviews biologist Chris Simon about periodical cicadas[\/link]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "7ee38b0c4b11eac6c60dd3452642ffb8": {
+        "original": {
+            "label": "June 21: [link]Scientists create micro-battery using 3D printing[\/link]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "b4361f7583e48afb12e02d0ff94a633c": {
+        "original": {
+            "label": "July 8: [link]Panda cub born in Taiwan to gifted Chinese pandas[\/link]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "b2b8e00f179671b345991bbe6a8ccce7": {
+        "original": {
+            "label": "August 26: [link]Drone smartphone app to help heart attack victims in remote areas announced[\/link]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "dc27f3ea9653bf26ea95764c5b9ceaf0": {
+        "original": {
+            "label": "September 2: [link]Japan suggests dumping Fukushima waste at sea as radiation hits lethal levels[\/link]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "d849db541b88fb7eabc262e597e4ba7e": {
+        "original": {
+            "label": "September 8: [link]Wikinews interviews Dr. Robert Kelly and Dr. Jim Gill regarding joint scientific venture in North Korea[\/link]",
+            "locale": "en-US"
+        },
+        "translations": []
+    },
+    "2df01b2199f5ea09f826aec6db10f4a6": {
+        "original": {
+            "label": "September 13: [link]Wikinews interviews Dr. Michael Mazilu on creating world's fastest spinning manmade object[\/link]",
+            "locale": "en-US"
+        },
+        "translations": []
+    }
+}

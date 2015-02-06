@@ -1,0 +1,373 @@
+{
+    "2f5894e8b9f7a6063b2a7db9d77c3fae": {
+        "original": {
+            "label": "The Tml service pulls down new translations from not only your users but users of other websites as you sync your translations."
+        },
+        "translations": [
+            {
+                "label": "Die Tml Service zieht neue \u00dcbersetzungen aus dem nicht nur die Benutzer aber die Benutzer von anderen Websites, wie Sie Ihre \u00dcbersetzungen zu synchronisieren."
+            }
+        ]
+    },
+    "da3894f60c9ddef363b6401dfa7e7c92": {
+        "original": {
+            "label": "Translations from your site get synced to Tml service and can then be shared with thousands of other websites."
+        },
+        "translations": [
+            {
+                "label": "\u00dcbersetzungen von Ihrer Website zu Tml Service gesynct und kann dann mit Tausenden von anderen Websites teilen."
+            }
+        ]
+    },
+    "50303972e76949144671e338b405983d": {
+        "original": {
+            "label": "Your multilingual users can sign up to help translate your site into over {count || different language}."
+        },
+        "translations": [
+            {
+                "label": "Ihre mehrsprachige Benutzer k\u00f6nnen sich anmelden, um bei der \u00dcbersetzung Ihrer Website in \u00fcber {count} verschiedenen Sprachen."
+            }
+        ]
+    },
+    "b45bd948e3a7ad068c511d4e40e2187b": {
+        "original": {
+            "label": "Tml for PHP is a Client SDK library that allows PHP based applications to integrate with the TranslationExchange localization platform."
+        },
+        "translations": [
+            {
+                "label": "Tml f\u00fcr PHP ist eine Client SDK-Bibliothek, die PHP-basierte Anwendungen, um mit der TranslationExchange Lokalisierungsplattform integrieren."
+            }
+        ]
+    },
+    "82076047d3de0349c0d9cf0e157c4c19": {
+        "original": {
+            "label": "Welcome to Tml For PHP"
+        },
+        "translations": [
+            {
+                "label": "Willkommen bei Tml F\u00fcr PHP"
+            }
+        ]
+    },
+    "24b0c52fd011571988efe66d68d7598f": {
+        "original": {
+            "label": "Tml supports all language rules to make translations very accurate."
+        },
+        "translations": [
+            {
+                "label": "Tml unterst\u00fctzt alle Sprachregeln \u00dcbersetzungen sehr genau zu machen."
+            }
+        ]
+    },
+    "406bf81172d8592ed58ad01c2b319941": {
+        "original": {
+            "label": "This sample application demonstrates some of Tml's capabilities."
+        },
+        "translations": [
+            {
+                "label": "Diese Beispielanwendung veranschaulicht einige der Tml F\u00e4higkeiten."
+            }
+        ]
+    },
+    "899ca62fbd3f063f32bfd50d24218b10": {
+        "original": {
+            "label": "Administration tools allow you to configure every aspect of your application.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Verwaltungstools k\u00f6nnen Sie jeden Aspekt Ihrer Anwendung zu konfigurieren."
+            }
+        ]
+    },
+    "89c824769401818fd4018ada0e3db27f": {
+        "original": {
+            "label": "Translators can discuss translations and terms in the message boards across all languages.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u00dcbersetzer k\u00f6nnen \u00dcbersetzungen und Begriffe in den Foren \u00fcber alle Sprachen hinweg zu diskutieren."
+            }
+        ]
+    },
+    "2e577c619da938a611344cfb250b7e50": {
+        "original": {
+            "label": "Language Discussion Boards",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Sprache Diskussionsforen"
+            }
+        ]
+    },
+    "e27ddf4af08aff3fdd6423826817cdbf": {
+        "original": {
+            "label": "Create a glossary of the key terms of your application. Translators will see those terms and will be able to provide more accurate translations.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Erstellen Sie ein Glossar der wichtigsten Begriffe der Anwendung. \u00dcbersetzer werden diese Begriffe zu sehen und in der Lage, genauere \u00dcbersetzungen."
+            }
+        ]
+    },
+    "6d3a00225a5e6c676398de9ddc1c2d41": {
+        "original": {
+            "label": "Language cases are supported across all languages to make translations sound as native as they can be.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Sprache F\u00e4lle werden in allen Sprachen unterst\u00fctzt, um \u00dcbersetzungen klingen als native wie sie sein k\u00f6nnen."
+            }
+        ]
+    },
+    "ad9085e1696f20feeb8bc014f534a45d": {
+        "original": {
+            "label": "Language Context Rules"
+        },
+        "translations": [
+            {
+                "label": "Sprache Context-Regeln"
+            }
+        ]
+    },
+    "8896aa4dad2ed84fe319e209c0f760ae": {
+        "original": {
+            "label": "TML syntax makes developers happy - it simplifies the code and allows to encode complex rules using simple structures.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "TML-Syntax erm\u00f6glicht Entwicklern gl\u00fccklich - es den Code vereinfacht und erlaubt es, komplexe Regeln mit einfachen Strukturen kodieren."
+            }
+        ]
+    },
+    "d93c433faefb557f02ac5db220d6cd2f": {
+        "original": {
+            "label": "Stay up to date on the progress of your translations.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Bleiben Sie auf dem Laufenden \u00fcber den Fortschritt Ihrer \u00dcbersetzungen."
+            }
+        ]
+    },
+    "c944280ded7df4c228854e7c3091e593": {
+        "original": {
+            "label": "Translators are ranked based on the quality of the work they do. The higher the rank the more valuable they become.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u00dcbersetzer werden auf der Grundlage der Qualit\u00e4t der Arbeit, die sie eingestuft. Je h\u00f6her der Rang desto wertvoller werden sie."
+            }
+        ]
+    },
+    "f748119f7ddf6c9c76901671ec4abeec": {
+        "original": {
+            "label": "Translator ranking",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u00dcbersetzer Rangliste"
+            }
+        ]
+    },
+    "4eb3f1f99268b50128fb83cd7e1724f0": {
+        "original": {
+            "label": "Translators vote on translations and the best translations are used in your application.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u00dcbersetzer abstimmen \u00dcbersetzungen und die besten \u00dcbersetzungen werden in Ihrer Anwendung verwendet."
+            }
+        ]
+    },
+    "483973ef442f93cdbb614983da17c59e": {
+        "original": {
+            "label": "Translation ranking",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Translation Ranking"
+            }
+        ]
+    },
+    "0ec08c079abc1f2531ef9f4b094c2da7": {
+        "original": {
+            "label": "Translation management",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u00dcbersetzungsmanagement"
+            }
+        ]
+    },
+    "2e64b8ccaa1abedf5ad67ee0338c752e": {
+        "original": {
+            "label": "Inline translation tools",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Inline-\u00dcbersetzungstools"
+            }
+        ]
+    },
+    "0894b5ac48ad375f7875510c6cda373c": {
+        "original": {
+            "label": "All browser supported language are included. Just choose which languages you want to enabled on your app.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Alle Browser unterst\u00fctzte Sprache sind im Preis inbegriffen. W\u00e4hlen Sie einfach die Sprachen, die Sie auf Ihre Anwendung aktiviert werden soll."
+            }
+        ]
+    },
+    "e0ce446e94c5fffa3e1c84e3d51bf271": {
+        "original": {
+            "label": "Supports all languages",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Unterst\u00fctzt alle Sprachen"
+            }
+        ]
+    },
+    "2605427f0a0b6247a19046675727977b": {
+        "original": {
+            "label": "Translation Markup Language",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u00dcbersetzung Markup Language"
+            }
+        ]
+    },
+    "046ed569543acd8c8f8642cf119e53b0": {
+        "original": {
+            "label": "Powerful Metrics"
+        },
+        "translations": [
+            {
+                "label": "Leistungsstarke Metrics"
+            }
+        ]
+    },
+    "058199aebb437296a9bdcd74c482cae1": {
+        "original": {
+            "label": "Language Cases"
+        },
+        "translations": [
+            {
+                "label": "Sprache Cases"
+            }
+        ]
+    },
+    "308c0f65e774b88a6e54bd42a4e33631": {
+        "original": {
+            "label": "Admin Tools"
+        },
+        "translations": [
+            {
+                "label": "Admin Tools"
+            }
+        ]
+    },
+    "4cad929a0968d943ce7ebb123a52a1c9": {
+        "original": {
+            "label": "Glossary"
+        },
+        "translations": [
+            {
+                "label": "Glossar"
+            }
+        ]
+    },
+    "d85188341dc0d3ef52216287ff0dc790": {
+        "original": {
+            "label": "Keep track of all the translated text on your website, through an easy to use dashboard.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Verfolgen Sie alle \u00fcbersetzten Text auf Ihrer Website, durch ein benutzerfreundliches Dashboard integriert."
+            }
+        ]
+    },
+    "0f201d74077df46ccad0c320b3aaf311": {
+        "original": {
+            "label": "Intuitive translation tools allow your users to easily translate your website.",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Intuitive \u00dcbersetzungstools damit Ihre Benutzer leicht \u00fcbersetzen Ihre Website."
+            }
+        ]
+    },
+    "e4d8b57c93609dbd45de45c3bcde79d8": {
+        "original": {
+            "label": "Features"
+        },
+        "translations": [
+            {
+                "label": "Funktionen"
+            }
+        ]
+    },
+    "a95162e36a34149be4215c3ed9285bc2": {
+        "original": {
+            "label": "Get what you give",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Holen Sie sich, was Sie geben"
+            }
+        ]
+    },
+    "5b9e5444ee0635515dd1b8dfa05cbbd6": {
+        "original": {
+            "label": "Share translations",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Teilen \u00dcbersetzungen"
+            }
+        ]
+    },
+    "0024e440003e92166727e5ad764ed5f8": {
+        "original": {
+            "label": "Use your users",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Verwenden Sie Ihre Benutzer"
+            }
+        ]
+    },
+    "e9d26d66f759c309d270ef2d32443d9b": {
+        "original": {
+            "label": "How It Works"
+        },
+        "translations": [
+            {
+                "label": "Wie es funktioniert"
+            }
+        ]
+    }
+}
