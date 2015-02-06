@@ -2,7 +2,7 @@
 
 use tml\utils\ArrayUtils;
 
-function url_for($path) {
+    function url_for($path) {
         if ($path[0] != '/') {
             $path = '/'.$path;
         }

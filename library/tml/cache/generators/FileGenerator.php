@@ -103,10 +103,15 @@ class FileGenerator extends Base {
     }
 
     function generateSymlink() {
-        if (file_exists($this->symlinkPath()))
-            unlink($this->symlinkPath());
+        chdir($this->baseCachePath());
 
-        symlink($this->currentCachePath(), $this->symlinkPath());
+        if(file_exists("current")) {
+            if(is_link("current")) {
+                unlink("current");
+            }
+        }
+
+        symlink($this->datedFileName(), 'current');
     }
 
     function symlinkPath() {
