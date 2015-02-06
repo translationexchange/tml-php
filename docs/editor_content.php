@@ -1,4 +1,4 @@
-<?php require_once(__DIR__ . '/../library/Tml.php'); ?>
+<?php require_once(__DIR__ . '/../library/tml.php'); ?>
 <?php tml_init(); ?>
 
 <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
