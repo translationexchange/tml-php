@@ -1,0 +1,38 @@
+{
+    "1d3321cced67e07db9df2b840b2466b9": {
+        "original": {
+            "label": "GitHub"
+        },
+        "translations": []
+    },
+    "0a48e7f7011c142cbbd79a8860904917": {
+        "original": {
+            "label": "Twitter"
+        },
+        "translations": [
+            {
+                "label": "\u05d8\u05d5\u05d5\u05d9\u05d8\u05e8"
+            }
+        ]
+    },
+    "06a33c89132622fb8a19a65529fc1b34": {
+        "original": {
+            "label": "Facebook"
+        },
+        "translations": [
+            {
+                "label": "\u05e4\u05d9\u05d9\u05e1\u05d1\u05d5\u05e7"
+            }
+        ]
+    },
+    "242ac09a3ad67faf5b5d9ef4fce82d34": {
+        "original": {
+            "label": "Documentation"
+        },
+        "translations": [
+            {
+                "label": "\u05ea\u05d9\u05e2\u05d5\u05d3"
+            }
+        ]
+    }
+}

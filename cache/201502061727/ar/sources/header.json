@@ -1,0 +1,65 @@
+{
+    "e43e5afd0f5bdbd47cf03a5dd84a1d5d": {
+        "original": {
+            "label": "Help Us Translate"
+        },
+        "translations": [
+            {
+                "label": "\u0633\u0627\u0639\u062f\u0648\u0646\u0627 \u0641\u064a \u062a\u0631\u062c\u0645\u0629"
+            }
+        ]
+    },
+    "c90829c48db568c70e50dfc96e1d0c91": {
+        "original": {
+            "label": "Toggle Inline Translations"
+        },
+        "translations": [
+            {
+                "label": "\u062a\u0628\u062f\u064a\u0644 \u0645\u0636\u0645\u0646\u0629 \u062a\u0631\u062c\u0645\u0627\u062a"
+            }
+        ]
+    },
+    "f241ecb0d02da86f59834d2ae7be6eb7": {
+        "original": {
+            "label": "Tml For PHP"
+        },
+        "translations": [
+            {
+                "label": "TML \u0644PHP"
+            }
+        ]
+    },
+    "e6c9d99c8b25839c0758fb0db67122b5": {
+        "original": {
+            "label": "Blog Translator",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u0628\u0644\u0648\u0642 \u0627\u0644\u0645\u062a\u0631\u062c\u0645"
+            }
+        ]
+    },
+    "c1c603f2ec04f888319b686ac56525f2": {
+        "original": {
+            "label": "TML Interactive Console",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "TML \u0648\u062d\u062f\u0629 \u0627\u0644\u062a\u062d\u0643\u0645 \u0627\u0644\u062a\u0641\u0627\u0639\u0644\u064a\u0629"
+            }
+        ]
+    },
+    "1bb5502c3ee0099ce1c750d633da1734": {
+        "original": {
+            "label": "Documentation & Samples",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u0648\u062b\u0627\u0626\u0642 \u0648\u0639\u064a\u0646\u0627\u062a"
+            }
+        ]
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "e43e5afd0f5bdbd47cf03a5dd84a1d5d": {
+        "original": {
+            "label": "Help Us Translate"
+        },
+        "translations": [
+            {
+                "label": "\u041f\u043e\u043c\u043e\u0433\u0438\u0442\u0435 \u043d\u0430\u043c \u043f\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438"
+            }
+        ]
+    },
+    "c90829c48db568c70e50dfc96e1d0c91": {
+        "original": {
+            "label": "Toggle Inline Translations"
+        },
+        "translations": [
+            {
+                "label": "\u041f\u0435\u0440\u0435\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435 Inline \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u044b"
+            }
+        ]
+    },
+    "f241ecb0d02da86f59834d2ae7be6eb7": {
+        "original": {
+            "label": "Tml For PHP"
+        },
+        "translations": [
+            {
+                "label": "Tml \u0414\u043b\u044f PHP"
+            }
+        ]
+    },
+    "e6c9d99c8b25839c0758fb0db67122b5": {
+        "original": {
+            "label": "Blog Translator",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u0411\u043b\u043e\u0433 \u041f\u0435\u0440\u0435\u0432\u043e\u0434\u0447\u0438\u043a"
+            }
+        ]
+    },
+    "c1c603f2ec04f888319b686ac56525f2": {
+        "original": {
+            "label": "TML Interactive Console",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "TML \u0418\u043d\u0442\u0435\u0440\u0430\u043a\u0442\u0438\u0432\u043d\u044b\u0439 \u041a\u043e\u043d\u0441\u043e\u043b"
+            }
+        ]
+    },
+    "1bb5502c3ee0099ce1c750d633da1734": {
+        "original": {
+            "label": "Documentation & Samples",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u044f &amp; \u041e\u0431\u0440\u0430\u0437\u0446\u044b"
+            }
+        ]
+    }
+}
