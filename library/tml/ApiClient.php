@@ -131,9 +131,10 @@ class ApiClient {
         if (Config::instance()->isCacheEnabled() && isset($options["cache_key"])) {
             $data = Cache::fetch($options["cache_key"]);
             if ($data === null) {
+                if (Cache::isReadOnly()) return null;
                 $data = self::executeRequest($path, $params, $options);
                 $json = json_decode($data, true);
-                if (!isset($json['error']) && !Cache::isReadOnly())
+                if (!isset($json['error']))
                     Cache::store($options["cache_key"], $data);
             } else {
                 $json = json_decode($data, true);

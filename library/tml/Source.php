@@ -96,6 +96,7 @@ class Source extends Base {
     public static function cacheKey($source_key, $locale) {
         if ($source_key[0] != DIRECTORY_SEPARATOR) $source_key = DIRECTORY_SEPARATOR . $source_key;
         $source_key = str_replace('.php', '', $source_key);
+        if ($source_key == "" || $source_key == "/") $source_key = "index";
         return $locale . DIRECTORY_SEPARATOR . 'sources' . $source_key;
     }
 
@@ -121,6 +122,8 @@ class Source extends Base {
 //            Logger::instance()->debug("Failed to get the source: $e");
             return;
         }
+
+        if ($results === null) return;
 
         foreach($results as $key => $data) {
             if (isset($data['translations']))

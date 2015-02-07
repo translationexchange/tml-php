@@ -98,6 +98,13 @@ function tml_init($token = null, $host = null) {
 //            Logger::instance()->info("Cookie params", $cookie_params);
 
             $locale = $cookie_params['locale'];
+
+            if (isset($_GET["locale"])) {
+                $cookie_params["locale"] = $_GET["locale"];
+                $_COOKIE[$cookie_name] = Config::instance()->encode($cookie_params);
+                $locale = $cookie_params["locale"];
+            }
+
             if (isset($cookie_params['translator'])) {
                 $translator = new Translator(array_merge($cookie_params["translator"], array('application' => Config::instance()->application)));
             }
@@ -107,9 +114,11 @@ function tml_init($token = null, $host = null) {
             // start with the browser
             $locale = tml_browser_default_locale();
 
-            // check the session
-            if (isset($_SESSION["locale"]))
+            if (isset($_GET["locale"])) {
+                $_SESSION["locale"] = $_GET["locale"];
+            } else if (isset($_SESSION["locale"])) {
                 $locale = $_SESSION["locale"];
+            }
         }
     } else {
         Logger::instance()->error("Tml application failed to initialize. Please verify if you set the host, key and secret correctly.");

@@ -20,8 +20,11 @@
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <li role="presentation">
-                        <?php tml_language_selector_tag(array("role" => "menuitem", "tabindex" => "-1")) ?>
+                        <!-- ?php tml_language_selector_tag(array("role" => "menuitem", "tabindex" => "-1")) ? -->
+                        <!-- ?php tml_language_selector_tag(array("type" => "dropdown", "style" => "margin-top:10px; height:25px; width: 100px;")) ? -->
                     </li>
+
+                    <?php tml_language_selector_tag(array("type" => "bootstrap", "element" => "li", "language" => "native", "toggler" => false)) ?>
 
                     <?php if (tml_current_translator() == null) { ?>
                         <li role="presentation"><?php link_to_function('login', 'Tml.Utils.login()') ?></li>
@@ -62,5 +65,7 @@
     <?php tml_finish_block_with_options() ?>
 </div>
 
+
 <div class="container">
+
 

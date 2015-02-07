@@ -58,13 +58,96 @@ function tml_language_flag_tag($language = null) {
     echo "<img src='" . $language->flagUrl() . "' style='margin-right:3px;'>";
 }
 
+function tml_language_selector_script_tag($opts = array()) {
+    echo "<script>";
+    echo "    function tml_change_locale(locale) {";
+    echo "      var query_parts = window.location.href.split('#')[0].split('?');";
+    echo "      var query = query_parts.length > 1 ? query_parts[1] : null;";
+    echo "      var params = {};";
+    echo "      if (query) {";
+    echo "        var vars = query.split('&');";
+    echo "        for (var i = 0; i < vars.length; i++) {";
+    echo "          var pair = vars[i].split('=');";
+    echo "          params[pair[0]] = pair[1];";
+    echo "        }";
+    echo "      }";
+    echo "      params['locale'] = locale;";
+    echo "      query = [];";
+    echo "      var keys = Object.keys(params);";
+    echo "      for (var i = 0; i < keys.length; i++) {";
+    echo "        query.push(encodeURIComponent(keys[i]) + \"=\" + encodeURIComponent(params[keys[i]]));";
+    echo "      }";
+    echo "      var destination = query_parts[0] + '?' + query.join(\"&\");";
+    echo "      window.location = destination;";
+    echo "    }";
+    echo "  </script>";
+}
 
 /**
  * Language selector
  */
 function tml_language_selector_tag($opts = array()) {
-  echo "<a href='#' onClick='Tml.UI.LanguageSelector.show()' ";
-  echo  ArrayUtils::toHTMLAttributes($opts). " >";
-  tml_language_name_tag(tml_current_language(), array("flag" => true));
-  echo "</a>";
+  $type = isset($opts['type']) ? $opts['type'] : 'default';
+
+  if ($type == 'default') {
+    echo "<a href='#' onClick='Tml.UI.LanguageSelector.show()' ";
+    echo  ArrayUtils::toHTMLAttributes($opts). " >";
+    tml_language_name_tag(tml_current_language(), array("flag" => true));
+    echo "</a>";
+  } elseif ($type == 'dropdown') {
+    $style = isset($opts['style']) ? $opts['style'] : '';
+    $class = isset($opts['class']) ? $opts['class'] : '';
+    $name = isset($opts['language']) ? $opts['language'] : 'english';
+
+    tml_language_selector_script_tag();
+
+    echo "  <select id='tml_language_selector' onchange='tml_change_locale(this.options[this.selectedIndex].value)' style='$style' class='$class'>";
+
+    $languages = \tml\Config::instance()->application->languages;
+    foreach($languages as $lang) {
+        echo "<option dir='ltr' value='$lang->locale' " . ($lang->locale == tml_current_language()->locale ? 'selected' : '') . ">";
+        if ($name == "native")
+            echo $lang->native_name;
+        else
+            echo $lang->english_name;
+        echo "</option>";
+    }
+    echo "  </select>";
+  } elseif ($type == "bootstrap") {
+    $element = isset($opts['element']) ? $opts['element'] : 'div';
+    $class = isset($opts['class']) ? $opts['class'] : 'dropdown';
+    $style = isset($opts['style']) ? $opts['style'] : '';
+    $name = isset($opts['language']) ? $opts['language'] : 'english';
+    $toggler = isset($opts['toggler']) ? $opts['toggler'] : true;
+
+    tml_language_selector_script_tag();
+
+    echo "<$element class='$class'>";
+    echo "  <a href='#' role='button' class='$class-toggle' data-toggle='$class'>\n";
+    tml_language_name_tag(tml_current_language(), array("flag" => true));
+    echo " <b class='caret'></b></a>";
+
+    echo "<ul class='$class-menu' role='menu'>";
+
+    $languages = \tml\Config::instance()->application->languages;
+    foreach($languages as $lang) {
+        echo "<li role='presentation'><a href='javascript:void(0);' onclick='tml_change_locale(\"$lang->locale\")'>";
+        if ($name == "native")
+            echo $lang->native_name;
+        else
+            echo $lang->english_name;
+        echo "</a></li>";
+    }
+
+    if ($toggler) {
+        echo "<li role='presentation' class='divider'></li>";
+        echo "<li role='presentation'><a href='javascript:void(0);' onclick='Tml.Utils.toggleInlineTranslations()'>" . tr("Help Us Translate") . "</a></li>";
+    }
+
+    echo "</ul>";
+    echo "</$element>";
+  }
+
 }
+
+

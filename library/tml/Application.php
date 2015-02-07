@@ -274,17 +274,29 @@ class Application extends Base {
             return $this->languages_by_locale[$locale];
         }
 
-        $language = $this->apiClient()->get("languages/$locale",
-            array("definition" => true),
-            array("class" => '\tml\Language',
-                  "attributes" => array("application" => $this, "locale" => $locale),
-                  "cache_key"  => Language::cacheKey($locale)
-            )
-        );
+        $language = $this->fetchLanguage($locale);
+        if ($language === null) {
+            $locale = Config::instance()->default_locale;
+            $language = $this->fetchLanguage($locale);
+        }
 
         $language->application = $this;
         $this->languages_by_locale[$locale] = $language;
         return $this->languages_by_locale[$locale];
+    }
+
+    /**
+     * @param $locale
+     * @return Language
+     */
+    public function fetchLanguage($locale) {
+        return $this->apiClient()->get("languages/$locale",
+            array("definition" => true),
+            array("class" => '\tml\Language',
+                "attributes" => array("application" => $this, "locale" => $locale),
+                "cache_key"  => Language::cacheKey($locale)
+            )
+        );
     }
 
     /**

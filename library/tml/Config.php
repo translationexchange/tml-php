@@ -200,7 +200,6 @@ class Config {
 
         Logger::instance()->debug("Current source: $this->current_source");
 
-
         $this->current_component = (isset($options['component']) ? $options['component'] : null);
         $this->requested_sources = array();
         if ($this->current_source) array_push($this->requested_sources, $this->current_source);
@@ -306,12 +305,19 @@ class Config {
     /**
      * @return bool
      */
+    public function isInlineTranslationModeEnabled() {
+        return ($this->current_translator && $this->current_translator->isInlineModeEnabled());
+    }
+
+    /**
+     * @return bool
+     */
     public function isCacheEnabled() {
         if ($this->configValue("cache.enabled") === false) {
             return false;
         }
 
-        if ($this->current_translator && $this->current_translator->isInlineModeEnabled())
+        if ($this->isInlineTranslationModeEnabled())
             return false;
 
         return true;
@@ -470,6 +476,17 @@ class Config {
         $str = strtr(base64_encode($input), '+/', '-_');
         $str = str_replace('=', '', $str);
         return $str;
+    }
+
+    /**
+     * @param array $params
+     * @return string
+     */
+    public function encode($params) {
+        $data = json_encode($params);
+        $payload_json = base64_encode($data);
+        $request = urlencode($payload_json);
+        return $request;
     }
 
     /**
