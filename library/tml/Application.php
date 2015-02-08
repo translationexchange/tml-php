@@ -276,7 +276,8 @@ class Application extends Base {
         if ($language === null) {
             $locale = str_replace("_","-",$locale);
             if (strpos($locale,'-') !== false) {
-                $locale = explode('-', $locale)[0];
+                $parts = explode('-', $locale);
+                $locale = $parts[0];
                 $language = $this->fetchLanguage($locale);
             }
         }
