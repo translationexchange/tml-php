@@ -106,11 +106,6 @@ class Application extends Base {
     public $components;
 
     /**
-     * @var Boolean
-     */
-    public $initialized;
-
-    /**
      * @var Language[]
      */
     public $languages_by_locale;
@@ -151,27 +146,20 @@ class Application extends Base {
     private $api_client;
 
     /**
-     * @param string $host
-     * @param string $key
-     * @param string $secret
-     * @param array $options
-     * @return Application
+     * @return $this
      */
-    public static function init($token, $host, $options = array()) {
-        if (!array_key_exists('definition', $options) || $options['definition'] == null)
-            $options['definition'] = true;
-
+    public function fetch() {
         Logger::instance()->info("Initializing application...");
 
-        $app = ApiClient::fetch("applications/current", array('access_token' => $token, 'definition' => $options['definition']),
-            array('host' => $host, 'class' => '\tml\Application', 'cache_key' => self::cacheKey())
+        $data = $this->apiClient()->get("applications/current", array('definition' => true),
+            array('cache_key' => self::cacheKey())
         );
 
-        $app->access_token = $token;
-        $app->host = $host;
-        $app->initialized = true;
+        if ($data !== null) {
+            $this->updateAttributes($data);
+        }
 
-        return $app;
+        return $this;
     }
 
     /**
@@ -194,6 +182,15 @@ class Application extends Base {
      * @param array $attributes
      */
     function __construct($attributes=array()) {
+        parent::__construct($attributes);
+
+        $this->updateAttributes($attributes);
+    }
+
+    /**
+     * @param array $attributes
+     */
+    function updateAttributes($attributes=array()) {
         parent::__construct($attributes);
 
         if (isset($attributes['key']))
@@ -275,6 +272,15 @@ class Application extends Base {
         }
 
         $language = $this->fetchLanguage($locale);
+
+        if ($language === null) {
+            $locale = str_replace("_","-",$locale);
+            if (strpos($locale,'-') !== false) {
+                $locale = explode('-', $locale)[0];
+                $language = $this->fetchLanguage($locale);
+            }
+        }
+
         if ($language === null) {
             $locale = Config::instance()->default_locale;
             $language = $this->fetchLanguage($locale);

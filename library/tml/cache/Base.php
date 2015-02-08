@@ -136,7 +136,14 @@ abstract class Base {
      */
     function baseCachePath() {
         if ($this->base_cache_path == null) {
-            $this->base_cache_path = Config::instance()->configValue("cache.path", Config::instance()->rootPath() . DIRECTORY_SEPARATOR . "cache");
+            $this->base_cache_path = Config::instance()->configValue("cache.path");
+
+            if (!$this->base_cache_path) {
+                $this->base_cache_path = Config::instance()->rootPath() . DIRECTORY_SEPARATOR . "cache";
+            } elseif ($this->base_cache_path[0] != "/") {
+                $this->base_cache_path = Config::instance()->rootPath() . DIRECTORY_SEPARATOR . $this->base_cache_path;
+            }
+
             if (!file_exists($this->base_cache_path)) mkdir($this->base_cache_path, 0777, true);
             $this->info("Base cache path: " . $this->base_cache_path);
         }
@@ -147,6 +154,6 @@ abstract class Base {
      * @return string
      */
     function currentCachePath() {
-        return $this->baseCachePath() . DIRECTORY_SEPARATOR . 'current';
+        return $this->baseCachePath() . DIRECTORY_SEPARATOR . Config::instance()->configValue("cache.version", 'current');
     }
 }

@@ -84,54 +84,47 @@ function tml_init($token = null, $host = null) {
 
     Config::instance()->initApplication($token, $host);
 
-    $locale = Config::instance()->default_locale;
+    $locale = null;
     $translator = null;
+    $cookie_params = null;
 
     if (Config::instance()->isEnabled()) {
-
         $cookie_name = "trex_" . Config::instance()->application->key;
 
         if (isset($_COOKIE[$cookie_name])) {
             Logger::instance()->info("Cookie file $cookie_name found!");
-
             $cookie_params = Config::instance()->decode($_COOKIE[$cookie_name]);
-//            Logger::instance()->info("Cookie params", $cookie_params);
-
             $locale = $cookie_params['locale'];
-
-            if (isset($_GET["locale"])) {
-                $cookie_params["locale"] = $_GET["locale"];
-                $_COOKIE[$cookie_name] = Config::instance()->encode($cookie_params);
-                $locale = $cookie_params["locale"];
-            }
-
             if (isset($cookie_params['translator'])) {
                 $translator = new Translator(array_merge($cookie_params["translator"], array('application' => Config::instance()->application)));
             }
         } else {
             Logger::instance()->info("Cookie file $cookie_name not found!");
-
-            // start with the browser
-            $locale = tml_browser_default_locale();
-
-            if (isset($_GET["locale"])) {
-                $_SESSION["locale"] = $_GET["locale"];
-            } else if (isset($_SESSION["locale"])) {
-                $locale = $_SESSION["locale"];
-            }
         }
+
+        if (isset($_GET["locale"])) {
+            $locale =  $_GET["locale"];
+            if (!$cookie_params) $cookie_params = array();
+            $cookie_params["locale"] = $_GET["locale"];
+            setcookie($cookie_name, Config::instance()->encode($cookie_params), null, "/");
+        }
+
+        if (!$locale) $locale = tml_browser_default_locale();
+        if (!$locale) $locale = Config::instance()->default_locale;
+
     } else {
         Logger::instance()->error("Tml application failed to initialize. Please verify if you set the host, key and secret correctly.");
-        Config::instance()->application = Application::dummyApplication();
     }
 
     if (isset($_SERVER["REQUEST_URI"])) {
         $source = $_SERVER["REQUEST_URI"];
+        $source = explode("#", $source);
+        $source = $source[0];
         $source = explode("?", $source);
         $source = $source[0];
         $source = str_replace('.php', '', $source);
     } else {
-        $source = "unknown";
+        $source = "index";
     }
 
     Config::instance()->initRequest(array('locale' => $locale, 'translator' => $translator, 'source' => $source));

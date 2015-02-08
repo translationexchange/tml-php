@@ -176,11 +176,8 @@ class Config {
         }
 
         if ($this->application == null) {
-            try {
-                $this->application = Application::init($token, $host);
-            } catch (TmlException $e) {
-                $this->application = Application::dummyApplication();
-            }
+            $this->application = new Application(array("name" => "", "access_token" => $token, "host" => $host));
+            $this->application->fetch();
         }
         return $this->application;
     }
@@ -246,7 +243,7 @@ class Config {
      * @return bool
      */
     public function isEnabled() {
-        return ($this->application != null && $this->application->initialized);
+        return ($this->application != null && $this->application->key != null);
     }
 
     /**
@@ -321,6 +318,10 @@ class Config {
             return false;
 
         return true;
+    }
+
+    public function disableCache() {
+        $this->config["cache"]["enable"] = false;
     }
 
     /**

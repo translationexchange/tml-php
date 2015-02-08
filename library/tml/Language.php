@@ -90,7 +90,13 @@ class Language extends Base {
      */
     function __construct($attributes=array()) {
         parent::__construct($attributes);
+        $this->updateAttributes($attributes);
+    }
 
+    /**
+     * @param array $attributes
+     */
+    function updateAttributes($attributes=array()) {
         $this->direction = $this->right_to_left ? "rtl" : "ltr";
 
         $this->contexts = array();
