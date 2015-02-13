@@ -1,0 +1,24 @@
+{
+    "b553d26a13c11631add094d445c56dc5": {
+        "original": {
+            "label": "Hello {user}",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Hallo {user}"
+            }
+        ]
+    },
+    "d541c79af1be6a05b1f16fca8b5730de": {
+        "original": {
+            "label": "Hello World",
+            "locale": "en-US"
+        },
+        "translations": [
+            {
+                "label": "Hallo Welt"
+            }
+        ]
+    }
+}
