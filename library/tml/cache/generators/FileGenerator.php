@@ -134,7 +134,7 @@ class FileGenerator extends Base {
             foreach($sources as $source) {
                 $this->log("Downloading ". $source["source"] . " in " . $language["locale"]. "...");
                 $key = Source::generateKey($source["source"]);
-                $data = Config::instance()->application->apiClient()->get("sources/$key/translations", array("locale" => $language["locale"], "original" => "true"));
+                $data = Config::instance()->application->apiClient()->get("sources/$key/translations", array("locale" => $language["locale"], "original" => "true", "per_page" => 10000));
                 $key = Source::cacheKey($source["source"], $language["locale"]);
                 $this->cache($key, json_encode($data, JSON_PRETTY_PRINT));
             }

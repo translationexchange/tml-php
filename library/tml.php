@@ -116,6 +116,8 @@ function tml_init($token = null, $host = null) {
         Logger::instance()->error("Tml application failed to initialize. Please verify if you set the host, key and secret correctly.");
     }
 
+    $source = null;
+
     if (isset($_SERVER["REQUEST_URI"])) {
         $source = $_SERVER["REQUEST_URI"];
         $source = explode("#", $source);
@@ -123,9 +125,10 @@ function tml_init($token = null, $host = null) {
         $source = explode("?", $source);
         $source = $source[0];
         $source = str_replace('.php', '', $source);
-    } else {
-        $source = "index";
+        $source = preg_replace('/\/$/', '', $source);
     }
+
+    if ($source === null || $source == '' || $source == '/') $source = "index";
 
     Config::instance()->initRequest(array('locale' => $locale, 'translator' => $translator, 'source' => $source));
     return true;
