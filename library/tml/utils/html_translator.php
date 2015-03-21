@@ -288,18 +288,21 @@ class HtmlTranslator {
 
         $tml = $this->generateDataTokens($tml);
 
+        $language = Config::instance()->current_language;
+        if ($language == null) $language = Config::instance()->defaultLanguage();
+
         if ($this->getOption("split_sentences")) {
             $sentences = StringUtils::splitSentences($tml);
             $translation = $tml;
             foreach($sentences as $sentence) {
-                $sentence_translation = $this->getOption("debug") ? $this->debugTranslation($sentence) : Config::instance()->current_language->translate($sentence, null, $this->tokens, $this->options);
+                $sentence_translation = $this->getOption("debug") ? $this->debugTranslation($sentence) : $language->translate($sentence, null, $this->tokens, $this->options);
                 $translation = str_replace($sentence, $sentence_translation, $translation);
             }
             $this->resetContext();
             return $translation;
         }
 
-        $translation =  $this->getOption("debug") ? $this->debugTranslation($tml) : Config::instance()->current_language->translate($tml, null, $this->tokens, $this->options);
+        $translation =  $this->getOption("debug") ? $this->debugTranslation($tml) : $language->translate($tml, null, $this->tokens, $this->options);
         $this->resetContext();
         return $translation;
     }

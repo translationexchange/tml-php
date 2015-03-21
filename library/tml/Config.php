@@ -73,6 +73,11 @@ class Config {
     public $current_language;
 
     /**
+     * @var Language
+     */
+    public $default_language;
+
+    /**
      * @var Translator
      */
     public $current_translator;
@@ -134,10 +139,9 @@ class Config {
     }
 
     /**
-     * @param $key
-     * @return mixed|null|string|\string[]
+     * @return array|mixed|\string[]
      */
-    public function configValue($key, $default = null) {
+    public function configData() {
         if ($this->config == null) {
             $config_file_path = $this->configFilePath('config.json');
             if (!file_exists($config_file_path))
@@ -146,7 +150,15 @@ class Config {
             $this->config = json_decode($data, true);
         }
 
-        $value = $this->config;
+        return $this->config;
+    }
+
+    /**
+     * @param $key
+     * @return mixed|null|string|\string[]
+     */
+    public function configValue($key, $default = null) {
+        $value = $this->configData();
         $parts = explode(".", $key);
         foreach($parts as $part) {
             if (!isset($value[$part])) return $default;
@@ -306,6 +318,17 @@ class Config {
         return ($this->current_translator && $this->current_translator->isInlineModeEnabled());
     }
 
+
+    /**
+     * Initializes Cache with custom settings
+     *
+     * @param $options
+     */
+    public function initCache($options) {
+        $this->configData();
+        $this->config['cache'] = $options;
+    }
+
     /**
      * @return bool
      */
@@ -343,11 +366,17 @@ class Config {
     }
 
     /**
+     * If SDK is not initialized, we can use the fallback, default language to process TML
+     *
      * @return Language
      */
     public function defaultLanguage() {
-        $data = file_get_contents($this->configFilePath('languages/' . $this->default_locale . '.json'));
-        return new Language(json_decode($data, true));
+        if ($this->default_language == null){
+            if ($this->default_locale) $this->default_locale = 'en';
+            $data = file_get_contents($this->configFilePath('languages/' . $this->default_locale . '.json'));
+            $this->default_language = new Language(json_decode($data, true));
+        }
+        return $this->default_language;
     }
 
     /**

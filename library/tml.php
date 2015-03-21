@@ -73,6 +73,8 @@ use tml\Utils\BrowserUtils;
 use tml\utils\HtmlTranslator;
 
 /**
+ * Initializes the TML library
+ *
  * @param null $host
  * @param null $key
  * @param null $secret
@@ -113,7 +115,7 @@ function tml_init($token = null, $host = null) {
         if (!$locale) $locale = Config::instance()->default_locale;
 
     } else {
-        Logger::instance()->error("Tml application failed to initialize. Please verify if you set the host, key and secret correctly.");
+        Logger::instance()->error("Tml application failed to initialize.");
     }
 
     $source = null;
@@ -130,7 +132,9 @@ function tml_init($token = null, $host = null) {
 
     if ($source === null || $source == '' || $source == '/') $source = "index";
 
-    Config::instance()->initRequest(array('locale' => $locale, 'translator' => $translator, 'source' => $source));
+    if (Config::instance()->isEnabled()) {
+        Config::instance()->initRequest(array('locale' => $locale, 'translator' => $translator, 'source' => $source));
+    }
     return true;
 }
 
