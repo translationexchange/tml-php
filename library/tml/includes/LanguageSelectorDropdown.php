@@ -18,3 +18,6 @@ foreach($languages as $lang) {
     echo "</option>";
 }
 echo "</select>";
+
+tml_language_selector_footer_tag($opts);
+

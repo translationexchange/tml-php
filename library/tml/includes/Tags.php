@@ -49,13 +49,32 @@ function tml_language_name_tag($language = null, $opts = array()) {
 }
 
 /**
+ * @param null $language
+ */
+function tml_language_dir_attr($language = null) {
+    if ($language == null) $language = tml_current_language();
+    echo "dir='" . $language->direction() . "'";
+}
+
+/**
  * Displays language name
  *
  * @param \tml\Language $language
  */
-function tml_language_flag_tag($language = null) {
+function tml_language_flag_tag($language = null, $opts = array()) {
     if ($language == null) $language = tml_current_language();
-    echo "<img src='" . $language->flagUrl() . "' style='margin-right:3px;'>";
+    $name = $language->english_name;
+    if (isset($opts['language']) && $opts['language'] == 'native')
+        $name = $language->native_name;
+    echo "<img src='" . $language->flagUrl() . "'  alt='" . $name . "' title='" . $name . "' style='margin-right:3px;'>";
+}
+
+/**
+ * @param $language
+ * @param array $opts
+ */
+function tml_language_selector_footer_tag($opts = array()) {
+    include dirname(__FILE__)."/"."LanguageSelectorFooter.php";
 }
 
 /**
@@ -75,6 +94,10 @@ function tml_language_selector_tag($opts = array()) {
       include dirname(__FILE__)."/"."LanguageSelectorPopup.php";
   } elseif ($type == "bootstrap") {
       include dirname(__FILE__)."/"."LanguageSelectorBootstrap.php";
+  } elseif ($type == "list") {
+      include dirname(__FILE__)."/"."LanguageSelectorList.php";
+  } elseif ($type == "flags") {
+      include dirname(__FILE__)."/"."LanguageSelectorFlags.php";
   }
 
 }
