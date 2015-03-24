@@ -80,23 +80,21 @@ function tml_language_selector_footer_tag($opts = array()) {
 /**
  * Language selector
  */
-function tml_language_selector_tag($opts = array()) {
-  $type = isset($opts['type']) ? $opts['type'] : 'default';
-
-  if ($type == 'default') {
+function tml_language_selector_tag($style, $opts = array()) {
+  if ($style == 'default') {
     echo "<a href='#' onClick='Tml.UI.LanguageSelector.show()' ";
     echo  ArrayUtils::toHTMLAttributes($opts). " >";
     tml_language_name_tag(tml_current_language(), array("flag" => true));
     echo "</a>";
-  } elseif ($type == 'dropdown') {
+  } elseif ($style == 'dropdown') {
       include dirname(__FILE__)."/"."LanguageSelectorDropdown.php";
-  } elseif ($type == "popup") {
+  } elseif ($style == "popup") {
       include dirname(__FILE__)."/"."LanguageSelectorPopup.php";
-  } elseif ($type == "bootstrap") {
+  } elseif ($style == "bootstrap") {
       include dirname(__FILE__)."/"."LanguageSelectorBootstrap.php";
-  } elseif ($type == "list") {
+  } elseif ($style == "list") {
       include dirname(__FILE__)."/"."LanguageSelectorList.php";
-  } elseif ($type == "flags") {
+  } elseif ($style == "flags") {
       include dirname(__FILE__)."/"."LanguageSelectorFlags.php";
   }
 
