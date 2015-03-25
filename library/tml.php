@@ -84,7 +84,11 @@ function tml_init($token = null, $host = null) {
     global $tml_page_t0;
     $tml_page_t0 = microtime(true);
 
-    Config::instance()->initApplication($token, $host);
+    try {
+        Config::instance()->initApplication($token, $host);
+    } catch (Exception $e) {
+        Logger::instance()->error("Application failed to initialize.");
+    }
 
     $locale = null;
     $translator = null;
@@ -115,7 +119,7 @@ function tml_init($token = null, $host = null) {
         if (!$locale) $locale = Config::instance()->default_locale;
 
     } else {
-        Logger::instance()->error("Tml application failed to initialize.");
+        Logger::instance()->error("Application failed to initialize.");
     }
 
     $source = null;
