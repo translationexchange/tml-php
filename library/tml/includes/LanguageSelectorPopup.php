@@ -5,6 +5,7 @@
     $style = isset($opts['style']) ? $opts['style'] : '';
     $toggle = isset($opts['toggle']) ? $opts['toggle'] : true;
     $toggle_label = isset($opts['toggle_label']) ? $opts['toggle_label'] : "Help Us Translate";
+    $powered_by = isset($opts['powered_by']) ? $opts['powered_by'] : true;
 ?>
 
 <style>
@@ -60,11 +61,13 @@
             </li>
         <?php } ?>
 
-        <li class="trex-credit">
-            <a href="http://translationexchange.com">
-                Powered by Translation Exchange
-            </a>
-        </li>
+        <?php if ($powered_by) { ?>
+            <li class="trex-credit">
+                <a href="http://translationexchange.com">
+                    Powered by Translation Exchange
+                </a>
+            </li>
+        <?php } ?>
     </ul>
 </div>
 
