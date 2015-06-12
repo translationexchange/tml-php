@@ -4,6 +4,7 @@
     $element = isset($opts['element']) ? $opts['element'] : 'div';
     $style = isset($opts['style']) ? $opts['style'] : '';
     $toggle = isset($opts['toggle']) ? $opts['toggle'] : true;
+    $powered_by = isset($opts['powered_by']) ? $opts['powered_by'] : true;
 ?>
 
 <style>
@@ -57,11 +58,13 @@
             </li>
         <?php } ?>
 
-        <li class="trex-credit">
-            <a href="http://translationexchange.com">
-                Powered by Translation Exchange
-            </a>
-        </li>
+        <?php if ($powered_by) { ?>
+            <li class="trex-credit">
+                <a href="http://translationexchange.com">
+                    Powered by Translation Exchange
+                </a>
+            </li>
+        <?php } ?>
     </ul>
 </div>
 
