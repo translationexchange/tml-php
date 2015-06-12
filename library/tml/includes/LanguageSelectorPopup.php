@@ -60,9 +60,7 @@
 
         <?php if ($powered_by) { ?>
             <li class="trex-credit">
-                <a href="http://translationexchange.com">
-                    Powered by Translation Exchange
-                </a>
+                <?php tml_powered_by_tag($opts) ?>
             </li>
         <?php } ?>
     </ul>

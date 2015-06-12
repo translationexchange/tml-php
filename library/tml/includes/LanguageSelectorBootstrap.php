@@ -34,10 +34,8 @@
     <?php if ($powered_by) { ?>
         <li role='presentation' class='divider'></li>
 
-        <div style='font-size:8px;color:#ccc;text-align: center; background: #eee; padding:8px; margin-top: -10px; margin-bottom: -5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;'>
-            <a href='http://translationexchange.com' style='color: #888;'>
-                Powered By Translation Exchange
-            </a>
+        <div style='white-space: nowrap; font-size:8px;color:#ccc;text-align: center; background: #eee; padding:8px; margin-top: -10px; margin-bottom: -5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;'>
+            <?php tml_powered_by_tag($opts) ?>
         </div>
     <?php } ?>
 

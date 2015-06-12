@@ -62,6 +62,17 @@ function tml_language_name_tag($language = null, $opts = array()) {
 }
 
 /**
+ * Displays Power By text and links to the site
+ *
+ * @param array $opts
+ */
+function tml_powered_by_tag($opts = array()) {
+    echo "<a href='http://welcome.translationexchange.com' style='color: #888; font-size: 12px;'>";
+    tre("Powered by {company}", array("company" => "Translation Exchange"));
+    echo "</a>";
+}
+
+/**
  * Displays toggler for help
  *
  * @param null $language
