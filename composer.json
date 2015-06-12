@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Translation Markup Language for PHP",
     "keywords": ["tml","translation","internationalization","i18n","localization","l10n","t9n", "tr8n", "translation markup language"],
-    "homepage": "https://github.com/translationexchange/tml-php",
+    "homepage": "http://welcome.translationexchange.com",
     "license": "MIT",
     "minimum-stability": "dev",
     "authors": [
