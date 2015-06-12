@@ -56,11 +56,11 @@ To make sure you have installed everything correctly, create a sample test file 
 Paste the following content into the file:
 
 ```php
-<?php require_once(__DIR__ . '/vendor/tr8n/tr8n-client-sdk/library/tml.php'); ?>
+<?php require_once(__DIR__ . '/vendor/translationexchange/tml/library/tml.php'); ?>
 <?php tml_init("YOUR_APPLICATION_TOKEN"); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo tml_current_language()->locale; ?>">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo tml_current_locale(); ?>">
 <head>
     <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
     <?php tml_scripts(); ?>
