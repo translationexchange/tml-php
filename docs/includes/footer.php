@@ -23,13 +23,13 @@
                     <!-- li><a href="/extensions" class="quiet"><span class='tml_translatable tml_not_translated' data-translation_key_id='22'>Extensions</span></a></li -->
                 </ul>
 
-                &copy; 2015 <a href="https://translationexchange.com" class="quiet">TranslationExchange.com</a>
+                &copy; 2015 <a href="http://welcome.translationexchange.com" class="quiet">Translation Exchange, Inc</a>
             </div>
         </footer>
     <?php tml_finish_block_with_options() ?>
 
     <div style="padding-top:40px; color: #ccc; text-align:center; width:100%">
-        Translated by <a href="http://wiki.tml.io" style="color:#ccc;">TranslationExchange.com</a>
+        Powered by <a href="http://wiki.tml.io" style="color:#ccc;">TranslationExchange.com</a>
         <div style="padding-top:5px;">
             <a href="http://translationexchange.com"><?php image_tag('tml_logo.png', array("style" => "width:50px;")) ?></a>
         </div>

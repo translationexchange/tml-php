@@ -14,7 +14,7 @@ $ curl -s http://getcomposer.org/installer | php
 
 <pre><code class="language-javascript">{
   "require": {
-    "tml/tml-client-sdk": "dev-master"
+    "translationexchange/tml": "dev-master"
   }
 }
 </code></pre>
