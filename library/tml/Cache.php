@@ -138,21 +138,51 @@ class Cache {
      */
     public static function version() {
         if (!Config::instance()->isCacheEnabled()) {
-            return 0;
+            return '0';
         }
         return self::instance()->version();
     }
 
     /**
-     * Increments cache version
-     *
-     * @return int
+     * Sets current version
      */
-    public static function incrementVersion() {
+    public static function setVersion($new_version) {
         if (!Config::instance()->isCacheEnabled()) {
-            return 0;
+            return;
         }
-        return self::instance()->incrementVersion();
+        self::instance()->setVersion($new_version);
+    }
+
+    /**
+     * Fetches cache version from cache
+     *
+     * @return mixed|string
+     */
+    public static function fetchVersion() {
+        if (!Config::instance()->isCacheEnabled()) {
+            return '0';
+        }
+        return self::instance()->fetchVersion();
+    }
+
+    /**
+     * Stores version in the cache
+     */
+    public static function storeVersion($new_version) {
+        if (!Config::instance()->isCacheEnabled()) {
+            return;
+        }
+        self::instance()->storeVersion($new_version);
+    }
+
+    /**
+     * Invalidates current version in cache
+     */
+    public static function invalidateVersion() {
+        if (!Config::instance()->isCacheEnabled()) {
+            return;
+        }
+        self::instance()->invalidateVersion();
     }
 
 }

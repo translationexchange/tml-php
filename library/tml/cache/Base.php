@@ -42,8 +42,7 @@ abstract class Base {
     public abstract function delete($key);
     public abstract function exists($key);
 
-    const TML_VERSION_KEY = '__tml_version__';
-    const TML_KEY_PREFIX = 'tml_v';
+    const TML_VERSION_KEY = 'current_version';
 
     /**
      * @var string
@@ -99,25 +98,42 @@ abstract class Base {
      * @return integer
      */
     function version() {
-        if ($this->version === null) {
-            $config_version = Config::instance()->configValue("cache.version", 1);
-            $this->version = intval($this->fetch(self::TML_VERSION_KEY, Config::instance()->configValue("cache.version", 1)));
-            if ($config_version > $this->version)  {
-                $this->store(self::TML_VERSION_KEY, $config_version);
-                $this->version = $config_version;
-            }
-            Logger::instance()->debug("Version: " . $this->version);
-        }
         return $this->version;
     }
 
     /**
-     * Increments cache version
-     * @return integer
+     * Fetches current version from cache
+     * @return mixed
      */
-    function incrementVersion() {
-        $this->store(self::TML_VERSION_KEY, $this->version() + 1);
-        return $this->version();
+    function fetchVersion() {
+        $this->version = $this->fetch(self::TML_VERSION_KEY, 'undefined');
+        return $this->version;
+    }
+
+    /**
+     * Sets current version
+     *
+     * @param $new_version
+     */
+    function setVersion($new_version) {
+        $this->version = $new_version;
+    }
+
+    /**
+     * Upgrades version, by marking it as undefined
+     */
+    function invalidateVersion() {
+        $this->store(self::TML_VERSION_KEY, 'undefined');
+    }
+
+    /**
+     * Stores version in cache
+     *
+     * @param $new_version
+     */
+    function storeVersion($new_version) {
+        $this->setVersion($new_version);
+        $this->store(self::TML_VERSION_KEY, $new_version);
     }
 
     /**
@@ -127,8 +143,8 @@ abstract class Base {
      * @return string
      */
     function versionedKey($key) {
-        if ($key == self::TML_VERSION_KEY) return $key;
-        return self::TML_KEY_PREFIX . $this->version() . "_" . $key;
+        if ($key == self::TML_VERSION_KEY) return "tml_" . $key;
+        return "tml_v" . $this->version() . "_" . $key;
     }
 
     /**

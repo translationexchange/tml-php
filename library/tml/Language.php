@@ -262,7 +262,7 @@ class Language extends Base {
                 }
 
                 $this->application->registerMissingKey($translation_key, $source_key);
-                return $translation_key->translate($this, $token_values, $options);
+                return $translation_key->translate($this, $token_values, array_merge($options, array("pending" => true)));
             }
 
             $matched_key = $this->application->translationKey($translation_key->key);

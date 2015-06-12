@@ -1,6 +1,17 @@
 <?php require_once(__DIR__ . '/../../library/tml.php'); ?>
 
-<?php tml_init(); ?>
+<?php tml_init("15228c9bd42a39b6159b90a75c21639f9c458f1bb2cd6db5a7e0c177abc2af16", array(
+    "cache" => array(
+        "enabled"   => true,
+        "adapter"   => "memcache",
+        "host"      => "localhost",
+        "port"      => 11211
+    ),
+    "log" => array(
+        "enabled"   => false,
+        "severity"  => "debug"
+    )
+)); ?>
 
 <?php include('helpers.php'); ?>
 

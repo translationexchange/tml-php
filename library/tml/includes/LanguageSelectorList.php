@@ -4,14 +4,12 @@
 
 $style = isset($opts['style']) ? $opts['style'] : '';
 $class = isset($opts['class']) ? $opts['class'] : '';
-$name = isset($opts['language']) ? $opts['language'] : 'english';
 $opts['flag'] = true;
 
 echo "<div id='tml_language_selector' style='$style' class='$class'>";
 
 $languages = \tml\Config::instance()->application->languages;
 foreach($languages as $lang) {
-//    tml_change_locale(this.options[this.selectedIndex].value)
     echo "<div>";
 
     if ($lang->locale == tml_current_language()->locale) {

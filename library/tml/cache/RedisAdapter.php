@@ -60,7 +60,7 @@ class RedisAdapter extends MemcacheAdapter {
         return $this->cache->set(
             $this->versionedKey($key),
             $value,
-            Config::instance()->configValue("cache.timeout", 3600)
+            Config::instance()->configValue("cache.timeout", 0)
         );
     }
 

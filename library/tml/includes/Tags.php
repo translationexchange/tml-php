@@ -40,12 +40,42 @@ use tml\utils\ArrayUtils;
  * @param array $opts
  */
 function tml_language_name_tag($language = null, $opts = array()) {
+    $flag = isset($opts["flag"]) ? $opts["flag"] : true;
+    $type = isset($opts["type"]) ? $opts["type"] : 'native';
+
     if ($language == null) $language = tml_current_language();
-    if (isset($opts["flag"])) {
+    if ($flag) {
         tml_language_flag_tag($language);
         echo " ";
     }
-    echo "<span dir='ltr'>" . $language->native_name . "</span>";
+
+    if ($type == 'native') {
+        echo "<span dir='ltr'>" . $language->native_name . "</span>";
+    } else if ($type == 'translated') {
+        echo "<span dir='ltr'>" . tr($language->english_name) . "</span>";
+    } else if ($type == 'both') {
+        echo "<span dir='ltr'>" . $language->english_name . "</span>";
+        echo " <span dir='ltr' style='font-size:10px;'>" . $language->native_name . "</span>";
+    } else {
+        echo "<span dir='ltr'>" . $language->english_name . "</span>";
+    }
+}
+
+/**
+ * Displays toggler for help
+ *
+ * @param null $language
+ * @param array $opts
+ */
+function tml_toggle_inline_mode_tag($opts = array()) {
+    $toggle_off = isset($opts['toggle_off']) ? $opts['toggle_off'] : "Help Us Translate";
+    $toggle_on = isset($opts['toggle_on']) ? $opts['toggle_on'] : "Deactivate Translation Mode";
+    echo "<a href='javascript:void(0);' onclick='Tml.Utils.toggleInlineTranslations()'>";
+    if (\tml\Config::instance()->isInlineTranslationModeEnabled())
+        tre($toggle_on);
+    else
+        tre($toggle_off);
+    echo "</a>";
 }
 
 /**

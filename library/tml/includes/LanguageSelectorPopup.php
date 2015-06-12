@@ -4,7 +4,6 @@
     $element = isset($opts['element']) ? $opts['element'] : 'div';
     $style = isset($opts['style']) ? $opts['style'] : '';
     $toggle = isset($opts['toggle']) ? $opts['toggle'] : true;
-    $toggle_label = isset($opts['toggle_label']) ? $opts['toggle_label'] : "Help Us Translate";
 ?>
 
 <style>
@@ -54,9 +53,7 @@
 
         <?php if ($toggle) { ?>
             <li class='trex-credit'>
-                <a href='javascript:void(0);' onclick='Tml.Utils.toggleInlineTranslations()'>
-                    <?php tre($toggle_label) ?>
-                </a>
+                <?php tml_toggle_inline_mode_tag($opts) ?>
             </li>
         <?php } ?>
 

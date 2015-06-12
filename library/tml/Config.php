@@ -88,16 +88,6 @@ class Config {
     public $current_source;
 
     /**
-     * @var Component
-     */
-    public $current_component;
-
-    /**
-     * @var array
-     */
-    public $requested_sources;
-
-    /**
      * @var array
      */
     private $block_options;
@@ -176,42 +166,24 @@ class Config {
     }
 
     /**
-     * @param null $host
-     * @param null $client_id
-     * @param null $client_secret
-     * @return null|Application
-     */
-    public function initApplication($token = null, $host = null) {
-        if ($token == null) { // fallback onto the configuration file
-            $token = $this->configValue("application.token");
-            $host = $this->configValue("application.host");
-        }
-
-        if ($this->application == null) {
-            $this->application = new Application(array("name" => "", "access_token" => $token, "host" => $host));
-            $this->application->fetch();
-        }
-        return $this->application;
-    }
-
-    /**
      * @param array $options
      */
     public function initRequest($options = array()) {
+        $this->current_translator = (isset($options['translator']) ? $options['translator'] : null);
+        $this->current_source = (isset($options['source']) ? $options['source'] : 'index');
+        Logger::instance()->debug("Current source: $this->current_source");
+
+        try {
+            $this->application->fetch();
+        } catch (\Exception $e) {
+            Logger::instance()->error("Application failed to initialize: " . $e);
+        }
+
         if ($this->isEnabled()) {
             $this->current_language = $this->application->language((isset($options['locale']) ? $options['locale'] : $this->default_locale), true);
         } else {
             $this->current_language = $this->application->language($this->default_locale);
         }
-
-        $this->current_translator = (isset($options['translator']) ? $options['translator'] : null);
-        $this->current_source = (isset($options['source']) ? $options['source'] : null);
-
-        Logger::instance()->debug("Current source: $this->current_source");
-
-        $this->current_component = (isset($options['component']) ? $options['component'] : null);
-        $this->requested_sources = array();
-        if ($this->current_source) array_push($this->requested_sources, $this->current_source);
     }
 
     /**
@@ -227,9 +199,6 @@ class Config {
      */
     public function beginBlockWithOptions($options = array()) {
         array_push($this->block_options, $options);
-
-        if (isset($options["source"]))
-            array_push($this->requested_sources, $options["source"]);
     }
 
     /**
@@ -320,13 +289,14 @@ class Config {
 
 
     /**
-     * Initializes Cache with custom settings
+     * Updates default settings
      *
+     * @param $key
      * @param $options
      */
-    public function initCache($options) {
+    public function updateConfig($key, $options) {
         $this->configData();
-        $this->config['cache'] = $options;
+        $this->config[$key] = $options;
     }
 
     /**

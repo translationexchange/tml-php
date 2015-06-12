@@ -4,7 +4,6 @@
 
 $style = isset($opts['style']) ? $opts['style'] : '';
 $class = isset($opts['class']) ? $opts['class'] : '';
-$name = isset($opts['language']) ? $opts['language'] : 'english';
 $opts['flag'] = true;
 
 echo "<div id='tml_language_selector' style='$style' class='$class'>";
@@ -16,5 +15,3 @@ foreach($languages as $lang) {
     echo "</a> ";
 }
 echo "</div>";
-
-tml_language_selector_footer_tag($opts);

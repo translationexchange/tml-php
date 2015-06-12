@@ -65,7 +65,10 @@ class HtmlDecorator extends Base {
                 return $translated_label;
             }
         } else if ($translation_language->locale == $translation_key->language->locale) {
-            array_push($classes, 'tml_not_translated');
+            if (isset($options["pending"]))
+                array_push($classes, 'tml_pending');
+            else
+                array_push($classes, 'tml_not_translated');
         } else if ($translation_language->locale == $target_language->locale) {
             array_push($classes, 'tml_translated');
         } else {

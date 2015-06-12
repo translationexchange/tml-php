@@ -19,12 +19,7 @@
                     <li <?php active_link("docs/editor.php")?>><?php link_to(tr("Blog Translator"), "docs/editor.php") ?></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li role="presentation">
-                        <!-- ?php tml_language_selector_tag(array("role" => "menuitem", "tabindex" => "-1")) ? -->
-                        <!-- ?php tml_language_selector_tag(array("type" => "dropdown", "style" => "margin-top:10px; height:25px; width: 100px;")) ? -->
-                    </li>
-
-                    <?php tml_language_selector_tag("bootstrap", array("element" => "li", "language" => "native", "toggler" => true)) ?>
+                    <?php tml_language_selector_tag("bootstrap", array("element" => "li", "toggle" => true)) ?>
 
                     <?php if (tml_current_translator() == null) { ?>
                         <li role="presentation"><?php link_to_function('login', 'Tml.Utils.login()') ?></li>
@@ -51,7 +46,7 @@
                                 <li role="presentation" class="divider"></li>
                                 <li role="presentation"><?php link_to_function('Shortcuts', 'Tml.Utils.openShortcuts()') ?></li>
                                 <?php if (\Tml\Config::instance()->isCacheEnabled() && !\Tml\Cache::isReadOnly()) { ?>
-                                    <li role="presentation"><?php link_to("Reset Cache (v" . \Tml\Cache::version() . ")", "docs/reset_cache.php") ?></li>
+                                    <li role="presentation"><?php link_to("Reset Cache (" . \Tml\Cache::version() . ")", "docs/reset_cache.php") ?></li>
                                 <?php } ?>
                                 <li role="presentation" class="divider"></li>
                                 <li role="presentation"><?php link_to_function('Log Out', 'Tml.Utils.logout()') ?></li>

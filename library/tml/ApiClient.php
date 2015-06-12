@@ -36,21 +36,27 @@ namespace tml;
 use tml\Cache;
 
 class ApiClient {
+    const CDN_HOST = 'https://cdn.translationexchange.com';
     const API_HOST = 'https://api.translationexchange.com';
     const API_PATH = '/v1/';
 
     /**
+     * Stores application for which the API client belongs.
      * @var Application
      */
     private $application;
 
+    /**
+     * Default CURL options
+     *
+     * @var array
+     */
     public static $CURL_OPTS = array(
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_TIMEOUT        => 60,
         CURLOPT_USERAGENT      => 'tml-php',
     );
-
 
     /**
      * @param Application $app
@@ -60,6 +66,8 @@ class ApiClient {
     }
 
     /**
+     * Executes an API call using a CURL command
+     *
      * @param string $path
      * @param array $params
      * @param array $options
@@ -84,12 +92,16 @@ class ApiClient {
             $options['method'] = 'GET';
 
         if ($options['method'] == 'POST') {
-            $opts[CURLOPT_URL] = $api_host . self::API_PATH . $path;
+            $opts[CURLOPT_URL] = $api_host . $path;
             $opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
             Logger::instance()->info("POST: " . $opts[CURLOPT_URL]);
             Logger::instance()->info("DATA: ", $params);
         } else {
-            $opts[CURLOPT_URL] = $api_host . self::API_PATH . $path . '?' . http_build_query($params, null, '&');
+            if (count($params) > 0)
+                $opts[CURLOPT_URL] = $api_host . $path . '?' . http_build_query($params, null, '&');
+            else
+                $opts[CURLOPT_URL] = $api_host . $path;
+
             Logger::instance()->info("GET: " . $opts[CURLOPT_URL]);
         }
 
@@ -121,6 +133,69 @@ class ApiClient {
     }
 
     /**
+     * Fetch cache version from the API - based on the current release
+     *
+     * @param $params
+     * @param $options
+     * @return array
+     */
+    public static function getCacheVersion($params, $options) {
+        return self::executeRequest(self::API_PATH . "applications/current/version", $params, $options);
+    }
+
+    /**
+     * Check if there is a version set in cache. If it is, use it. If not, fetch it from the API
+     * and store it back in cache.
+     *
+     * @param $params
+     * @param $options
+     */
+    public static function verifyCacheVersion($params, $options) {
+        $current_version = Cache::version();
+
+        if ($current_version == null || $current_version == 'undefined') {
+            $current_version = Cache::fetchVersion();
+
+            if ($current_version == 'undefined') {
+                Logger::instance()->info("Requesting current version...");
+                $current_version = self::getCacheVersion($params, $options);
+                if ($current_version == '0') $current_version = 'live';
+                Cache::storeVersion($current_version);
+            }
+
+            Cache::setVersion($current_version);
+            Logger::instance()->info("Current Version: " . $current_version);
+        }
+    }
+
+    /**
+     * Fetches data from the CDN based on the current cache version
+     *
+     * @param $cache_key
+     * @param $params
+     * @param $options
+     * @return array
+     */
+    public static function fetchFromCdn($cache_key, $access_token) {
+        $current_version = Cache::version();
+        if ($current_version == 'undefined' || $current_version == 'live') return null;
+
+        Logger::instance()->info("Fetching from CDN... ");
+
+        $cdn_path = "/" . $access_token . "/" . Cache::version() . "/" . $cache_key . ".json";
+        $data = self::executeRequest($cdn_path, array(), array("host" => self::CDN_HOST));
+
+        // AWS returns XML messages when data is not found
+        if (preg_match("/xml/", $data)) return null;
+
+        return $data;
+    }
+
+    /**
+     * Fetches data from Cache -> CDN -> API
+     * Local cache is always checked first. If not available, CDN will be queried for data.
+     * If CDN does not contain the data, API will be called last.
+     *
      * @param $path
      * @param array $params
      * @param array $options
@@ -128,19 +203,26 @@ class ApiClient {
      * @throws TmlException
      */
     public static function fetch($path, $params = array(), $options = array()) {
-        if (Config::instance()->isCacheEnabled() && isset($options["cache_key"])) {
+        if (!Config::instance()->isInlineTranslationModeEnabled() && Config::instance()->isCacheEnabled() && isset($options["cache_key"])) {
+            self::verifyCacheVersion($params, $options);
             $data = Cache::fetch($options["cache_key"]);
-            if ($data === null) {
+            if (!$data) {
                 if (Cache::isReadOnly()) return null;
-                $data = self::executeRequest($path, $params, $options);
+
+                $data = self::fetchFromCdn($options["cache_key"], $params["access_token"]);
+                if (!$data) {
+                    $data = self::executeRequest(self::API_PATH . $path, $params, $options);
+                }
+
+                if ($data === null) return null;
                 $json = json_decode($data, true);
-                if (!isset($json['error']))
-                    Cache::store($options["cache_key"], $data);
+                if (isset($json['error'])) return null;
+                Cache::store($options["cache_key"], $data);
             } else {
                 $json = json_decode($data, true);
             }
         } else {
-            $data = self::executeRequest($path, $params, $options);
+            $data = self::executeRequest(self::API_PATH . $path, $params, $options);
             $json = json_decode($data, true);
         }
 
@@ -152,13 +234,15 @@ class ApiClient {
     }
 
     /**
+     * Process API response data
+     *
      * @param string $data
      * @param array $options
      * @return array
      */
     public static function processResponse($data, $options = array()) {
         if (isset($data['results'])) {
-            Logger::instance()->info("Received " . count($data["results"]) ." result(s)");
+            // Logger::instance()->info("Received " . count($data["results"]) ." result(s)");
 
             if (!isset($options["class"])) return $data["results"];
 
@@ -174,6 +258,8 @@ class ApiClient {
     }
 
     /**
+     * Create objects from response data
+     *
      * @param $data
      * @param $options
      * @return mixed
@@ -185,7 +271,10 @@ class ApiClient {
         return new $options["class"]($data);
     }
 
+
     /*
+     * Execute API Get call
+     *
      * @param string $path
      * @param array $params
      * @param array $options
@@ -196,6 +285,8 @@ class ApiClient {
     }
 
     /**
+     * Execute API Post call
+     *
      * @param string $path
      * @param array $params
      * @param array $options

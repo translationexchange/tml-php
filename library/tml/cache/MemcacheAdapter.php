@@ -90,7 +90,7 @@ class MemcacheAdapter extends Base {
             $this->versionedKey($key),
             $value,
             false,
-            Config::instance()->configValue("cache.timeout", 3600)
+            Config::instance()->configValue("cache.timeout", 0)
         );
     }
 

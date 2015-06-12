@@ -75,55 +75,64 @@ use tml\utils\HtmlTranslator;
 /**
  * Initializes the TML library
  *
- * @param null $host
- * @param null $key
- * @param null $secret
+ * @param null $token
+ * @param array $options
+ * @internal param null $host
+ * @internal param null $key
+ * @internal param null $secret
  * @return bool
  */
-function tml_init($token = null, $host = null) {
+function tml_init($token = null, $options = array()) {
     global $tml_page_t0;
     $tml_page_t0 = microtime(true);
 
-    try {
-        Config::instance()->initApplication($token, $host);
-    } catch (Exception $e) {
-        Logger::instance()->error("Application failed to initialize.");
-    }
+    if (!$token) $token = Config::instance()->configValue("application.token");
+    $host = isset($options["host"]) ? $options["host"] : Config::instance()->configValue("application.host");
+    if (isset($options["cache"]))  Config::instance()->updateConfig("cache", $options["cache"]);
+    if (isset($options["log"]))  Config::instance()->updateConfig("log", $options["log"]);
+
+    # instead of passing a host, pass an options array
+    # options could include caching and logging specs that overwrite the config settings
 
     $locale = null;
     $translator = null;
     $cookie_params = null;
 
-    if (Config::instance()->isEnabled()) {
-        $cookie_name = "trex_" . Config::instance()->application->key;
+    // create application instance, but don't initialize it yet
+    Config::instance()->application = new Application(array("name" => "", "access_token" => $token, "host" => $host));
 
-        if (isset($_COOKIE[$cookie_name])) {
-            Logger::instance()->info("Cookie file $cookie_name found!");
-            $cookie_params = Config::instance()->decode($_COOKIE[$cookie_name]);
-            $locale = $cookie_params['locale'];
-            if (isset($cookie_params['translator'])) {
-                $translator = new Translator(array_merge($cookie_params["translator"], array('application' => Config::instance()->application)));
-            }
-        } else {
-            Logger::instance()->info("Cookie file $cookie_name not found!");
+    // get cookie name
+    $cookie_name = "trex_" . substr($token, 0, 20) . "_translationexchange";
+
+    // check if cookie is set
+    if (isset($_COOKIE[$cookie_name])) {
+        Logger::instance()->info("Cookie file $cookie_name found!");
+        $cookie_params = Config::instance()->decode($_COOKIE[$cookie_name]);
+        $locale = $cookie_params['locale'];
+        if (isset($cookie_params['translator'])) {
+            $translator = new Translator(array_merge($cookie_params["translator"], array('application' => Config::instance()->application)));
         }
-
-        if (isset($_GET["locale"])) {
-            $locale =  $_GET["locale"];
-            if (!$cookie_params) $cookie_params = array();
-            $cookie_params["locale"] = $_GET["locale"];
-            setcookie($cookie_name, Config::instance()->encode($cookie_params), null, "/");
-        }
-
-        if (!$locale) $locale = tml_browser_default_locale();
-        if (!$locale) $locale = Config::instance()->default_locale;
-
     } else {
-        Logger::instance()->error("Application failed to initialize.");
+        Logger::instance()->info("Cookie file $cookie_name not found!");
     }
 
-    $source = null;
+    // options locale always takes over
+    if (isset($options["locale"])) {
+        $locale = $options["locale"];
+    } else if (isset($_GET["locale"])) {
+        $locale =  $_GET["locale"];
+        if (!$cookie_params) $cookie_params = array();
+        $cookie_params["locale"] = $_GET["locale"];
+        setcookie($cookie_name, Config::instance()->encode($cookie_params), null, "/");
+    }
 
+    // use default browser locale
+    if (!$locale) $locale = tml_browser_default_locale();
+
+    // use our default locale
+    if (!$locale) $locale = Config::instance()->default_locale;
+
+    $source = null;
     if (isset($_SERVER["REQUEST_URI"])) {
         $source = $_SERVER["REQUEST_URI"];
         $source = explode("#", $source);
@@ -134,11 +143,10 @@ function tml_init($token = null, $host = null) {
         $source = preg_replace('/\/$/', '', $source);
     }
 
-    if ($source === null || $source == '' || $source == '/') $source = "index";
+    if (!$source || $source == '' || $source == '/') $source = "index";
 
-    if (Config::instance()->isEnabled()) {
-        Config::instance()->initRequest(array('locale' => $locale, 'translator' => $translator, 'source' => $source));
-    }
+    Config::instance()->initRequest(array('locale' => $locale, 'translator' => $translator, 'source' => $source));
+
     return true;
 }
 
@@ -203,6 +211,14 @@ function tml_application() {
 /**
  * @return \tml\Language
  */
+function tml_current_locale() {
+    return Config::instance()->current_language->locale;
+}
+
+
+/**
+ * @return \tml\Language
+ */
 function tml_current_language() {
     return Config::instance()->current_language;
 }
@@ -239,6 +255,7 @@ function tml_finish_block_with_options() {
  * @param string $description
  * @param array $tokens
  * @param array $options
+ * @throws Exception
  * @return mixed
  */
 function tr($label, $description = "", $tokens = array(), $options = array()) {
@@ -315,10 +332,12 @@ function trle($label, $description = "", $tokens = array(), $options = array()) 
 /**
  * Translates a block of html, converts it to TML, translates it and then converts it back to HTML
  *
- * @param string $html
+ * @param $label
  * @param string $description
  * @param array $tokens
  * @param array $options
+ * @return array
+ * @internal param string $html
  */
 function trh($label, $description = "", $tokens = array(), $options = array()) {
     $params = ArrayUtils::normalizeTmlParameters($label, $description, $tokens, $options);
@@ -331,10 +350,11 @@ function trh($label, $description = "", $tokens = array(), $options = array()) {
 /**
  * Translates a block of html, converts it to TML, translates it and then converts it back to HTML
  *
- * @param string $html
+ * @param $label
  * @param string $description
  * @param array $tokens
  * @param array $options
+ * @internal param string $html
  */
 function trhe($label, $description = "", $tokens = array(), $options = array()) {
     $params = ArrayUtils::normalizeTmlParameters($label, $description, $tokens, $options);

@@ -1,5 +1,5 @@
 <?php include('includes/header.php'); ?>
-<?php \Tml\Cache::incrementVersion(); ?>
+<?php \Tml\Cache::invalidateVersion(); ?>
 
 <h4><?php tre("Incrementing cache version...") ?></h4>
 

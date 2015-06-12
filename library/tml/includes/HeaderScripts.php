@@ -79,7 +79,6 @@ if (Config::instance()->isEnabled()) { ?>
                 tml_add_script(window.document, 'tml-jssdk', '<?php echo tml_application()->tools["javascript"] ?>', function() {
                     Tml.app_key = '<?php echo tml_application()->key ?>';
                     Tml.host = '<?php echo tml_application()->tools["host"] ?>';
-                    Tml.sources = <?php echo json_encode(Config::instance()->requested_sources) ?>;
                     Tml.default_locale = '<?php echo tml_application()->default_locale ?>';
                     Tml.page_locale = '<?php echo Config::instance()->current_language->locale ?>';
                     Tml.locale = '<?php echo Config::instance()->current_language->locale ?>';
