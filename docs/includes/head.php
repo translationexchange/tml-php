@@ -1,6 +1,6 @@
 <?php require_once(__DIR__ . '/../../library/tml.php'); ?>
 
-<?php tml_init("500f56dcda6b6b2821905824d0cfbbaa8bb81bdd8edb6da6eded2e717a0e9349", array(
+<!-- ?php tml_init("500f56dcda6b6b2821905824d0cfbbaa8bb81bdd8edb6da6eded2e717a0e9349", array(
     "host" => "http://127.0.0.1:3000",
     "cache" => array(
         "enabled"   => true,
@@ -15,9 +15,9 @@
     "local" => array(
         "base_path" => "/tml"
     )
-)); ?>
+)); ? -->
 
-<!-- ?php tml_init("15228c9bd42a39b6159b90a75c21639f9c458f1bb2cd6db5a7e0c177abc2af16", array(
+<?php tml_init("15228c9bd42a39b6159b90a75c21639f9c458f1bb2cd6db5a7e0c177abc2af16", array(
     "cache" => array(
         "enabled"   => true,
         "adapter"   => "memcache",
@@ -27,7 +27,7 @@
     "local" => array(
         "base_path" => "/tml"
     )
-)); ? -->
+)); ?>
 
 <?php include('helpers.php'); ?>
 
