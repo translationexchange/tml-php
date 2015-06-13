@@ -1,7 +1,4 @@
 {
-	"application": {
-		"token": "APPLICATION_TOKEN"
-	},
     "log": {
         "enabled": false,
         "severity": "debug"

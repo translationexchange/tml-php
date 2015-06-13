@@ -133,9 +133,7 @@ class Config {
      */
     public function configData() {
         if ($this->config == null) {
-            $config_file_path = $this->configFilePath('config.json');
-            if (!file_exists($config_file_path))
-                $config_file_path = $this->configFilePath('config-default.json');
+            $config_file_path = $this->configFilePath('defaults.json');
             $data = file_get_contents($config_file_path);
             $this->config = json_decode($data, true);
         }
@@ -184,6 +182,33 @@ class Config {
         } else {
             $this->current_language = $this->application->language($this->default_locale);
         }
+    }
+
+    /**
+     * Returns access token
+     *
+     * @return string
+     */
+    public function accessToken() {
+        return $this->application->access_token;
+    }
+
+    /**
+     * Checks if keys should be sent to the server
+     *
+     * @return bool
+     */
+    public function isKeyRegistrationEnabled() {
+        if (!$this->isCacheEnabled())
+            return true;
+
+        if (Cache::instance()->isVersionLive())
+            return true;
+
+        if ($this->isInlineTranslationModeEnabled())
+            return true;
+
+        return false;
     }
 
     /**
@@ -306,13 +331,12 @@ class Config {
         if ($this->configValue("cache.enabled") === false) {
             return false;
         }
-
-        if ($this->isInlineTranslationModeEnabled())
-            return false;
-
         return true;
     }
 
+    /**
+     * Disables cache
+     */
     public function disableCache() {
         $this->config["cache"]["enable"] = false;
     }

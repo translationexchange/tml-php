@@ -88,8 +88,10 @@ function tml_init($token = null, $options = array()) {
 
     if (!$token) $token = Config::instance()->configValue("application.token");
     $host = isset($options["host"]) ? $options["host"] : Config::instance()->configValue("application.host");
-    if (isset($options["cache"]))  Config::instance()->updateConfig("cache", $options["cache"]);
-    if (isset($options["log"]))  Config::instance()->updateConfig("log", $options["log"]);
+    foreach(array("cache", "log", "local") as $type) {
+        if (isset($options[$type]))
+            Config::instance()->updateConfig($type, $options[$type]);
+    }
 
     # instead of passing a host, pass an options array
     # options could include caching and logging specs that overwrite the config settings

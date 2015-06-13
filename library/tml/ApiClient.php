@@ -34,6 +34,7 @@
 namespace tml;
 
 use tml\Cache;
+use tml\TmlException;
 
 class ApiClient {
     const CDN_HOST = 'https://cdn.translationexchange.com';
@@ -118,7 +119,7 @@ class ApiClient {
 
 //        Logger::instance()->info($result);
 
-        if ($http_status != 200) {
+        if ($http_status < 200 && $http_status > 299) {
             Logger::instance()->error("Got HTTP response: $http_status");
             throw new TmlException("Got HTTP response: $http_status");
         }
@@ -151,21 +152,20 @@ class ApiClient {
      * @param $options
      */
     public static function verifyCacheVersion($params, $options) {
-        $current_version = Cache::version();
+        if (!Cache::instance()->isVersionUndefined())
+            return;
 
-        if ($current_version == null || $current_version == 'undefined') {
-            $current_version = Cache::fetchVersion();
+        $current_version = Cache::fetchVersion();
 
-            if ($current_version == 'undefined') {
-                Logger::instance()->info("Requesting current version...");
-                $current_version = self::getCacheVersion($params, $options);
-                if ($current_version == '0') $current_version = 'live';
-                Cache::storeVersion($current_version);
-            }
-
-            Cache::setVersion($current_version);
-            Logger::instance()->info("Current Version: " . $current_version);
+        if ($current_version == 'undefined') {
+            Logger::instance()->info("Requesting current version...");
+            $current_version = self::getCacheVersion($params, $options);
+            if ($current_version == '0') $current_version = 'live';
+            Cache::storeVersion($current_version);
         }
+
+        Cache::setVersion($current_version);
+        Logger::instance()->info("Current Version: " . $current_version);
     }
 
     /**
@@ -177,10 +177,7 @@ class ApiClient {
      * @return array
      */
     public static function fetchFromCdn($cache_key, $access_token) {
-        $current_version = Cache::version();
-        if ($current_version == 'undefined' || $current_version == 'live') return null;
-
-        Logger::instance()->info("Fetching from CDN... ");
+        if (!Cache::instance()->isCdnVersion()) return null;
 
         $cdn_path = "/" . $access_token . "/" . Cache::version() . "/" . $cache_key . ".json";
         $data = self::executeRequest($cdn_path, array(), array("host" => self::CDN_HOST));

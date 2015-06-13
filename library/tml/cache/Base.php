@@ -102,6 +102,32 @@ abstract class Base {
     }
 
     /**
+     * Checks if the cache should pull from API
+     *
+     * @return bool
+     */
+    function isVersionLive() {
+        return ($this->version == "live");
+    }
+
+    /**
+     * Checks if the cache should pull version from API
+     *
+     * @return bool
+     */
+    function isVersionUndefined() {
+        return ($this->version == null || $this->version == 'undefined');
+    }
+
+    /**
+     * Should fetch from CDN
+     * @return bool
+     */
+    function isCdnVersion() {
+        return !($this->isVersionLive() || $this->isVersionUndefined());
+    }
+
+    /**
      * Fetches current version from cache
      * @return mixed
      */
@@ -143,8 +169,11 @@ abstract class Base {
      * @return string
      */
     function versionedKey($key) {
-        if ($key == self::TML_VERSION_KEY) return "tml_" . $key;
-        return "tml_v" . $this->version() . "_" . $key;
+        return "tml_" .
+                substr(Config::instance()->accessToken(), 0, 5) .
+                ($key == self::TML_VERSION_KEY ? '' : ('' . $this->version())) .
+                "_" .
+                $key;
     }
 
     /**

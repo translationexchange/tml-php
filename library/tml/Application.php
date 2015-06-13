@@ -376,9 +376,7 @@ class Application extends Base {
      * @param Source $source
      */
     public function registerMissingKey($translation_key, $source_key = 'index') {
-//        Logger::instance()->notice('Registering missing key', $translation_key->label);
-
-        if (Config::instance()->isCacheEnabled() && !Config::instance()->isInlineTranslationModeEnabled())
+        if (!Config::instance()->isKeyRegistrationEnabled())
             return;
 
         if ($this->missing_keys_by_sources === null) {
