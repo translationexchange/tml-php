@@ -35,7 +35,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $files = array(
-    "Tml/utils",
+    "Tml/Utils",
     "Tml/Base.php",
     "Tml",
     "Tml/Tokens",
@@ -71,6 +71,7 @@ use Tml\Translator;
 use Tml\Utils\ArrayUtils;
 use Tml\Utils\BrowserUtils;
 use Tml\Utils\HtmlTranslator;
+use Tml\Utils\StringUtils;
 
 /**
  * Initializes the TML library
@@ -193,14 +194,14 @@ function tml_browser_default_locale() {
  * Includes Tml JavaScript library
  */
 function tml_scripts() {
-  include(__DIR__ . '/tml/includes/HeaderScripts.php');
+  include(__DIR__ . '/Tml/Includes/HeaderScripts.php');
 }
 
 /**
  * Includes Tml footer scripts
  */
 function tml_footer() {
-  include(__DIR__ . '/tml/includes/FooterScripts.php');
+  include(__DIR__ . '/Tml/Includes/FooterScripts.php');
 }
 
 /**
@@ -272,7 +273,7 @@ function tr($label, $description = "", $tokens = array(), $options = array()) {
     try {
         // Translate individual sentences
         if (isset($params["options"]['split'])) {
-            $sentences = \Tml\Utils\StringUtils::splitSentences($params["label"]);
+            $sentences = StringUtils::splitSentences($params["label"]);
             foreach($sentences as $sentence) {
                 $params["label"] = str_replace($sentence, tml_current_language()->translate($sentence, $params["description"], $params["tokens"], $params["options"]), $params["label"]);
             }
