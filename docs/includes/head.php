@@ -1,4 +1,4 @@
-<?php require_once(__DIR__ . '/../../library/tml.php'); ?>
+<?php require_once(__DIR__ . '/../../src/init.php'); ?>
 
 <!-- ?php tml_init("500f56dcda6b6b2821905824d0cfbbaa8bb81bdd8edb6da6eded2e717a0e9349", array(
     "host" => "http://127.0.0.1:3000",
@@ -33,7 +33,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo tml_current_language()->locale; ?>" dir="<?php echo tml_current_language()->direction(); ?>">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo tml_current_locale(); ?>" dir="<?php echo tml_current_language_direction() ?>">
 <head>
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

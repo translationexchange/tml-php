@@ -1,7 +1,15 @@
 <?php
 /**
- * Copyright (c) 2013 Michael Berkovich, tmlhub.com
+ * Copyright (c) 2015 Translation Exchange, Inc
  *
+ *  _______                  _       _   _             ______          _
+ * |__   __|                | |     | | (_)           |  ____|        | |
+ *    | |_ __ __ _ _ __  ___| | __ _| |_ _  ___  _ __ | |__  __  _____| |__   __ _ _ __   __ _  ___
+ *    | | '__/ _` | '_ \/ __| |/ _` | __| |/ _ \| '_ \|  __| \ \/ / __| '_ \ / _` | '_ \ / _` |/ _ \
+ *    | | | | (_| | | | \__ \ | (_| | |_| | (_) | | | | |____ >  < (__| | | | (_| | | | | (_| |  __/
+ *    |_|_|  \__,_|_| |_|___/_|\__,_|\__|_|\___/|_| |_|______/_/\_\___|_| |_|\__,_|_| |_|\__, |\___|
+ *                                                                                        __/ |
+ *                                                                                       |___/
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -24,9 +32,9 @@
 
 namespace Tml\Tokens;
 
-use tml\Application;
-use tml\Language;
-use tml\LanguageContext;
+use Tml\Application;
+use Tml\Language;
+use Tml\LanguageContext;
 
 require_once(__DIR__."/../../BaseTest.php");
 
