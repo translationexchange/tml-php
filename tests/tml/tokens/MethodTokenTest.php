@@ -39,7 +39,7 @@ class MethodTokenTest extends \BaseTest {
     public function testParsing() {
         $dt = new DataTokenizer("Hello {user.name}");
         $this->assertEquals(1, count($dt->tokens));
-        $this->assertEquals('tml\tokens\MethodToken', get_class($dt->tokens[0]));
+        $this->assertEquals('Tml\Tokens\MethodToken', get_class($dt->tokens[0]));
     }
 
     public function testObjectName() {
