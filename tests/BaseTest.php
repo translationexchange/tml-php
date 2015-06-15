@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__."/../src/Init.php";
+require_once __DIR__."/../src/init.php";
 
 class BaseTest extends PHPUnit_Framework_TestCase {
 
