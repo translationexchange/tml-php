@@ -23,9 +23,6 @@
         "adapter"   => "memcache",
         "host"      => "localhost",
         "port"      => 11211
-    ),
-    "local" => array(
-        "base_path" => "/tml"
     )
 )); ?>
 
@@ -45,7 +42,7 @@
   <?php tml_scripts(); ?>
 
   <title><?php echo tml_application()->name ?></title>
-  <link rel="SHORTCUT ICON" href="<?php echo url_for('docs/assets/img/favicon.ico') ?>"/>
+  <link rel="SHORTCUT ICON" href="<?php echo url_for('assets/img/favicon.ico') ?>"/>
   <style>
     body {
       padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */

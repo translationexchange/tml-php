@@ -26,7 +26,7 @@
                     <td>
                         <?php link_to_function("Preview Html", "previewEmail('" . $temp->keyword . "', 'html')", array("class"=>"btn")) ?>
                         <?php link_to_function("Preview Text", "previewEmail('" . $temp->keyword . "', 'text')", array("class"=>"btn")) ?>
-                        <?php link_to("Send", "docs/send_email.php?keyword=" . $temp->keyword, array("class"=>"btn")) ?>
+                        <?php link_to("Send", "send_email.php?keyword=" . $temp->keyword, array("class"=>"btn")) ?>
                     </td>
                 </tr>
             <?php } ?>

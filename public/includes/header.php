@@ -14,9 +14,9 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li <?php active_link("docs/index.php")?>><?php link_to(tr("Documentation & Samples"), "docs/index.php") ?></li>
-                    <li <?php active_link("docs/tml.php")?>><?php link_to(tr("TML Interactive Console"), "docs/tml.php") ?></li>
-                    <li <?php active_link("docs/editor.php")?>><?php link_to(tr("Blog Translator"), "docs/editor.php") ?></li>
+                    <li <?php active_link("docs.php")?>><?php link_to(tr("Documentation & Samples"), "docs.php") ?></li>
+                    <li <?php active_link("tml.php")?>><?php link_to(tr("TML Interactive Console"), "tml.php") ?></li>
+                    <li <?php active_link("editor.php")?>><?php link_to(tr("Blog Translator"), "editor.php") ?></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <?php tml_language_selector_tag("bootstrap", array("element" => "li", "toggle" => true)) ?>
@@ -46,7 +46,7 @@
                                 <li role="presentation" class="divider"></li>
                                 <li role="presentation"><?php link_to_function('Shortcuts', 'Tml.Utils.openShortcuts()') ?></li>
                                 <?php if (\Tml\Config::instance()->isCacheEnabled() && !\Tml\Cache::isReadOnly()) { ?>
-                                    <li role="presentation"><?php link_to("Reset Cache (" . \Tml\Cache::version() . ")", "docs/reset_cache.php") ?></li>
+                                    <li role="presentation"><?php link_to("Reset Cache (" . \Tml\Cache::version() . ")", "reset_cache.php") ?></li>
                                 <?php } ?>
                                 <li role="presentation" class="divider"></li>
                                 <li role="presentation"><?php link_to_function('Log Out', 'Tml.Utils.logout()') ?></li>

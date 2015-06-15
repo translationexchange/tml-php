@@ -3,9 +3,6 @@
         "enabled": false,
         "severity": "debug"
     },
-    "local": {
-        "base_path": "/"
-    },
 	"cache": {
         "enabled": true,
         "adapter": "file",

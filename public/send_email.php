@@ -25,7 +25,7 @@
                    </div>
                </div>
                <div>
-                <?php link_to("Cancel", "/docs/emails.php", array("class" => "btn")) ?>
+                <?php link_to("Cancel", "emails.php", array("class" => "btn")) ?>
                 <button type="submit" class="btn btn-primary">
                     Send
                 </button>

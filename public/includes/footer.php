@@ -13,7 +13,7 @@
         <footer>
             <div class="container">
                 <ul id="navlist" style="float:right;">
-                    <li><a href="http://translationexchange.com/docs" class="quiet"><?php tre("Documentation") ?></a></li>
+                    <li><a href="http://welcome.translationexchange.com/docs" class="quiet"><?php tre("Documentation") ?></a></li>
 
                     <li><a href="http://github.com/translationexchange" class="quiet"><?php tre("GitHub") ?></a></li>
 

@@ -1,10 +1,10 @@
-<?php include('docs/includes/header.php'); ?>
+<?php include('includes/header.php'); ?>
 
 <?php tml_begin_block_with_options(array("source" => "welcome")) ?>
 
 <style>
     h3.hr {
-        background: url('<?php echo url_for("docs/assets/img/hr.png")?>') center center no-repeat;
+        background: url('<?php echo url_for("assets/img/hr.png")?>') center center no-repeat;
         text-align: center;
     }
     h3 span {
@@ -118,4 +118,4 @@
 
 <?php tml_finish_block_with_options() ?>
 
-<?php include('docs/includes/footer.php'); ?>
+<?php include('includes/footer.php'); ?>

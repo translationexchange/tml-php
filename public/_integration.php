@@ -3,7 +3,7 @@
 
     <h2>Integration</h2>
     <p>
-      Before you can proceed with the integration, you need to <a href='https://translationexchange.com'>register a new application on TranslationExchange.com</a> and copy the key and the secret for the app.
+      Before you can proceed with the integration, you need to <a href='https://dashboard.translationexchange.com'>register a new application on TranslationExchange.com</a> and copy the key and the secret for the app.
       You will need to enter them in the initialization function of the Tml SDK.
     </p>
 
@@ -14,7 +14,7 @@
 
 "); ?>
 
-<pre><code class="language-php">&lt;?php require_once(__DIR__ . '/vendor/tml/tml-client-sdk/library/Tml.php'); ?&gt;
+<pre><code class="language-php">&lt;?php require_once(__DIR__ . '/vendor/translationexchange/tml/src/init.php'); ?&gt;
 </code></pre>
 
 <?php trhe("
@@ -24,7 +24,7 @@
     </p>
 "); ?>
 
-<pre><code class="language-php">&lt;?php tml_init(YOUR_APP_KEY, YOUR_APP_SECRET); ?&gt;
+<pre><code class="language-php">&lt;?php tml_init(YOUR_APPLICATION_TOKEN); ?&gt;
 </code></pre>
 
 <?php trhe("
@@ -39,7 +39,7 @@
     </p>
 "); ?>
 
-<pre><code class="language-php">&lt;?php include(__DIR__ . '/../tml_php_clientsdk/library/Tml/Includes/Scripts.php'); ?&gt;
+<pre><code class="language-php">&lt;?php tml_scripts(); ?&gt;
 </code></pre>
 
 <?php trhe("
@@ -58,7 +58,7 @@
     </p>
 "); ?>
 
-<pre><code class="language-php">&lt;?php tml_complete_request ?&gt;
+<pre><code class="language-php">&lt;?php tml_complete_request() ?&gt;
 </code></pre>
 
 <?php trhe("
@@ -69,17 +69,17 @@
     </p>
 "); ?>
 
-<pre><code class="language-php" style="font-size:10px">&lt;?php require_once(__DIR__ . '/vendor/tml/tml-client-sdk/library/Tml.php'); ?&gt;
+<pre><code class="language-php" style="font-size:10px">&lt;?php require_once(__DIR__ . '/vendor/translationexchange/tml/src/init.php'); ?&gt;
 
-&lt;?php tml_init("YOUR_APPLICATION_TOKEN"); ?&gt;
+&lt;?php tml_init("YOUR_APPLICATION_TOKEN") ?&gt;
 
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;
 
-&lt;html xmlns="http://www.w3.org/1999/xhtml" lang="&lt;?php echo tml_current_language-&gt;locale; ?&gt;"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" lang="&lt;?php echo tml_current_locale() ?&gt;"&gt;
 
 &lt;head&gt;
   &lt;meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" /&gt;
-  &lt;?php tml_scripts(); ?&gt;
+  &lt;?php tml_scripts() ?&gt;
 &lt;/head&gt;
 
 &lt;body&gt;

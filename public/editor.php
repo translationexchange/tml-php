@@ -60,7 +60,7 @@
     $selected_editor = (isset($_GET["editor"]) ? $_GET["editor"] : (isset($_POST["editor"]) ? $_POST["editor"] : "ckeditor"));
 ?>
 
-<form action="/tml/docs/editor.php" method="post" id="editor_form">
+<form action="editor.php" method="post" id="editor_form">
 
 <div style="margin-top:20px;" class="yui-skin-sam">
         <input type="hidden" id="file_action" name="file_action">
@@ -154,7 +154,7 @@
     $params["special_tokens"] = isset($_POST["special_tokens"]);
     $params["numeric_tokens"] = isset($_POST["numeric_tokens"]);
 ?>
-<iframe id="translations" src="<?php echo \Tml\Config::instance()->configValue("local.base_path") ?>/docs/editor_content.php?<?php echo http_build_query($params) ?>" name="results" style="width:100%;height:500px;background:white;border:1px solid #eee;"></iframe>
+<iframe id="translations" src="editor_content.php?<?php echo http_build_query($params) ?>" name="results" style="width:100%;height:500px;background:white;border:1px solid #eee;"></iframe>
 
 <?php if ($selected_editor == 'ckeditor') { ?>
     <?php javascript_tag('../editors/ckeditor/ckeditor.js') ?>
@@ -227,7 +227,7 @@
     function updateSelection() {
         var edt = $('#editor').find(":selected").val();
         var sel = $('#sample').find(":selected").val();
-        location.href = "<?php echo \Tml\Config::instance()->configValue("local.base_path") ?>/docs/editor.php?editor=" +  edt + "&sample=" + sel;
+        location.href = "editor.php?editor=" +  edt + "&sample=" + sel;
     }
 
     function newSample() {
@@ -274,7 +274,7 @@
         params["special_tokens"] = asParam('special_tokens');
         params["numeric_tokens"] = asParam('numeric_tokens');
 
-        return "<?php echo \Tml\Config::instance()->configValue("local.base_path") ?>/docs/editor_content.php?sample=<?php echo $selected_sample ?>&" + $.param(params);
+        return "editor_content.php?sample=<?php echo $selected_sample ?>&" + $.param(params);
     }
 
     function reloadTranslations() {

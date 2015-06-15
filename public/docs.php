@@ -14,7 +14,6 @@
             </div>
 
             <?php include('_introduction.php'); ?>
-            <?php include('_installation.php'); ?>
             <?php include('_integration.php'); ?>
             <?php include('tml/_index.php'); ?>
 

@@ -95,7 +95,7 @@
 <div class="example">
     <div class="title"><?php tre("example") ?></div>
 
-    <pre><code class="language-php">tr("[link] Click here [/link] to view this section of the document", array("link" => array("href" => "/docs")))</code></pre>
+    <pre><code class="language-php">tr("[link] Click here [/link] to view this section of the document", array("link" => array("href" => "docs.php")))</code></pre>
 
     <div class="content">
         <?php tre("[link] Click here [/link] to view this section of the document", array("link" => array("href" => ""))) ?>
@@ -110,7 +110,7 @@
     <div class="title"><?php tre("example") ?></div>
 
     <pre><code class="language-php">tr("[link] [bold: Click here] to view [underline: the introduction section] of this document [/link]", array(
-    "link" => array("href" => "/docs"),
+    "link" => array("href" => "docs.php"),
     "underline" => "<span style='text-decoration: underline'>{$0}</span>"
 ))</code></pre>
 

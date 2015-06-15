@@ -28,7 +28,7 @@ $examples = array(
 )
 ?>
 
-    <form action="<?php echo \Tml\Config::instance()->configValue("local.base_path") ?>/docs/tml_content.php" method="get" id="tml_form" target="tml_translations">
+    <form action="tml_content.php" method="get" id="tml_form" target="tml_translations">
         <input type="hidden" id="tml_label" name="tml_label" value="">
         <input type="hidden" id="tml_context" name="tml_context" value="">
         <input type="hidden" id="tml_tokens" name="tml_tokens" value="">
@@ -110,7 +110,7 @@ $examples = array(
         &#9660;
     </div>
 
-    <iframe id="tml_translations" name="tml_translations" src="<?php echo \Tml\Config::instance()->configValue("local.base_path") ?>/docs/tml_content.php" style="width:100%;height:600px;background:white;border:1px solid #eee;"></iframe>
+    <iframe id="tml_translations" name="tml_translations" src="tml_content.php" style="width:100%;height:600px;background:white;border:1px solid #eee;"></iframe>
 
 <?php tml_finish_block_with_options() ?>
 <?php include('includes/footer.php'); ?>
