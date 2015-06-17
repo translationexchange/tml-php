@@ -240,6 +240,22 @@ function tml_current_translator() {
 }
 
 /**
+ * Opens the source block
+ *
+ * @param string $name
+ */
+function tml_begin_source($name) {
+    tml_begin_block_with_options(array("source" => $name));
+}
+
+/**
+ * Closes the source block
+ */
+function tml_finish_source() {
+    Config::instance()->finishBlockWithOptions();
+}
+
+/**
  * @param array $options
  */
 function tml_begin_block_with_options($options = array()) {
