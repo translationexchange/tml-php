@@ -3,12 +3,6 @@
         "enabled": false,
         "severity": "debug"
     },
-	"cache": {
-        "enabled": true,
-        "adapter": "file",
-        "path": "cache",
-        "version": "current"
-    },
     "cache_sample_file": {
         "enabled": true,
         "adapter": "file",
