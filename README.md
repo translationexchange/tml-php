@@ -5,9 +5,9 @@
 Tml for PHP
 ==================
 
+[![Latest Stable Version](https://poser.pugx.org/translationexchange/tml/v/stable)](https://packagist.org/packages/translationexchange/tml)
 [![Build Status](https://travis-ci.org/translationexchange/tml-php.svg?branch=master)](https://travis-ci.org/translationexchange/tml-php)
 [![Coverage Status](https://coveralls.io/repos/translationexchange/tml-php/badge.svg)](https://coveralls.io/r/translationexchange/tml-php)
-[![Latest Stable Version](https://poser.pugx.org/translationexchange/tml/v/stable)](https://packagist.org/packages/translationexchange/tml)
 [![Latest Unstable Version](https://poser.pugx.org/translationexchange/tml/v/unstable)](https://packagist.org/packages/translationexchange/tml)
 [![Dependency Status](https://www.versioneye.com/user/projects/54c9c297de7924f81a00000c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54c9c297de7924f81a00000c)
 [![Total Downloads](https://poser.pugx.org/translationexchange/tml/downloads)](https://packagist.org/packages/translationexchange/tml)
