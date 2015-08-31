@@ -17,9 +17,12 @@
     )
 )); ? -->
 
-<?php tml_init("15228c9bd42a39b6159b90a75c21639f9c458f1bb2cd6db5a7e0c177abc2af16", array(
+<?php tml_init(array(
+    "key"   => "c5d1005ced6df79cd2f7e78410134a68ec5546812013518a02402cfba1797eba",
+    "token" => "04165d184608f9e2ada04b35d995a39703031aba4b76627dfa4164318b21a7d9",
+    "host"  => "http://localhost:3000",
     "cache" => array(
-        "enabled"   => true,
+        "enabled"   => false,
         "adapter"   => "memcache",
         "host"      => "localhost",
         "port"      => 11211

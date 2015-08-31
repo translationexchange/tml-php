@@ -58,8 +58,11 @@ To make sure you have installed everything correctly, create a sample test file 
 Paste the following content into the file:
 
 ```php
-<?php require_once(__DIR__ . '/vendor/translationexchange/tml/library/tml.php'); ?>
-<?php tml_init("YOUR_APPLICATION_TOKEN"); ?>
+<?php require_once(__DIR__ . '/vendor/translationexchange/tml/src/init.php'); ?>
+<?php tml_init(array(
+    "key" => YOUR_APPLICATION_TOKEN,
+    "token" => YOUR_APPLICATION_TOKEN
+)); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo tml_current_locale(); ?>">
@@ -75,7 +78,7 @@ Paste the following content into the file:
 ```
 
 
-Make sure you replace YOUR_APPLICATION_TOKEN with the token you copied from translationexchange.com
+Make sure you replace YOUR_APPLICATION_KEY with the key and YOUR_APPLICATION_TOKEN with the token you copied from translationexchange.com
 
 Now you can open up your browser and navigate to the file:
 
@@ -104,7 +107,7 @@ To learn about various integration options and TML features, visit our online in
 Links
 ==================
 
-* Register at TranslationExchange.com: https://translationexchange.com
+* Register at TranslationExchange.com: http://translationexchange.com
 
 * Follow TranslationExchange on Twitter: https://twitter.com/translationx
 

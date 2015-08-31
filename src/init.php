@@ -78,14 +78,14 @@ use Tml\Utils\StringUtils;
  *
  * @param null $token
  * @param array $options
- * @internal param null $host
- * @internal param null $key
- * @internal param null $secret
  * @return bool
  */
-function tml_init($token = null, $options = array()) {
+function tml_init($options = array()) {
     global $tml_page_t0;
     $tml_page_t0 = microtime(true);
+
+    $key = $options["key"];
+    $token = $options["token"];
 
     if (!$token) $token = Config::instance()->configValue("application.token");
     $host = isset($options["host"]) ? $options["host"] : Config::instance()->configValue("application.host");
