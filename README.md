@@ -41,9 +41,9 @@ Now install Tml library by executing the following command:
 $ composer install
 ```
 
-Composer will automatically create a vendor folder and put the SDK into vendor/tr8n/tr8n-client-sdk directory.
+Composer will automatically create a vendor folder and put the SDK into vendor/translationexchange/tml directory.
 
-Now you are ready to integrate Tr8n into your application.
+Now you are ready to integrate TML into your application.
 
 
 Integration
@@ -51,7 +51,7 @@ Integration
 
 Before you can proceed with the integration, please visit http://translationexchange.com to register your application.
 
-Once you have created a new application, you will be given an application key and a secret. You will need to enter them in the initialization function of the Tr8n SDK.
+Once you have created a new application, you will be given an application key and a secret. You will need to enter them in the initialization function of the TML SDK.
 
 To make sure you have installed everything correctly, create a sample test file in the root folder of your app and call it index.php
 
@@ -80,18 +80,22 @@ Paste the following content into the file:
 
 Make sure you replace YOUR_APPLICATION_KEY with the key and YOUR_APPLICATION_TOKEN with the token you copied from translationexchange.com
 
+You can start the default PHP web server from your application folder using the following command:
+
+```sh
+$ php -S localhost:8080
+```
+
 Now you can open up your browser and navigate to the file:
 
-http://localhost/your_app_path/index.php
+http://localhost:8080/index.php
 
 
 If everything was configured correctly, you should see a phrase "Hello World" on your page.
 
 Press the following keys:  Ctrl+Shift+S
 
-You should see a lightbox with Tr8n's default shortcuts. You can configure those shortcuts in the application administration section.
-
-To close the lightbox, click on the top-right corner or simply press the Esc button.
+You should see a lightbox with TML's default shortcuts. To close the lightbox, click on the top-right corner or simply press the Esc button.
 
 Press Ctrl+Shift+L to switch to a different language.
 
@@ -113,7 +117,7 @@ Links
 
 * Connect with TranslationExchange on Facebook: https://www.facebook.com/translationexchange
 
-* If you have any questions or suggestions, contact us: info@translationexchange.com
+* If you have any questions or suggestions, contact us: support@translationexchange.com
 
 
 Copyright and license
