@@ -55,7 +55,7 @@ class ApiClient {
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_TIMEOUT        => 60,
-        CURLOPT_USERAGENT      => 'tml-php',
+        CURLOPT_USERAGENT      => "tml-php v3.0.0 (CURL)",
     );
 
     /**
@@ -105,6 +105,9 @@ class ApiClient {
             Logger::instance()->info("GET: " . $opts[CURLOPT_URL]);
         }
 
+        $opts[CURLOPT_ENCODING] = "gzip, deflate";
+        $opts[CURLOPT_VERBOSE] = 0;
+
         curl_setopt_array($ch, $opts);
 
         $result = curl_exec($ch);
@@ -115,6 +118,7 @@ class ApiClient {
         }
 
         $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $content_size = curl_getinfo($ch, CURLINFO_REQUEST_SIZE);
 
 //        Logger::instance()->info($result);
 
@@ -127,7 +131,7 @@ class ApiClient {
 
         $t1 = microtime(true);
         $milliseconds = round($t1 - $t0,3)*1000;
-        Logger::instance()->info("Received " . strlen($result) . " chars in " . $milliseconds . " milliseconds");
+        Logger::instance()->info("Received compressed $content_size uncompressed " . strlen($result) . " in " . $milliseconds . " milliseconds");
 
         return $result;
     }
@@ -180,7 +184,7 @@ class ApiClient {
         if (!Cache::instance()->isCdnVersion()) return null;
 
         $cdn_path = "/" . $access_token . "/" . Cache::version() . "/" . $cache_key . ".json";
-        $data = self::executeRequest($cdn_path, array(), array("host" => self::CDN_HOST));
+        $data = self::executeRequest($cdn_path, array(), array("host" => self::CDN_HOST, "compressed" => true));
 
         // AWS returns XML messages when data is not found
         if (preg_match("/xml/", $data)) return null;
