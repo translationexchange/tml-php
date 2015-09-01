@@ -278,8 +278,8 @@ class Application extends Base {
      * @return Language
      */
     public function fetchLanguage($locale) {
-        return $this->apiClient()->get("languages/$locale",
-            array("definition" => true),
+        return $this->apiClient()->get("languages/$locale/definition",
+            array(),
             array("class" => '\Tml\Language',
                 "attributes" => array("application" => $this, "locale" => $locale),
                 "cache_key"  => Language::cacheKey($locale)
