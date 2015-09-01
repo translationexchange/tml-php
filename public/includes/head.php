@@ -26,6 +26,10 @@
         "adapter"   => "memcache",
         "host"      => "localhost",
         "port"      => 11211
+    ),
+    "log" => array(
+        "enabled"   => true,
+        "severity"  => "debug"
     )
 )); ?>
 

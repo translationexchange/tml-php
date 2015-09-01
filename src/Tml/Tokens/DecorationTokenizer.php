@@ -36,6 +36,7 @@ namespace Tml\Tokens;
 use Tml\Config;
 use Tml\TmlException;
 use Tml\Utils\ArrayUtils;
+use Tml\Logger;
 
 class DecorationTokenizer {
 
@@ -43,9 +44,11 @@ class DecorationTokenizer {
 
     const RE_SHORT_TOKEN_START = '\[[\w]*:';
     const RE_SHORT_TOKEN_END   = '\]';
-    const RE_LONG_TOKEN_START  = '\[[\w]*\]';
-    const RE_LONG_TOKEN_END    = '\[\/[\w]*\]';
-    const RE_TEXT              = '[^\[\]]+'; #'[\w\s!.:{}\(\)\|,?]*'
+    const RE_LONG_TOKEN_START  = '\[[\w]*\]';   # [link]
+    const RE_LONG_TOKEN_END    = '\[\/[\w]*\]'; # [/link]
+    const RE_HTML_TOKEN_START  = '<[^\>]*>';    # <link>
+    const RE_HTML_TOKEN_END    = '<\/[^\>]*>';  # </link>
+    const RE_TEXT              = '[^\[\]<>]+';    #'[\w\s!.:{}\(\)\|,?]*'
 
     /**
      * @var string[]
@@ -91,6 +94,7 @@ class DecorationTokenizer {
         $re = implode('|', array(
             self::RE_SHORT_TOKEN_START, self::RE_SHORT_TOKEN_END,
             self::RE_LONG_TOKEN_START, self::RE_LONG_TOKEN_END,
+            self::RE_HTML_TOKEN_START, self::RE_HTML_TOKEN_END,
             self::RE_TEXT
         ));
 
@@ -129,6 +133,12 @@ class DecorationTokenizer {
             return $this->parseTree(trim($token, '[]'), "long");
         }
 
+        if (preg_match('/'.self::RE_HTML_TOKEN_START.'/', $token)) {
+            if (strpos($token, '/>') !== FALSE) return $token;
+            $parts = explode(" ", trim($token, '<>'));
+            return $this->parseTree($parts[0], "html");
+        }
+
         return $token;
     }
 
@@ -155,6 +165,11 @@ class DecorationTokenizer {
             }
         } else if ($type == 'long') {
             while ($this->peek()!=null && !preg_match('/'.self::RE_LONG_TOKEN_END.'/', $this->peek())) {
+                $value = $this->parse();
+                array_push($tree, $value);
+            }
+        } else if ($type == 'html') {
+            while ($this->peek()!=null && !preg_match('/'.self::RE_HTML_TOKEN_END.'/', $this->peek())) {
                 $value = $this->parse();
                 array_push($tree, $value);
             }
@@ -263,7 +278,8 @@ class DecorationTokenizer {
      * @return string
      */
     function substitute() {
-        return $this->evaluate($this->parse());
+        $result = $this->evaluate($this->parse());
+        return str_replace("[/tml]", "", $result);
     }
 
 }

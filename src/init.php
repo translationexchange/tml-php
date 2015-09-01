@@ -84,10 +84,9 @@ function tml_init($options = array()) {
     global $tml_page_t0;
     $tml_page_t0 = microtime(true);
 
-    $key = $options["key"];
-    $token = $options["token"];
+    $key = isset($options["key"]) ? $options["key"] : Config::instance()->configValue("application.key");
+    $token = isset($options["token"]) ? $options["token"] : Config::instance()->configValue("application.token");
 
-    if (!$token) $token = Config::instance()->configValue("application.token");
     $host = isset($options["host"]) ? $options["host"] : Config::instance()->configValue("application.host");
     foreach(array("cache", "log", "local") as $type) {
         if (isset($options[$type]))
@@ -102,10 +101,10 @@ function tml_init($options = array()) {
     $cookie_params = null;
 
     // create application instance, but don't initialize it yet
-    Config::instance()->application = new Application(array("name" => "", "access_token" => $token, "host" => $host));
+    Config::instance()->application = new Application(array("name" => "", "key" => $key, "access_token" => $token, "host" => $host));
 
     // get cookie name
-    $cookie_name = "trex_" . substr($token, 0, 20) . "_translationexchange";
+    $cookie_name = "trex_" . $key;
 
     // check if cookie is set
     if (isset($_COOKIE[$cookie_name])) {

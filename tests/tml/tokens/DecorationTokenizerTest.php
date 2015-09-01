@@ -120,6 +120,19 @@ class DecorationTokenizerTest extends \BaseTest {
         $dt = new DecorationTokenizer("[p: Hello World]", array("p" => '<p>{$0}</p>'));
         $this->assertEquals("<p>Hello World</p>", $dt->substitute());
 
+        $dt = new DecorationTokenizer("<p>Hello World</p>", array("p" => '<p>{$0}</p>'));
+        $this->assertEquals(array('[tml]', '<p>', 'Hello World', '</p>', '[/tml]'), $dt->fragments);
+        $this->assertEquals("<p>Hello World</p>", $dt->substitute());
+
+        $dt = new DecorationTokenizer("<link>Hello World</link>", array("link" => '<a href="test.com">{$0}</a>'));
+        $this->assertEquals('<a href="test.com">Hello World</a>', $dt->substitute());
+
+        $dt = new DecorationTokenizer("<link>Hello <strong>World</strong></link>", array("link" => '<a href="test.com">{$0}</a>'));
+        $this->assertEquals('<a href="test.com">Hello <strong>World</strong></a>', $dt->substitute());
+
+        $dt = new DecorationTokenizer("<link>Hello [indent: World]</link>", array("link" => '<a href="test.com">{$0}</a>', "indent" => '<strong>{$0}</strong>'));
+        $this->assertEquals('<a href="test.com">Hello <strong>World</strong></a>', $dt->substitute());
+
         $dt = new DecorationTokenizer("[p: Hello World]", array("p" => function($v){return "<p>$v</p>";}));
         $this->assertEquals("<p>Hello World</p>", $dt->substitute());
 

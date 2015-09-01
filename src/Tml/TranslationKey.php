@@ -369,14 +369,17 @@ class TranslationKey extends Base {
      * @return string
      */
     public function substituteTokens($label, $token_values, $language, $options = array()) {
+        if (preg_match('/[\[<]/', $label)) {
+            $dt = new DecorationTokenizer($label, $token_values, array("allowed_tokens" => $this->decorationTokens()));
+            $label = $dt->substitute();
+        }
+
         if (strpos($label, '{') !== FALSE) {
             $dt = new DataTokenizer($label, $token_values, array("allowed_tokens" => $this->dataTokenNamesMap()));
             $label = $dt->substitute($language, $options);
         }
 
-        if (strpos($label, '[') === FALSE) return $label;
-        $dt = new DecorationTokenizer($label, $token_values, array("allowed_tokens" => $this->decorationTokens()));
-        return $dt->substitute();
+        return $label;
     }
 
 
