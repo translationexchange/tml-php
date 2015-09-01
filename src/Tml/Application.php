@@ -101,11 +101,6 @@ class Application extends Base {
     public $sources;
 
     /**
-     * @var Component[]
-     */
-    public $components;
-
-    /**
      * @var Language[]
      */
     public $languages_by_locale;
@@ -114,11 +109,6 @@ class Application extends Base {
      * @var Source[]
      */
     public $sources_by_key;
-
-    /**
-     * @var Component[]
-     */
-    public $components_by_key;
 
     /**
      * @var array
@@ -151,7 +141,7 @@ class Application extends Base {
     public function fetch() {
         Logger::instance()->info("Initializing application...");
 
-        $data = $this->apiClient()->get("applications/current", array('definition' => true),
+        $data = $this->apiClient()->get("projects/current/definition", array('definition' => true),
             array('cache_key' => self::cacheKey())
         );
 
@@ -213,13 +203,6 @@ class Application extends Base {
             }
         }
 
-        $this->components = array();
-        if (isset($attributes['components'])) {
-            foreach($attributes['components'] as $l) {
-                array_push($this->components, new Component(array_merge($l, array("application" => $this))));
-            }
-        }
-
         if (isset($attributes['features'])) {
             $this->features = $attributes['features'];
         }
@@ -234,7 +217,6 @@ class Application extends Base {
 
         $this->languages_by_locale  = null;
         $this->sources_by_key       = null;
-        $this->components_by_key    = null;
         $this->translation_keys     = array();
         $this->missing_keys_by_sources = null;
     }
@@ -257,7 +239,6 @@ class Application extends Base {
 
     /**
      * @param string|null $locale
-     * @internal param bool $fetch
      * @return Language
      */
     public function language($locale = null) {
@@ -531,7 +512,9 @@ class Application extends Base {
         return $hash;
     }
 
-
+    /**
+     * @return ApiClient
+     */
     public function apiClient() {
         if ($this->api_client == null) {
             $this->api_client = new ApiClient($this);

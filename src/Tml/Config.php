@@ -180,7 +180,7 @@ class Config {
         }
 
         if ($this->isEnabled()) {
-            $this->current_language = $this->application->language((isset($options['locale']) ? $options['locale'] : $this->default_locale), true);
+            $this->current_language = $this->application->language((isset($options['locale']) ? $options['locale'] : $this->default_locale));
         } else {
             $this->current_language = $this->application->language($this->default_locale);
         }

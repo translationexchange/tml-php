@@ -48,13 +48,14 @@ class HtmlDecorator extends Base {
     public function decorate($translated_label, $translation_language, $target_language, $translation_key, $options) {
         if (array_key_exists("skip_decorations", $options)) return $translated_label;
 
-        if ($translation_key->locale == $target_language->locale) return $translated_label;
+        if ($translation_key->application &&
+            $translation_key->application->isFeatureEnabled("lock_original_content") &&
+            $translation_key->locale == $target_language->locale) return $translated_label;
 
         $config = Config::instance();
 
         if ($config->current_translator == null) return $translated_label;
         if (!$config->current_translator->isInlineModeEnabled()) return $translated_label;
-        if ($translation_key->isLocked() && !$config->current_translator->isManager()) return $translated_label;
 
         $classes = array('tml_translatable');
 

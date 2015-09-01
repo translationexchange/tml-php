@@ -246,7 +246,7 @@ class Language extends Base {
             $translation_key = $this->createTranslationKey($label, $description, $options);
             $token_values = array_merge($token_values, array("viewing_user" => Config::instance()->current_user));
 
-            if (Config::instance()->isDisabled() || $this->locale == $translation_key->locale) {
+            if (Config::instance()->isDisabled()) {
                 return $translation_key->substituteTokens($label, $token_values, $this, $options);
             }
 

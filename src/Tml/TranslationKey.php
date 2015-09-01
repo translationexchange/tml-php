@@ -303,7 +303,7 @@ class TranslationKey extends Base {
     public function translate($language, $token_values = array(), $options = array()) {
 //        Logger::instance()->debug("Translating $this->label from $this->locale to $language->locale");
 
-        if (Config::instance()->isDisabled() || ($language->locale == $this->locale)) {
+        if (Config::instance()->isDisabled()) {
             return $this->substituteTokens($this->label, $token_values, $language, $options);
         }
 
