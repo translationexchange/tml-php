@@ -60,7 +60,7 @@ class MethodToken extends DataToken {
      * @return string
      */
     public static function expression() {
-        return '/(\{[^_:.][\w]*(\.[\w]+)(:[\w]+)*(::[\w]+)*\})/';
+        return '/(%?\{{1,2}\s*[\w]*\.\w*\s*(:\s*\w+)*\s*(::\s*\w+)*\s*\}{1,2})/';
     }
 
 //    public function parse() {

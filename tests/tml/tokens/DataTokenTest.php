@@ -45,6 +45,18 @@ class DataTokenTest extends \BaseTest {
         $this->assertEquals(array(), $token->context_keys);
         $this->assertEquals(array(), $token->case_keys);
 
+        $token = DataToken::tokenWithName("{{user}}");
+        $this->assertEquals("{{user}}", $token->full_name);
+        $this->assertEquals("user", $token->short_name);
+        $this->assertEquals(array(), $token->context_keys);
+        $this->assertEquals(array(), $token->case_keys);
+
+        $token = DataToken::tokenWithName("%{user}");
+        $this->assertEquals("%{user}", $token->full_name);
+        $this->assertEquals("user", $token->short_name);
+        $this->assertEquals(array(), $token->context_keys);
+        $this->assertEquals(array(), $token->case_keys);
+
         $token = DataToken::tokenWithName("{ user }");
         $this->assertEquals("{ user }", $token->full_name);
         $this->assertEquals("user", $token->short_name);

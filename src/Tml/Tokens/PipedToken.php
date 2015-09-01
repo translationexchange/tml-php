@@ -76,14 +76,15 @@ class PipedToken extends DataToken {
      * @return string
      */
     public static function  expression() {
-        return '/(\{[^_:|][\w]*(:[\w]+)*(::[\w]+)*\s*\|\|?[^{^}]+\})/';
+        return '/(%?\{{1,2}\s*[\w]*\s*(:\s*\w+)*\s*\|\|?[^\{\}\|]+\}{1,2})/';
     }
 
     /**
      * Parses token elements
      */
     public function parse() {
-        $name_without_parens = preg_replace('/[{}]/', '', $this->full_name);
+        $name_without_parens = preg_replace('/^%/', '', $this->full_name);
+        $name_without_parens = preg_replace('/[{}]/', '', $name_without_parens);
 
         $parts = explode('|', $name_without_parens);
         $name_without_pipes = trim($parts[0]);
