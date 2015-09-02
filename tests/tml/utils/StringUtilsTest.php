@@ -36,6 +36,22 @@ require_once(__DIR__."/../../BaseTest.php");
 
 class StringUtilsTest extends \BaseTest {
 
+    public function testStartsWith() {
+        $this->assertTrue(StringUtils::startsWith(array("test", "test1"), "test"));
+        $this->assertTrue(StringUtils::startsWith(array("test", "test1"), "test 124"));
+        $this->assertTrue(StringUtils::startsWith(array("test", "test1"), "test1"));
+        $this->assertFalse(StringUtils::startsWith(array("test", "test1"), "thetest1"));
+        $this->assertTrue(StringUtils::startsWith("the", "thetest"));
+    }
+
+    public function testEndsWith() {
+        $this->assertTrue(StringUtils::endsWith(array("test", "test1"), "test"));
+        $this->assertFalse(StringUtils::endsWith(array("test", "test1"), "test 124"));
+        $this->assertTrue(StringUtils::endsWith(array("test", "test1"), "test1"));
+        $this->assertTrue(StringUtils::endsWith(array("test", "test1"), "thetest1"));
+        $this->assertTrue(StringUtils::endsWith("st", "thetest"));
+    }
+
     public function testSplitToSentences() {
         $text = "Hello World";
         $matches = StringUtils::splitSentences($text);
@@ -56,4 +72,38 @@ Genealogical societies are essential to family history researchers. </p>
         $this->assertEquals(3, count($matches));
     }
 
+    public function testPrettyPrint() {
+        $data = array(
+            array(  "source" =>  "/posts/privacy_policy",
+                "keys"  =>
+                    array(
+                        array(  "label"=>"Hello {user}",
+                            "locale"=>"en",
+                        ),
+                        array(
+                            "label"=>"Documentation",
+                            "locale"=>"en",
+                        )
+                    )
+            )
+        );
+
+        $result = StringUtils::prettyPrint(json_encode($data));
+        $this->assertEquals('[
+	{
+		"source": "\/posts\/privacy_policy",
+		"keys": [
+			{
+				"label": "Hello {user}",
+				"locale": "en"
+			},
+			{
+				"label": "Documentation",
+				"locale": "en"
+			}
+		]
+	}
+]', $result);
+
+    }
 }

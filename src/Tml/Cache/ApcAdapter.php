@@ -37,10 +37,22 @@ use Tml\Config;
 
 class ApcAdapter extends Base {
 
+    /**
+     * Returns adapter name
+     *
+     * @return string
+     */
     public function key() {
         return "apc";
     }
 
+    /**
+     * Fetches data from APC
+     *
+     * @param $key
+     * @param null $default
+     * @return mixed|null
+     */
     public function fetch($key, $default = null) {
         $success = false;
 
@@ -67,22 +79,40 @@ class ApcAdapter extends Base {
         return $value;
     }
 
-
+    /**
+     * Stores data in APC
+     *
+     * @param $key
+     * @param $value
+     * @return array|bool
+     */
     public function store($key, $value) {
         $this->info("Cache store " . $key);
 
         return apc_store(
             $this->versionedKey($key),
-            $value,
+            $this->stripExtensions($value),
             Config::instance()->configValue("cache.timeout", 0)
         );
     }
 
+    /**
+     * Deletes data from APC
+     *
+     * @param $key
+     * @return bool|\string[]
+     */
     public function delete($key) {
         $this->info("Cache delete " . $key);
         return apc_delete($this->versionedKey($key));
     }
 
+    /**
+     * Check if data exists in APC
+     *
+     * @param $key
+     * @return bool|\string[]
+     */
     public function exists($key) {
         $this->info("Cache exists " . $key);
         return apc_exists($this->versionedKey($key));

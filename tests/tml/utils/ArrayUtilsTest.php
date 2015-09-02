@@ -36,6 +36,59 @@ require_once(__DIR__."/../../BaseTest.php");
 
 class ArrayUtilsTest extends \BaseTest {
 
+    public function testFlatten() {
+        $result = ArrayUtils::flatten(array("hello", array("new", "world")));
+        $this->assertEquals(array("hello", "new", "world"), $result);
+    }
+
+    public function testNormalizeTmlParams() {
+        $result = ArrayUtils::normalizeTmlParameters("Hello World");
+        $this->assertEquals(array("label" => "Hello World", "description" => "", "tokens" => array(), "options" => array()), $result);
+
+        $result = ArrayUtils::normalizeTmlParameters("Hello World", "Test");
+        $this->assertEquals(array("label" => "Hello World", "description" => "Test", "tokens" => array(), "options" => array()), $result);
+
+        $result = ArrayUtils::normalizeTmlParameters("Hello {user}", "Test", array("user" => "Michael"));
+        $this->assertEquals(array("label" => "Hello {user}", "description" => "Test", "tokens" => array("user" => "Michael"), "options" => array()), $result);
+
+        $result = ArrayUtils::normalizeTmlParameters("Hello {user}", "Test", array("user" => "Michael"), array("test" => true));
+        $this->assertEquals(array("label" => "Hello {user}", "description" => "Test", "tokens" => array("user" => "Michael"), "options" => array("test" => true)), $result);
+
+        $result = ArrayUtils::normalizeTmlParameters("Hello {user}", array("user" => "Michael"));
+        $this->assertEquals(array("label" => "Hello {user}", "description" => "", "tokens" => array("user" => "Michael"), "options" => array()), $result);
+
+        $result = ArrayUtils::normalizeTmlParameters("Hello {user}", array("user" => "Michael"), array("test" => true));
+        $this->assertEquals(array("label" => "Hello {user}", "description" => "", "tokens" => array("user" => "Michael"), "options" => array("test" => true)), $result);
+    }
+
+    public function testCreateAtribute() {
+        $test = array();
+        ArrayUtils::createAttribute($test, array("user", "name"), "Michael");
+        $this->assertEquals(array("user" => array("name" => "Michael")), $test);
+    }
+
+    public function testGetAtribute() {
+        $test = array("user" => array("name" => array("first" => "Michael")));
+        $result = ArrayUtils::getAttribute($test, array("user", "name", "first"));
+        $this->assertEquals("Michael", $result);
+
+        $result = ArrayUtils::getAttribute($test, array("user", "name", "last"));
+        $this->assertNull($result);
+
+        $result = ArrayUtils::getAttribute($test, array("user", "age"));
+        $this->assertNull($result);
+    }
+
+    public function testToHtmlAttributes() {
+        $result = ArrayUtils::toHTMLAttributes(array("style" => "color:red", "class" => "test"));
+        $this->assertEquals('style="color:red" class="test"', $result);
+    }
+
+    public function testSplit() {
+        $result = ArrayUtils::split("This is a test", " ");
+        $this->assertEquals(array("This", "is", "a", "test"), $result);
+    }
+
     public function testTrim() {
       $data = array(
         array(  "source" =>  "/posts/privacy_policy",

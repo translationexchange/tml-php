@@ -86,8 +86,8 @@ function tml_init($options = array()) {
 
     $key = isset($options["key"]) ? $options["key"] : Config::instance()->configValue("application.key");
     $token = isset($options["token"]) ? $options["token"] : Config::instance()->configValue("application.token");
-
     $host = isset($options["host"]) ? $options["host"] : Config::instance()->configValue("application.host");
+
     foreach(array("cache", "log", "local") as $type) {
         if (isset($options[$type]))
             Config::instance()->updateConfig($type, $options[$type]);
@@ -101,38 +101,42 @@ function tml_init($options = array()) {
     $cookie_params = null;
 
     // create application instance, but don't initialize it yet
-    Config::instance()->application = new Application(array("name" => "", "key" => $key, "access_token" => $token, "host" => $host));
+    $application = new Application(array("name" => "", "key" => $key, "access_token" => $token, "host" => $host));
+    Config::instance()->application = $application;
 
     // get cookie name
     $cookie_name = "trex_" . $key;
 
     // check if cookie is set
     if (isset($_COOKIE[$cookie_name])) {
-        Logger::instance()->info("Cookie file $cookie_name found!");
-        $cookie_params = Config::instance()->decode($_COOKIE[$cookie_name]);
+//        Logger::instance()->info("Cookie file $cookie_name found!");
+        $cookie_params = Config::instance()->decode($_COOKIE[$cookie_name], $token);
         $locale = $cookie_params['locale'];
         if (isset($cookie_params['translator'])) {
             $translator = new Translator(array_merge($cookie_params["translator"], array('application' => Config::instance()->application)));
         }
     } else {
-        Logger::instance()->info("Cookie file $cookie_name not found!");
+//        Logger::instance()->info("Cookie file $cookie_name not found!");
     }
+
+    if (!$cookie_params) $cookie_params = array();
 
     // options locale always takes over
     if (isset($options["locale"])) {
         $locale = $options["locale"];
     } else if (isset($_GET["locale"])) {
         $locale =  $_GET["locale"];
-        if (!$cookie_params) $cookie_params = array();
         $cookie_params["locale"] = $_GET["locale"];
-        setcookie($cookie_name, Config::instance()->encode($cookie_params), null, "/");
+        setcookie($cookie_name, Config::instance()->encode($cookie_params, $token), null, "/");
     }
 
-    // use default browser locale
-    if (!$locale) $locale = tml_browser_default_locale();
+    // use default browser locale(s)
+    if (!$locale)
+        $locale = BrowserUtils::parseLanguageList($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
     // use our default locale
-    if (!$locale) $locale = Config::instance()->default_locale;
+    if (!$locale)
+        $locale = Config::instance()->default_locale;
 
     $source = null;
     if (isset($_SERVER["REQUEST_URI"])) {
@@ -145,9 +149,30 @@ function tml_init($options = array()) {
         $source = preg_replace('/\/$/', '', $source);
     }
 
-    if (!$source || $source == '' || $source == '/') $source = "index";
+    if (!$source || $source == '' || $source == '/')
+        $source = "index";
 
-    Config::instance()->initRequest(array('locale' => $locale, 'translator' => $translator, 'source' => $source));
+    Config::instance()->current_translator = $translator;
+    Config::instance()->current_source = $source;
+    Config::instance()->current_locale = $locale;
+
+//    Logger::instance()->debug("Current source: $source");
+
+    try {
+        $application->fetch();
+    } catch (\Exception $e) {
+        Logger::instance()->error("Application failed to initialize: " . $e);
+    }
+
+    if (Config::instance()->isEnabled()) {
+        $current_language = $application->language($locale);
+    } else {
+        $current_language = $application->language(Config::instance()->default_locale);
+    }
+
+    Config::instance()->current_language = $current_language;
+
+    // Config::instance()->initRequest(array('locale' => $locale, 'translator' => $translator, 'source' => $source));
 
     return true;
 }

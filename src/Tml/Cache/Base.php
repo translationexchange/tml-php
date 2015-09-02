@@ -201,4 +201,22 @@ abstract class Base {
     function currentCachePath() {
         return $this->baseCachePath() . DIRECTORY_SEPARATOR . Config::instance()->configValue("cache.version", 'current');
     }
+
+
+    /**
+     * Removes extensions from data
+     *
+     * @param $data
+     * @return string
+     */
+    function stripExtensions($data) {
+        if (!is_string($data)) {
+            $data = json_encode($data);
+        }
+        $json = json_decode($data, true);
+        if (isset($json["extensions"])) {
+            unset($json["extensions"]);
+        }
+        return json_encode($json);
+    }
 }

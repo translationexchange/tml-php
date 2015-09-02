@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2015 Translation Exchange, Inc
  *
@@ -31,63 +30,25 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Tml\Cache;
+namespace Tml;
 
-use Redis;
-use Tml\Config;
+require_once(__DIR__."/../BaseTest.php");
 
-class RedisAdapter extends MemcacheAdapter {
+class CacheTest extends \BaseTest {
 
-    /**
-     * Creates Redis adapter
-     */
-    public function __construct() {
-        $this->cache = new Redis;
-        if (Config::instance()->configValue("socket")) {
-            $this->cache->connect(Config::instance()->configValue("socket"));
-        } else {
-            $this->cache->connect(
-                Config::instance()->configValue("cache.host", 'localhost'),
-                Config::instance()->configValue("cache.port", 6379),
-                Config::instance()->configValue("cache.timeout", 0.0)
-            );
-        }
+    public function testInitAdapter() {
+        $class = Cache::cacheAdapterClass();
+        $this->assertNull($class);
+
+        Config::instance()->setConfigValue("cache.adapter", "file");
+        $class = Cache::cacheAdapterClass();
+        $this->assertEquals('\Tml\Cache\FileAdapter', $class);
     }
 
-    /**
-     * Returns adapter key
-     *
-     * @return string
-     */
-    public function key() {
-        return "redis";
-    }
-
-    /**
-     * Stores data in Redis
-     *
-     * @param $key
-     * @param $value
-     * @return bool
-     */
-    public function store($key, $value) {
-        $this->info("Cache store " . $key);
-        return $this->cache->set(
-            $this->versionedKey($key),
-            $this->stripExtensions($value),
-            Config::instance()->configValue("cache.timeout", 0)
-        );
-    }
-
-    /**
-     * Checks if key exists in Redis
-     * 
-     * @param $key
-     * @return bool
-     */
-    public function exists($key) {
-        $this->info("Cache exists " . $key);
-        return $this->cache->exists($this->versionedKey($key));
+    public function testInstance() {
+        Config::instance()->setConfigValue("cache.adapter", "file");
+        $class = Cache::instance();
+        $this->assertNotNull($class);
     }
 
 }

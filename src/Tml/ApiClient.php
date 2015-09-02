@@ -59,6 +59,8 @@ class ApiClient {
     );
 
     /**
+     * Creates API Client
+     *
      * @param Application $app
      */
     function __construct($app) {
@@ -118,7 +120,7 @@ class ApiClient {
         }
 
         $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $content_size = curl_getinfo($ch, CURLINFO_REQUEST_SIZE);
+        $content_size = curl_getinfo($ch, CURLINFO_SIZE_DOWNLOAD);
 
 //        Logger::instance()->info($result);
 
@@ -137,7 +139,7 @@ class ApiClient {
     }
 
     /**
-     * Fetch cache version from the API - based on the current release
+     * Fetches cache version from the API - based on the current release
      *
      * @param $params
      * @param $options
@@ -148,7 +150,7 @@ class ApiClient {
     }
 
     /**
-     * Check if there is a version set in cache. If it is, use it. If not, fetch it from the API
+     * Checks if there is a version set in cache. If it is, use it. If not, fetch it from the API
      * and store it back in cache.
      *
      * @param $params
@@ -175,16 +177,14 @@ class ApiClient {
      * Fetches data from the CDN based on the current cache version
      *
      * @param $cache_key
-     * @param $access_token
-     * @internal param $params
-     * @internal param $options
+     * @param $key
      * @return array
      */
-    public static function fetchFromCdn($cache_key, $access_token) {
+    public static function fetchFromCdn($cache_key, $key) {
         if (!Cache::instance()->isCdnVersion()) return null;
 
-        $cdn_path = "/" . $access_token . "/" . Cache::version() . "/" . $cache_key . ".json";
-        $data = self::executeRequest($cdn_path, array(), array("host" => self::CDN_HOST, "compressed" => true));
+        $cdn_path = "/" . $key . "/" . Cache::version() . "/" . $cache_key . ".json";
+        $data = self::executeRequest($cdn_path, array(), array("host" => self::CDN_HOST, "compressed" => false));
 
         // AWS returns XML messages when data is not found
         if (preg_match("/xml/", $data)) return null;
@@ -210,7 +210,7 @@ class ApiClient {
             if (!$data) {
                 if (Cache::isReadOnly()) return null;
 
-                $data = self::fetchFromCdn($options["cache_key"], $params["access_token"]);
+                $data = self::fetchFromCdn($options["cache_key"], $options["key"]);
                 if (!$data) {
                     $data = self::executeRequest(self::API_PATH . $path, $params, $options);
                 }
@@ -235,7 +235,7 @@ class ApiClient {
     }
 
     /**
-     * Process API response data
+     * Processes API response data
      *
      * @param string $data
      * @param array $options
@@ -259,7 +259,7 @@ class ApiClient {
     }
 
     /**
-     * Create objects from response data
+     * Creates objects from response data
      *
      * @param $data
      * @param $options
@@ -274,7 +274,7 @@ class ApiClient {
 
 
     /*
-     * Execute API Get call
+     * Executes API Get call
      *
      * @param string $path
      * @param array $params
@@ -286,7 +286,7 @@ class ApiClient {
     }
 
     /**
-     * Execute API Post call
+     * Executes API Post call
      *
      * @param string $path
      * @param array $params
@@ -299,6 +299,8 @@ class ApiClient {
     }
 
     /**
+     * Executes API call
+     *
      * @param string $path
      * @param array $params
      * @param array $options
@@ -306,6 +308,7 @@ class ApiClient {
      */
     public function api($path, $params = array(), $options = array()) {
         $options["host"] = $this->application->host ? $this->application->host : self::API_HOST;
+        $options["key"] = $this->application->key;
         $params["access_token"] = $this->application->access_token;
 
         return self::fetch($path, $params, $options);

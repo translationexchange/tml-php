@@ -34,6 +34,7 @@
 namespace Tml\Decorators;
 
 use Tml\Config;
+use Tml\Logger;
 
 class HtmlDecorator extends Base {
 
@@ -48,7 +49,7 @@ class HtmlDecorator extends Base {
     public function decorate($translated_label, $translation_language, $target_language, $translation_key, $options) {
         if (array_key_exists("skip_decorations", $options)) return $translated_label;
 
-        if ($translation_key->application &&
+        if ($translation_key->application !== null &&
             $translation_key->application->isFeatureEnabled("lock_original_content") &&
             $translation_key->locale == $target_language->locale) return $translated_label;
 

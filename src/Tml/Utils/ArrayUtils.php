@@ -51,6 +51,17 @@ class ArrayUtils {
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 
+    public static function getAttribute($source, $parts) {
+        $value = $source;
+
+        foreach($parts as $part) {
+            if (!isset($value[$part])) return null;
+            $value = $value[$part];
+        }
+
+        return $value;
+    }
+
     public static function createAttribute(&$target, $parts, $value) {
         foreach ($parts as $sub) {
             if (! isset($target[$sub])) {
@@ -61,10 +72,10 @@ class ArrayUtils {
         $target = $value;
     }
 
-    public static function toHTMLAttributes($arr) {
+    public static function toHTMLAttributes($arr, $quote = '"') {
         $attrs = array();
         foreach($arr as $key=>$value) {
-             array_push($attrs, $key . '="' . $value . '"');
+             array_push($attrs, $key . '=' . $quote . $value . $quote);
         }
         return implode($attrs, " ");
     }

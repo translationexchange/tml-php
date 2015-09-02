@@ -47,7 +47,7 @@ class StringUtils {
             }
             return false;
         }
-        return preg_match('/^'.$match.'/', $str);
+        return preg_match('/^'.$match.'/', $str) === 1;
     }
 
     /**
@@ -62,7 +62,7 @@ class StringUtils {
             }
             return false;
         }
-        return preg_match('/'.$match.'$/', $str);
+        return preg_match('/'.$match.'$/', $str) === 1;
     }
 
     /**

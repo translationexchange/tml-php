@@ -104,13 +104,8 @@ class Source extends Base {
      * @param $locale
      */
     public function fetchTranslations($locale) {
-        if (!$this->translations)
-            $this->translations = array();
-
-        if (isset($this->translations[$locale]))
+        if ($this->isLocaleLoaded($locale))
             return;
-
-        $this->translations[$locale] = array();
 
         try {
             $results = $this->application->apiClient()->get(
@@ -120,12 +115,42 @@ class Source extends Base {
             );
         } catch (TmlException $e) {
 //            Logger::instance()->debug("Failed to get the source: $e");
+            $results = null;
             return;
         }
 
         if ($results === null) return;
 
-        foreach($results as $key => $data) {
+        $this->addTranslations($locale, $results);
+    }
+
+    /**
+     * Checks if translations for locale have been loaded
+     *
+     * @param $locale
+     * @return bool
+     */
+    public function isLocaleLoaded($locale) {
+        if (!$this->translations)
+            return false;
+
+        return isset($this->translations[$locale]);
+    }
+
+    /**
+     * Adds translations for locale
+     *
+     * @param $locale
+     * @param $translations
+     */
+    public function addTranslations($locale, $translations) {
+        if (!$this->translations)
+            $this->translations = array();
+
+        $this->translations[$locale] = array();
+
+        foreach($translations as $key => $data) {
+            // cache export comes with original labels {original: {}, translations: []}
             if (isset($data['translations']))
                 $data = $data['translations'];
 
@@ -142,18 +167,20 @@ class Source extends Base {
     }
 
     /**
+     * Gets translations for a specific key from the cache
+     *
      * @param string $locale
      * @param string $key
      * @return null|Translation[]
      */
-    public function cachedTranslations($locale, $key) {
+    public function getCachedTranslations($locale, $key) {
         if (!isset($this->translations[$locale])) return false;
         if (!array_key_exists($key, $this->translations[$locale])) return false;
         return $this->translations[$locale][$key];
     }
 
     /**
-     *
+     * Removes current source from cache
      */
     public function resetCache() {
         foreach($this->application->languages as $lang) {

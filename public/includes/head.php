@@ -22,8 +22,8 @@
     "token" => "04165d184608f9e2ada04b35d995a39703031aba4b76627dfa4164318b21a7d9",
     "host"  => "http://localhost:3000",
     "cache" => array(
-        "enabled"   => false,
-        "adapter"   => "memcache",
+        "enabled"   => true,
+        "adapter"   => "memcached",
         "host"      => "localhost",
         "port"      => 11211
     ),

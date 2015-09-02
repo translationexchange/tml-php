@@ -136,12 +136,21 @@ class Application extends Base {
     private $api_client;
 
     /**
+     * @var array
+     */
+    public $extensions;
+
+    /**
      * @return $this
      */
     public function fetch() {
         Logger::instance()->info("Initializing application...");
 
-        $data = $this->apiClient()->get("projects/current/definition", array('definition' => true),
+        $data = $this->apiClient()->get("projects/current/definition",
+            array(
+                'locale' => Config::instance()->current_locale,
+                'source' => Config::instance()->current_source
+            ),
             array('cache_key' => self::cacheKey())
         );
 
@@ -219,6 +228,51 @@ class Application extends Base {
         $this->sources_by_key       = null;
         $this->translation_keys     = array();
         $this->missing_keys_by_sources = null;
+
+        if (isset($attributes['extensions'])) {
+            $this->extensions = $attributes['extensions'];
+            $this->loadExtensions($attributes['extensions']);
+        }
+    }
+
+    /**
+     * @param $extensions
+     */
+    function loadExtensions($extensions) {
+        $source_locale = $this->default_locale;
+
+        $cache = null;
+        if (Config::instance()->isCacheEnabled() && !Config::instance()->isInlineTranslationModeEnabled())
+            $cache = Cache::instance();
+
+        if (isset($extensions['languages'])) {
+            $this->languages_by_locale = array();
+            foreach($extensions['languages'] as $locale => $data) {
+                if ($source_locale != $locale)
+                    $source_locale = $locale;
+
+                if ($cache) $cache->store(Language::cacheKey($locale), $data);
+
+                $language = new Language(array_merge(
+                    $data,
+                    array("application" => $this, "locale" => $locale)
+                ));
+
+                $this->languages_by_locale[$locale] = $language;
+            }
+        }
+
+        if (isset($extensions['sources'])) {
+            $this->sources_by_key = array();
+
+            foreach($extensions['sources'] as $key => $data) {
+                if ($cache) $cache->store(Source::cacheKey($key, $source_locale), $data);
+                $source = new Source(array("application" => $this, "source" => $key));
+                if (isset($data["results"]))
+                $source->addTranslations($source_locale, $data["results"]);
+                $this->sources_by_key[$key] = $source;
+            }
+        }
     }
 
     /**
@@ -306,23 +360,19 @@ class Application extends Base {
     /**
      * @param $source
      * @param $locale
-     * @internal param string $key
-     * @internal param bool $register
      * @return null|Source
      */
-    public function source($source, $locale) {
+    public function source($key, $locale) {
         if ($this->sources_by_key == null)
             $this->sources_by_key = array();
 
-        if (isset($this->sources_by_key[$source]))
-            return $this->sources_by_key[$source];
+        if (isset($this->sources_by_key[$key]))
+            return $this->sources_by_key[$key];
 
-        $src = new Source(array("application" => $this, "source" => $source));
-        $src->fetchTranslations($locale);
-
-        $this->sources_by_key[$source] = $src;
-
-        return $this->sources_by_key[$source];
+        $source = new Source(array("application" => $this, "source" => $key));
+        $source->fetchTranslations($locale);
+        $this->sources_by_key[$key] = $source;
+        return $this->sources_by_key[$key];
     }
 
     /**
@@ -355,11 +405,26 @@ class Application extends Base {
     }
 
     /**
+     * @param $source_key
+     * @param $source_path
+     */
+    public function verifySourcePath($source_key, $source_path) {
+        if (Config::instance()->isCacheEnabled() && !Config::instance()->isInlineTranslationModeEnabled())
+            return;
+        if (!$this->extensions || !isset($this->extensions["sources"]))
+            return;
+        if (isset($this->extensions["sources"][$source_key]))
+            return;
+        if ($this->missing_keys_by_sources === null)
+            $this->missing_keys_by_sources = array();
+        $this->missing_keys_by_sources[$source_path] = array();
+    }
+
+    /**
      * @param TranslationKey $translation_key
      * @param string $source_key
-     * @internal param \Tml\Source $source
      */
-    public function registerMissingKey($translation_key, $source_key = 'index') {
+    public function registerMissingKey($translation_key, $source_path = 'index') {
         if (!Config::instance()->isKeyRegistrationEnabled())
             return;
 
@@ -367,12 +432,12 @@ class Application extends Base {
             $this->missing_keys_by_sources = array();
         }
 
-        if (!isset($this->missing_keys_by_sources[$source_key])) {
-            $this->missing_keys_by_sources[$source_key] = array();
+        if (!isset($this->missing_keys_by_sources[$source_path])) {
+            $this->missing_keys_by_sources[$source_path] = array();
         }
 
-        if (!isset($this->missing_keys_by_sources[$source_key][$translation_key->key])) {
-            $this->missing_keys_by_sources[$source_key][$translation_key->key] = $translation_key;
+        if (!isset($this->missing_keys_by_sources[$source_path][$translation_key->key])) {
+            $this->missing_keys_by_sources[$source_path][$translation_key->key] = $translation_key;
         }
     }
 

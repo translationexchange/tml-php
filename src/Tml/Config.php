@@ -33,6 +33,7 @@
 
 namespace Tml;
 
+use Tml\Utils\ArrayUtils;
 use Tml\Utils\StringUtils;
 
 class Config {
@@ -67,6 +68,11 @@ class Config {
     public $current_user;
 
     /**
+     * @var string
+     */
+    public $current_locale;
+
+    /**
      * @var Language
      */
     public $current_language;
@@ -89,7 +95,7 @@ class Config {
     /**
      * @var array
      */
-    private $block_options;
+    public $block_options;
 
     /**
      * @param $config
@@ -149,13 +155,19 @@ class Config {
      */
     public function configValue($key, $default = null) {
         $value = $this->configData();
-        $parts = explode(".", $key);
-        foreach($parts as $part) {
-            if (!isset($value[$part])) return $default;
-            $value = $value[$part];
-        }
-
+        $value = ArrayUtils::getAttribute($value, explode(".", $key));
+        if ($value === null) return $default;
         return $value;
+    }
+
+    /**
+     * Sets config value
+     *
+     * @param $key
+     * @param $value
+     */
+    public function setConfigValue($key, $value) {
+        ArrayUtils::createAttribute($this->config, explode(".", $key), $value);
     }
 
     /**
@@ -163,27 +175,6 @@ class Config {
      */
     public function dump() {
         file_put_contents($this->configFilePath('config.json'), StringUtils::prettyPrint(json_encode($this->config)));
-    }
-
-    /**
-     * @param array $options
-     */
-    public function initRequest($options = array()) {
-        $this->current_translator = (isset($options['translator']) ? $options['translator'] : null);
-        $this->current_source = (isset($options['source']) ? $options['source'] : 'index');
-        Logger::instance()->debug("Current source: $this->current_source");
-
-        try {
-            $this->application->fetch();
-        } catch (\Exception $e) {
-            Logger::instance()->error("Application failed to initialize: " . $e);
-        }
-
-        if ($this->isEnabled()) {
-            $this->current_language = $this->application->language((isset($options['locale']) ? $options['locale'] : $this->default_locale));
-        } else {
-            $this->current_language = $this->application->language($this->default_locale);
-        }
     }
 
     /**
@@ -511,7 +502,7 @@ class Config {
      * @param array $params
      * @return string
      */
-    public function encode($params) {
+    public function encode($params, $token = null) {
         $data = json_encode($params);
         $payload_json = base64_encode($data);
         $request = urlencode($payload_json);
@@ -522,7 +513,7 @@ class Config {
      * @param $request
      * @return mixed
      */
-    public function decode($request) {
+    public function decode($request, $token = null) {
         $request = urldecode($request);
         $payload_json = base64_decode($request);
         $data = json_decode($payload_json, true);

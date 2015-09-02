@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2015 Translation Exchange, Inc
  *
@@ -31,63 +30,23 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Tml\Cache;
+namespace Tml\Utils;
 
-use Redis;
-use Tml\Config;
+require_once(__DIR__."/../../BaseTest.php");
 
-class RedisAdapter extends MemcacheAdapter {
+class FileUtilsTest extends \BaseTest {
 
-    /**
-     * Creates Redis adapter
-     */
-    public function __construct() {
-        $this->cache = new Redis;
-        if (Config::instance()->configValue("socket")) {
-            $this->cache->connect(Config::instance()->configValue("socket"));
-        } else {
-            $this->cache->connect(
-                Config::instance()->configValue("cache.host", 'localhost'),
-                Config::instance()->configValue("cache.port", 6379),
-                Config::instance()->configValue("cache.timeout", 0.0)
-            );
-        }
-    }
+    public function testRr() {
+        $root = join("/", array(__DIR__, '..', '..', '..', 'tmp'));
 
-    /**
-     * Returns adapter key
-     *
-     * @return string
-     */
-    public function key() {
-        return "redis";
-    }
+        mkdir($root);
+        mkdir(join("/", array($root, 'subtmp')));
+        mkdir(join("/", array($root, 'subtmp1')));
+        mkdir(join("/", array($root, 'subtmp2')));
 
-    /**
-     * Stores data in Redis
-     *
-     * @param $key
-     * @param $value
-     * @return bool
-     */
-    public function store($key, $value) {
-        $this->info("Cache store " . $key);
-        return $this->cache->set(
-            $this->versionedKey($key),
-            $this->stripExtensions($value),
-            Config::instance()->configValue("cache.timeout", 0)
-        );
-    }
+        FileUtils::rrmdir($root);
 
-    /**
-     * Checks if key exists in Redis
-     * 
-     * @param $key
-     * @return bool
-     */
-    public function exists($key) {
-        $this->info("Cache exists " . $key);
-        return $this->cache->exists($this->versionedKey($key));
+        $this->assertFalse(file_exists($root));
     }
 
 }

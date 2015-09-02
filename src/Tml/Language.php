@@ -254,15 +254,22 @@ class Language extends Base {
             if (Cache::isCachedBySource()) {
                 $source_key = $this->currentSource($options);
 //                Logger::instance()->notice($source_key . ": " . $label);
-                $source = $this->application->source($source_key, $this->locale);
+                $source_path = $this->getSourcePath();
 
-                $matched_translations = $source->cachedTranslations($this->locale, $translation_key->key);
+                if (Config::instance()->blockOption("dynamic")) {
+                    $source_path = $source_key;
+                } else {
+                    $this->application->verifySourcePath($source_key, $source_path);
+                }
+
+                $source = $this->application->source($source_key, $this->locale);
+                $matched_translations = $source->getCachedTranslations($this->locale, $translation_key->key);
                 if ($matched_translations !== false) {
                     $translation_key->setTranslations($this->locale, $matched_translations);
                     return $translation_key->translate($this, $token_values, $options);
                 }
 
-                $this->application->registerMissingKey($translation_key, $source_key);
+                $this->application->registerMissingKey($translation_key, $source_path);
                 return $translation_key->translate($this, $token_values, array_merge($options, array("pending" => true)));
             }
 
@@ -277,7 +284,22 @@ class Language extends Base {
         }
 	}
 
+    function getSourcePath() {
+        $source_path = array();
+        $blocks = Config::instance()->block_options;
+        if (!$blocks) $blocks = array();
+
+        foreach($blocks as $opts) {
+            if (isset($opts["source"]))
+                array_unshift($source_path, $opts["source"]);
+        }
+
+        array_unshift($source_path, Config::instance()->current_source);
+        return implode("@:@", $source_path);
+    }
+
     function __toString() {
         return $this->locale;
     }
+
 }

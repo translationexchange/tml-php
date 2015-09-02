@@ -88,7 +88,7 @@ class MemcacheAdapter extends Base {
         $this->info("Cache store " . $key);
         return $this->cache->set(
             $this->versionedKey($key),
-            $value,
+            $this->stripExtensions($value),
             false,
             Config::instance()->configValue("cache.timeout", 0)
         );

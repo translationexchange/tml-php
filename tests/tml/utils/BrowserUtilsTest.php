@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2015 Translation Exchange, Inc
  *
@@ -31,63 +30,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Tml\Cache;
+namespace Tml\Utils;
 
-use Redis;
-use Tml\Config;
+require_once(__DIR__."/../../BaseTest.php");
 
-class RedisAdapter extends MemcacheAdapter {
+class BrowserUtilsTest extends \BaseTest
+{
 
-    /**
-     * Creates Redis adapter
-     */
-    public function __construct() {
-        $this->cache = new Redis;
-        if (Config::instance()->configValue("socket")) {
-            $this->cache->connect(Config::instance()->configValue("socket"));
-        } else {
-            $this->cache->connect(
-                Config::instance()->configValue("cache.host", 'localhost'),
-                Config::instance()->configValue("cache.port", 6379),
-                Config::instance()->configValue("cache.timeout", 0.0)
-            );
-        }
+    public function testParseLanguageList()
+    {
+        $result = BrowserUtils::parseLanguageList();
+        $this->assertEquals(array(), $result);
+
+        $languages = "en,es;q=0.8,zh;q=0.6,ru;";
+        $_SERVER["HTTP_ACCEPT_LANGUAGE"] = $languages;
+        $result = BrowserUtils::parseLanguageList();
+        $this->assertEquals(array("1.0" => array("en", "ru"), "0.8" => array("es"), "0.6" => array("zh")), $result);
+
+        $result = BrowserUtils::parseLanguageList($languages);
+        $this->assertEquals(array("1.0" => array("en", "ru"), "0.8" => array("es"), "0.6" => array("zh")), $result);
     }
 
-    /**
-     * Returns adapter key
-     *
-     * @return string
-     */
-    public function key() {
-        return "redis";
-    }
+    public function testFindMatches() {
+        $languages = "en,es;q=0.8,zh;q=0.6,ru;q=0.4,en-US;q=0.2,zh-CN;q=0.2,ja;q=0.2,de;q=0.2,fr;q=0.2,ar;q=0.2";
+        $matches = BrowserUtils::findMatches(BrowserUtils::parseLanguageList($languages), array("1" => array("ru")));
+//        var_dump($matches);
 
-    /**
-     * Stores data in Redis
-     *
-     * @param $key
-     * @param $value
-     * @return bool
-     */
-    public function store($key, $value) {
-        $this->info("Cache store " . $key);
-        return $this->cache->set(
-            $this->versionedKey($key),
-            $this->stripExtensions($value),
-            Config::instance()->configValue("cache.timeout", 0)
-        );
+        $this->assertEquals(array("0.4" => array("ru")), $matches);
     }
-
-    /**
-     * Checks if key exists in Redis
-     * 
-     * @param $key
-     * @return bool
-     */
-    public function exists($key) {
-        $this->info("Cache exists " . $key);
-        return $this->cache->exists($this->versionedKey($key));
-    }
-
 }

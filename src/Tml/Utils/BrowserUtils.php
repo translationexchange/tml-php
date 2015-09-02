@@ -34,7 +34,7 @@ namespace Tml\Utils;
 
 class BrowserUtils {
 
-    public static function parseLanguageList($languageList) {
+    public static function parseLanguageList($languageList = null) {
         if (is_null($languageList)) {
             if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
                 return array();
