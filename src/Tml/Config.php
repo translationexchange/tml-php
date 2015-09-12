@@ -195,7 +195,7 @@ class Config {
         if (!$this->isCacheEnabled())
             return true;
 
-        if (Cache::instance()->isVersionLive())
+        if (Cache::isVersionLive())
             return true;
 
         if ($this->isInlineTranslationModeEnabled())
@@ -322,7 +322,7 @@ class Config {
      * @return bool
      */
     public function isCacheEnabled() {
-        if ($this->configValue("cache.enabled") === false) {
+        if ($this->configValue("cache.enabled") === null || $this->configValue("cache.enabled") === false) {
             return false;
         }
         return true;

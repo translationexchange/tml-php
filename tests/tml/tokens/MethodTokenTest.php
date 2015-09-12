@@ -31,6 +31,7 @@
  */
 
 namespace Tml\Tokens;
+use Tml\Tokenizers\DataTokenizer;
 
 require_once(__DIR__."/../../BaseTest.php");
 

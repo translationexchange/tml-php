@@ -46,6 +46,8 @@ abstract class Base {
     }
 
     /**
+     * Decorates labels
+     *
      * @param string $translated_label
      * @param \Tml\Language $translation_language
      * @param \Tml\Language $target_language
@@ -56,6 +58,8 @@ abstract class Base {
     public abstract function decorate($translated_label, $translation_language, $target_language, $translation_key, $options);
 
     /**
+     * Decorates language cases
+     *
      * @param \Tml\LanguageCase $language_case
      * @param \Tml\LanguageCaseRule $rule
      * @param string $original
@@ -64,4 +68,58 @@ abstract class Base {
      * @return mixed
      */
     public abstract function decorateLanguageCase($language_case, $rule, $original, $transformed, $options);
+
+    /**
+     * Decorates tokens
+     *
+     * @param \Tml\Tokens\DataToken $token
+     * @param $value
+     * @param $options
+     * @return string
+     */
+    public abstract function decorateToken($token, $value, $options);
+
+    /**
+     * Decorates array elements
+     *
+     * @param \Tml\Tokens\DataToken $token
+     * @param $value
+     * @param $options
+     * @return string
+     */
+    public abstract function decorateElement($token, $value, $options);
+
+    /**
+     * Checks if decorations should be used
+     *
+     * @param $options
+     * @return bool
+     */
+    protected function isEnabled($options) {
+        if (array_key_exists("skip_decorations", $options)) return false;
+
+        $config = Config::instance();
+
+        if ($config->current_translator == null) return false;
+        if (!$config->current_translator->isInlineModeEnabled()) return false;
+
+        return true;
+    }
+
+    /**
+     * Returns decoration element name to be used in the docrator
+     *
+     * @param $default
+     * @param $options
+     * @return string
+     */
+    protected function getDecorationElement($default, $options) {
+        if (isset($options["use_span"]))
+            return "span";
+
+        if (isset($options["use_div"]))
+            return "div";
+
+        return $default;
+    }
 }

@@ -157,7 +157,7 @@ class ApiClient {
      * @param $options
      */
     public static function verifyCacheVersion($params, $options) {
-        if (!Cache::instance()->isVersionUndefined())
+        if (!Cache::isVersionUndefined())
             return;
 
         $current_version = Cache::fetchVersion();
@@ -181,7 +181,7 @@ class ApiClient {
      * @return array
      */
     public static function fetchFromCdn($cache_key, $key) {
-        if (!Cache::instance()->isCdnVersion()) return null;
+        if (!Cache::isCdnVersion()) return null;
 
         $cdn_path = "/" . $key . "/" . Cache::version() . "/" . $cache_key . ".json";
         $data = self::executeRequest($cdn_path, array(), array("host" => self::CDN_HOST, "compressed" => false));

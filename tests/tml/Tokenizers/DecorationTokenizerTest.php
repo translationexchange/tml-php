@@ -30,7 +30,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Tml\Tokens;
+namespace Tml\Tokenizers;
 
 use Tml\Config;
 

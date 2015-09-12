@@ -240,10 +240,7 @@ class Application extends Base {
      */
     function loadExtensions($extensions) {
         $source_locale = $this->default_locale;
-
-        $cache = null;
-        if (Config::instance()->isCacheEnabled() && !Config::instance()->isInlineTranslationModeEnabled())
-            $cache = Cache::instance();
+        $use_cache = (Config::instance()->isCacheEnabled() && !Config::instance()->isInlineTranslationModeEnabled());
 
         if (isset($extensions['languages'])) {
             $this->languages_by_locale = array();
@@ -251,7 +248,7 @@ class Application extends Base {
                 if ($source_locale != $locale)
                     $source_locale = $locale;
 
-                if ($cache) $cache->store(Language::cacheKey($locale), $data);
+                if ($use_cache) Cache::store(Language::cacheKey($locale), $data);
 
                 $language = new Language(array_merge(
                     $data,
@@ -266,7 +263,7 @@ class Application extends Base {
             $this->sources_by_key = array();
 
             foreach($extensions['sources'] as $key => $data) {
-                if ($cache) $cache->store(Source::cacheKey($key, $source_locale), $data);
+                if ($use_cache) Cache::store(Source::cacheKey($key, $source_locale), $data);
                 $source = new Source(array("application" => $this, "source" => $key));
                 if (isset($data["results"]))
                 $source->addTranslations($source_locale, $data["results"]);

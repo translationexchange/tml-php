@@ -268,16 +268,26 @@ class PipedToken extends DataToken {
         }
 
         $token_value = array();
+
+        $decorated_value = \Tml\Decorators\Base::decorator()->decorateToken($this, $this->tokenValue($token_values, $language, $options), $options);
+
         if ($this->isValueDisplayedInTranslation()) {
-            array_push($token_value, $this->tokenValue($token_values, $language, $options));
+            array_push($token_value, $decorated_value);
             array_push($token_value, " ");
         } else {
-            $value = str_replace("#" . $this->short_name . "#", $this->tokenValue($token_values, $language, $options), $value);
+            $value = str_replace("#" . $this->short_name . "#", $decorated_value, $value);
         }
 
         array_push($token_value, $value);
 
         return str_replace($this->full_name, implode("", $token_value), $label);
+    }
+
+    /**
+     * Returns decoration name of the token
+     */
+    public function getDecorationName() {
+        return 'piped';
     }
 
 }

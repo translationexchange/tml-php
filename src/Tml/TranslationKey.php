@@ -33,8 +33,8 @@
 
 namespace Tml;
 
-use Tml\Tokens\DataTokenizer;
-use Tml\Tokens\DecorationTokenizer;
+use Tml\Tokenizers\DataTokenizer;
+use Tml\Tokenizers\DecorationTokenizer;
 
 class TranslationKey extends Base {
     /**

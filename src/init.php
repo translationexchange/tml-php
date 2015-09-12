@@ -39,6 +39,7 @@ $files = array(
     "Tml/Base.php",
     "Tml",
     "Tml/Tokens",
+    "Tml/Tokenizers",
     "Tml/RulesEngine",
     "Tml/Decorators/Base.php",
     "Tml/Decorators",
@@ -70,7 +71,7 @@ use Tml\TmlException;
 use Tml\Translator;
 use Tml\Utils\ArrayUtils;
 use Tml\Utils\BrowserUtils;
-use Tml\Utils\HtmlTranslator;
+use Tml\Tokenizers\DomTokenizer;
 use Tml\Utils\StringUtils;
 
 /**
@@ -131,8 +132,8 @@ function tml_init($options = array()) {
     }
 
     // use default browser locale(s)
-    if (!$locale)
-        $locale = BrowserUtils::parseLanguageList($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+//    if (!$locale)
+//        $locale = BrowserUtils::parseLanguageList($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
     // use our default locale
     if (!$locale)
@@ -392,7 +393,7 @@ function trh($label, $description = "", $tokens = array(), $options = array()) {
     $params = ArrayUtils::normalizeTmlParameters($label, $description, $tokens, $options);
 
     $html = trim($params["label"]);
-    $ht = new HtmlTranslator($html, array(), $params["options"]);
+    $ht = new DomTokenizer($html, array(), $params["options"]);
     return $ht->translate();
 }
 

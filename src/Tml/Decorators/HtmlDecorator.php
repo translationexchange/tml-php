@@ -39,6 +39,8 @@ use Tml\Logger;
 class HtmlDecorator extends Base {
 
     /**
+     * Decorates labels
+     *
      * @param string $translated_label
      * @param \Tml\Language $translation_language
      * @param \Tml\Language $target_language
@@ -77,10 +79,7 @@ class HtmlDecorator extends Base {
             array_push($classes, 'tml_fallback');
         }
 
-        $element = "span";
-        if (isset($options["use_div"])) {
-            $element = "div";
-        }
+        $element = $this->getDecorationElement("tml:label", $options);
 
         $html = "<".$element." class='" . implode(' ', $classes);
         $html = $html . "' data-translation_key='" . $translation_key->key;
@@ -93,6 +92,8 @@ class HtmlDecorator extends Base {
     }
 
     /**
+     * Decorates language cases
+     *
      * @param \Tml\LanguageCase $language_case
      * @param \Tml\LanguageCaseRule $rule
      * @param string $original
@@ -101,12 +102,7 @@ class HtmlDecorator extends Base {
      * @return mixed
      */
     public function decorateLanguageCase($language_case, $rule, $original, $transformed, $options) {
-        if (array_key_exists("skip_decorations", $options)) return $transformed;
-
-        $config = Config::instance();
-
-        if ($config->current_translator == null) return $transformed;
-        if (!$config->current_translator->isInlineModeEnabled()) return $transformed;
+        if (!$this->isEnabled($options)) return $transformed;
 
         $data = array(
             'keyword'       => $language_case->keyword,
@@ -130,13 +126,56 @@ class HtmlDecorator extends Base {
             array_push($query, $name . "=\"" . str_replace("\"", '"', $value) . "\"");
         }
 
-        $element = "span";
-        if (isset($options["use_div"])) {
-            $element = "div";
-        }
+        $element = $this->getDecorationElement("tml:case", $options);
 
         $html = "<" . $element . " " . implode(" ", $query) . ">";
         $html = $html . $transformed;
+        $html = $html . "</".$element.">";
+
+        return $html;
+    }
+
+    /**
+     * Decorates tokens
+     *
+     * @param \Tml\Tokens\DataToken $token
+     * @param $value
+     * @param $options
+     * @return string
+     */
+    public function decorateToken($token, $value, $options) {
+        if (!$this->isEnabled($options)) return $value;
+
+        $element = $this->getDecorationElement("tml:token", $options);
+        $classes = array('tml_token', 'tml_token_' . $token->getDecorationName());
+
+        $html = "<" . $element . " class='" . implode(" ", $classes) . "' data-name='" . $token->short_name . "'";
+        if (!empty($token->context_keys))
+            $html = $html . " data-context='" . implode(" ", $token->context_keys) . "'";
+        if (!empty($token->case_keys))
+            $html = $html . " data-case='" . implode(" ", $token->case_keys) . "'";
+        $html = $html . ">";
+        $html = $html . $value;
+        $html = $html . "</".$element.">";
+
+        return $html;
+    }
+
+    /**
+     * Decorates array elements
+     *
+     * @param \Tml\Tokens\DataToken $token
+     * @param $value
+     * @param $options
+     * @return string
+     */
+    public function decorateElement($token, $value, $options) {
+        if (!$this->isEnabled($options)) return $value;
+
+        $element = $this->getDecorationElement("tml:element", $options);
+
+        $html = "<" . $element . ">";
+        $html = $html . $value;
         $html = $html . "</".$element.">";
 
         return $html;

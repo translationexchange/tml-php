@@ -36,6 +36,8 @@ namespace Tml\Decorators;
 class PlainDecorator extends Base {
 
     /**
+     * Decorates labels
+     *
      * @param string $translated_label
      * @param \Tml\Language $translation_language
      * @param \Tml\Language $target_language
@@ -48,6 +50,8 @@ class PlainDecorator extends Base {
     }
 
     /**
+     * Decorates language cases
+     *
      * @param \Tml\LanguageCase $language_case
      * @param \Tml\LanguageCaseRule $rule
      * @param string $original
@@ -59,4 +63,28 @@ class PlainDecorator extends Base {
         return $transformed;
     }
 
+
+    /**
+     * Decorates tokens
+     *
+     * @param \Tml\Tokens\DataToken $token
+     * @param $value
+     * @param $options
+     * @return string
+     */
+    public function decorateToken($token, $value, $options) {
+       return $value;
+    }
+
+    /**
+     * Decorates array elements
+     *
+     * @param \Tml\Tokens\DataToken $token
+     * @param $value
+     * @param $options
+     * @return string
+     */
+    public function decorateElement($token, $value, $options) {
+        return $value;
+    }
 }

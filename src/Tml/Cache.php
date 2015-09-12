@@ -60,7 +60,7 @@ class Cache {
         static $inst = null;
         if ($inst === null) {
             $class = self::cacheAdapterClass();
-            $inst = new $class();
+            if ($class) $inst = new $class();
         }
         return $inst;
     }
@@ -145,6 +145,8 @@ class Cache {
 
     /**
      * Sets current version
+     *
+     * @param $new_version
      */
     public static function setVersion($new_version) {
         if (!Config::instance()->isCacheEnabled()) {
@@ -167,6 +169,8 @@ class Cache {
 
     /**
      * Stores version in the cache
+     *
+     * @param $new_version
      */
     public static function storeVersion($new_version) {
         if (!Config::instance()->isCacheEnabled()) {
@@ -183,6 +187,39 @@ class Cache {
             return;
         }
         self::instance()->invalidateVersion();
+    }
+
+    /**
+     * Checks if the version is present in the cache
+     * @return bool
+     */
+    public static function isVersionUndefined() {
+        if (!Config::instance()->isCacheEnabled()) {
+            return true;
+        }
+        return self::instance()->isVersionUndefined();
+    }
+
+    /**
+     * Checks if the cache version is disabled
+     * @return bool
+     */
+    public static function isVersionLive() {
+        if (!Config::instance()->isCacheEnabled()) {
+            return false;
+        }
+        return self::instance()->isVersionLive();
+    }
+
+    /**
+     * Checks if CDN needs to be used
+     * @return bool
+     */
+    public static function isCdnVersion() {
+        if (!Config::instance()->isCacheEnabled()) {
+            return false;
+        }
+        return self::instance()->isCdnVersion();
     }
 
 }

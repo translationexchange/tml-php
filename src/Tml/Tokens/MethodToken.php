@@ -111,7 +111,15 @@ class MethodToken extends DataToken {
             $token_value = $object->$method;
 
         $token_value = $this->sanitize($token_value, $object, $language, array_merge($options, array("safe" => false)));
+        $token_value = \Tml\Decorators\Base::decorator()->decorateToken($this, $token_value, $options);
         return str_replace($this->full_name, $token_value, $label);
+    }
+
+    /**
+     * Returns decoration name of the token
+     */
+    public function getDecorationName() {
+        return 'method';
     }
 
 }

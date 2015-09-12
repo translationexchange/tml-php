@@ -31,16 +31,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Tml\Utils;
+namespace Tml\Tokenizers;
 
 use Tml\Config;
 
-class HtmlTranslator {
-
-    const HTML_SPECIAL_CHAR_REGEX = '/(&[^;]*;)/';
-    const INDEPENDENT_NUMBER_REGEX = '/^(\d+)$|^(\d+[,;\s])|(\s\d+)$|(\s\d+[,;\s])/';
-    const VERBOSE_DATE_REGEX = '/(((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(January|February|March|April|May|June|July|August|September|October|November|December))\s\d+(,\s\d+)*(,*\sat\s\d+:\d+(\sUTC))*)/';
-
+class DomTokenizer {
     /**
      * @var string
      */
@@ -97,9 +92,6 @@ class HtmlTranslator {
 
         // normalize multiple spaces to one space
         $this->html = preg_replace('/\s+/', ' ', $this->html);
-
-        // replace special characters like &nbsp;
-        $this->html = $this->replaceSpecialCharacters($this->html);
 
 //        $charset = 'UTF-8';
 //        if (function_exists('mb_convert_encoding') && in_array(strtolower($charset), array_map('strtolower', mb_list_encodings()))) {
@@ -396,40 +388,61 @@ class HtmlTranslator {
     }
 
     /**
-     * @param $text
-     * @return mixed
-     */
-    private function replaceSpecialCharacters($text) {
-        if (!$this->getOption("data_tokens.special")) return $text;
-
-        preg_match_all(self::HTML_SPECIAL_CHAR_REGEX, $text, $matches);
-        $matches = array_unique($matches[0]);
-
-        foreach ($matches as $match) {
-            $token = substr($match, 1, -1);
-            $this->context[$token] = $match;
-            $text = str_replace($match, "{" . $token . "}", $text);
-        }
-        return $text;
-    }
-
-    /**
      * @param string $text
      * @return mixed
      */
     private function generateDataTokens($text) {
-        if (!$this->getOption("data_tokens.numeric")) return $text;
+        if ($this->getOption("data_tokens.special.enabled")) {
+            preg_match_all($this->getOption("data_tokens.special.regex"), $text, $matches);
+            $matches = array_unique($matches[0]);
 
-        preg_match_all(self::INDEPENDENT_NUMBER_REGEX, $text, $matches);
-        $matches = array_unique($matches[0]);
-
-        $token_name = $this->getOption("data_tokens.numeric_name");
-
-        foreach ($matches as $match) {
-            $value = trim($match, ',; ');
-            $token = $this->contextualize($token_name, $value);
-            $text = str_replace($match, str_replace($value, "{" . $token . "}", $match), $text);
+            foreach ($matches as $match) {
+                $token = substr($match, 1, -1);
+                $this->context[$token] = $match;
+                $text = str_replace($match, "{" . $token . "}", $text);
+            }
         }
+
+        if ($this->getOption("data_tokens.date.enabled")) {
+            $token_name = $this->getOption('data_tokens.date.name');
+            $formats = $this->getOption('data_tokens.date.formats');
+            foreach($formats as $format) {
+                $regex = $format[0];
+                # date_format = format[1]
+
+                $matches = array();
+                preg_match_all($regex, $text, $matches);
+                $matches = array_unique($matches[0]);
+
+                foreach ($matches as $match) {
+                    $date = trim($match, ' ');
+                    if ($date == "") continue;
+                    $token = $this->contextualize($token_name, $date);
+                    $text = str_replace($date, "{" . $token . "}", $text);
+                }
+            }
+        }
+
+        $rules = $this->getOption("data_tokens.rules");
+        if ($rules) {
+            foreach ($rules as $rule) {
+                if (!$rule["enabled"]) continue;
+                $matches = array();
+                preg_match_all($rule["regex"], $text, $matches);
+                $matches = array_unique($matches[0]);
+
+//                var_dump($rule["regex"]);
+//                var_dump($matches);
+
+                foreach ($matches as $match) {
+                    $value = trim($match, ' ');
+                    if ($value == "") continue;
+                    $token = $this->contextualize($rule["name"], str_replace("/[.,;\\s]/", "", $value));
+                    $text = str_replace($match, str_replace($value, "{" . $token . "}", $match), $text);
+                }
+            }
+        }
+
         return $text;
     }
 

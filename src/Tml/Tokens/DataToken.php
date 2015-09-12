@@ -378,28 +378,22 @@ class DataToken {
         $values = array();
         foreach ($objects as $object) {
             if ($method == null) {
-                array_push($values, $this->sanitize('' . $object, $object, $language, array_merge($options, array("safe" => false))));
-                continue;
-            }
+                $element = $this->sanitize('' . $object, $object, $language, array_merge($options, array("safe" => false)));
 
-            if (is_string($method)) {
+            } elseif (is_string($method)) {
                 if (preg_match('/^@/', $method)) {
-                    array_push($values,
-                               $this->tokenValueFromObjectUsingAttributeMethod($object, $method, $language, $options));
+                    $element = $this->tokenValueFromObjectUsingAttributeMethod($object, $method, $language, $options);
                 } else {
                     if (ArrayUtils::isHash($object))
-                            return $this->error("Hash object cannot be used with this method");
+                        return $this->error("Hash object cannot be used with this method");
 
-                    array_push($values, str_replace(
-                            '{$0}',
-                            $this->sanitize('' . $object, $object, $language, array_merge($options, array("safe" => false))),
-                            $method)
+                    $element = str_replace('{$0}',
+                        $this->sanitize('' . $object, $object, $language, array_merge($options, array("safe" => false))),
+                        $method
                     );
                 }
-                continue;
-            }
 
-            if (ArrayUtils::isHash($method)) {
+            } elseif (ArrayUtils::isHash($method)) {
                 $attribute = isset($method["attribute"]) ? $method["attribute"] : (isset($method["property"]) ? $method["property"] : null);
                 $value = isset($method["value"]) ? $method["value"] : null;
 
@@ -419,17 +413,18 @@ class DataToken {
                 }
 
                 if ($value != null)
-                    array_push($values, str_replace('{$0}', $attribute, $value));
+                    $element = str_replace('{$0}', $attribute, $value);
                 else
-                    array_push($values, $attribute);
+                    $element = $attribute;
 
-                continue;
+            } elseif (is_callable($method)) {
+                $element = $this->sanitize($method($object), $object, $language, array_merge($options, array("safe" => true)));
+
+            } else {
+                return $this->error("Unsupport array token method");
             }
 
-            if (is_callable($method)) {
-                array_push($values, $this->sanitize($method($object), $object, $language, array_merge($options, array("safe" => true))));
-                continue;
-            }
+            array_push($values, \Tml\Decorators\Base::decorator()->decorateElement($this, $element, $options));
         }
 
         if (count($values) == 1)
@@ -557,8 +552,6 @@ class DataToken {
      * @param $object
      * @param \Tml\Language $language
      * @param mixed[] $options
-     * @internal param mixed $token_object
-     * @internal param \mixed[] $token_values
      * @return string
      */
     public function sanitize($value, $object, $language, $options) {
@@ -590,7 +583,15 @@ class DataToken {
     public function substitute($label, $token_values, $language, $options = array()) {
 //        Logger::instance()->debug("Substituting $label in " . $language->locale);
         $token_value = $this->tokenValue($token_values, $language, $options);
+        $token_value = \Tml\Decorators\Base::decorator()->decorateToken($this, $token_value, $options);
         return str_replace($this->full_name, $token_value, $label);
+    }
+
+    /**
+     * Returns decoration name of the token
+     */
+    public function getDecorationName() {
+        return 'data';
     }
 
     /**

@@ -30,14 +30,14 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Tml\Utils;
+namespace Tml\Tokenizers;
 
 require_once(__DIR__ . "/../../BaseTest.php");
 
-class HtmlTranslatorTest extends \BaseTest {
+class DomTokenizerTest extends \BaseTest {
 
   function testTranslator() {
-    $ht = new HtmlTranslator("", array(), array("debug" => true, "debug_format" => '{{ {$0} }}', "data_tokens.special" => true));
+    $ht = new DomTokenizer("", array(), array("debug" => true, "debug_format" => '{{ {$0} }}', "data_tokens.special" => true));
 //    $ht->debug("<div>Hello </div><div>World</div>Some text<br>More text");
 //
 //    echo $ht->html . "\n\n";
@@ -85,17 +85,17 @@ class HtmlTranslatorTest extends \BaseTest {
               ),
 
               array("html"      => "<ul><li>Item 1</li><li>Item 2</li></ul>",
-                    "tml"       => "<ul><li>{{ Item 1 }}</li><li>{{ Item 2 }}</li></ul>",
+                    "tml"       => "<ul><li>{{ Item {num} }}</li><li>{{ Item {num} }}</li></ul>",
                     "tokens"    => array()
               ),
 
               array("html"      => "<ul><li><b>Item 1</b></li><li>Item 2</li></ul>",
-                    "tml"       => "<ul><li><b>{{ Item 1 }}</b></li><li>{{ Item 2 }}</li></ul>",
+                    "tml"       => "<ul><li><b>{{ Item {num} }}</b></li><li>{{ Item {num} }}</li></ul>",
                     "tokens"    => array()
               ),
 
               array("html"      => "<ul><li>Another <b>Item</b></li><li>Item 2</li></ul>",
-                    "tml"       => "<ul><li>{{ Another [bold: Item] }}</li><li>{{ Item 2 }}</li></ul>",
+                    "tml"       => "<ul><li>{{ Another [bold: Item] }}</li><li>{{ Item {num} }}</li></ul>",
                     "tokens"    => array()
               ),
 
@@ -120,7 +120,7 @@ class HtmlTranslatorTest extends \BaseTest {
               ),
 
               array("html"      => "<div>Level 1 <div>Level 2 <div>Level 3</div></div></div>",
-                    "tml"       => "<div>{{ Level 1  }}<div>{{ Level 2  }}<div>{{ Level 3 }}</div></div></div>",
+                    "tml"       => "<div>{{ Level {num}  }}<div>{{ Level {num}  }}<div>{{ Level {num} }}</div></div></div>",
                     "tokens"    => array()
               ),
 
@@ -165,12 +165,12 @@ class HtmlTranslatorTest extends \BaseTest {
               ),
 
               array("html"    => "<div class='1'>Level 1 <div class='2'>Level 2 <div class='3'>Level 3</div></div></div>",
-                  "tml"       => "<div class='1'>{{ Level 1  }}<div class='2'>{{ Level 2  }}<div class='3'>{{ Level 3 }}</div></div></div>",
+                  "tml"       => "<div class='1'>{{ Level {num}  }}<div class='2'>{{ Level {num}  }}<div class='3'>{{ Level {num} }}</div></div></div>",
                   "tokens"    => array()
               ),
 
               array("html"    => "<div class='1'>Level 1 <div class='2'>Level 2 <div class='3'>Level 3</div></div></div><div>Another Level 1 div</div>",
-                    "tml"     => "<div class='1'>{{ Level 1  }}<div class='2'>{{ Level 2  }}<div class='3'>{{ Level 3 }}</div></div></div><div>{{ Another Level 1 div }}</div>",
+                    "tml"     => "<div class='1'>{{ Level {num}  }}<div class='2'>{{ Level {num}  }}<div class='3'>{{ Level {num} }}</div></div></div><div>{{ Another Level {num} div }}</div>",
                     "tokens"  => array()
               ),
 
