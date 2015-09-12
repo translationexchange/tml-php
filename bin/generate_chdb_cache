@@ -25,7 +25,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-include(__DIR__ . '/../library/tml.php');
+use Tml\Cache\Generators\ChdbGenerator;
+
+include(__DIR__ . '/../src/init.php');
 tml_init();
 
 //fwrite(STDOUT,  "Please enter in some input: ");
@@ -35,6 +37,4 @@ tml_init();
 ini_set('memory_limit', '3072M');
 ini_set('apc.enabled', 0);
 
-\Tml\Cache\Generators\ChdbGenerator::instance()->run();
-
-?>
+ChdbGenerator::instance()->run();

@@ -26,11 +26,9 @@
  */
 
 $config_path = realpath(__DIR__."/../config/config.json");
-$default_config_path = realpath(__DIR__."/../config/config-default.json");
+$default_config_path = realpath(__DIR__."/../config/defaults.json");
 
 if (!file_exists($config_path))
     copy($default_config_path, $config_path);
 
 echo "Update $config_path with your token and cache settings. \n\n";
-
-?>

@@ -94,7 +94,7 @@ abstract class Base extends \Tml\Base {
      */
     function cacheApplication() {
         $this->log("Downloading application...");
-        $app = Config::instance()->application->apiClient()->get("applications/current", array("definition" => "true"));
+        $app = Config::instance()->application->apiClient()->get("projects/current/definition");
         $this->cache(Application::cacheKey(), json_encode($app));
         $this->log("Application has been cached.");
         return $app;
@@ -106,9 +106,9 @@ abstract class Base extends \Tml\Base {
     function cacheLanguages() {
         $this->log("Downloading languages...");
         $count = 0;
-        $languages = Config::instance()->application->apiClient()->get("applications/current/languages");
+        $languages = Config::instance()->application->apiClient()->get("projects/current/languages");
         foreach ($languages as $lang) {
-            $data = Config::instance()->application->apiClient()->get("languages/" . $lang["locale"], array("definition" => "true"));
+            $data = Config::instance()->application->apiClient()->get("languages/" . $lang["locale"] . "/definition");
             $this->cache(Language::cacheKey($lang["locale"]), json_encode($data));
             $count += 1;
         }
