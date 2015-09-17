@@ -113,6 +113,8 @@ class Evaluator {
                                                         if (!preg_match('/^\//', $regex)) {
                                                             $regex = '/' . $regex . '/';
                                                         }
+                                                        // Support for UTF8
+                                                        // $regex = mbereg_replace('/^\//', "/(*UTF8)", $regex);
                                                         return preg_match($regex, $args[1]);
             },
             "in"       => function($e, $args)      {

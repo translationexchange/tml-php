@@ -84,6 +84,7 @@ class Translation extends Base {
 
         foreach($this->context as $token_name=>$rules) {
             $token_object = DataToken::tokenObject($token_values, $token_name);
+
             if ($token_object === null)
                 return false;
 
@@ -91,6 +92,7 @@ class Translation extends Base {
                 if ($rule_key == "other") continue;
 
                 $context = $this->language->contextByKeyword($context_key);
+
                 if ($context == null) return false; // unsupported context type
 
                 $rule = $context->findMatchingRule($token_object);

@@ -226,7 +226,7 @@ class Config {
      */
     public function blockOption($key) {
         if (count($this->block_options) == 0) return null;
-        $current_options = $this->block_options[0];
+        $current_options = $this->block_options[count($this->block_options)-1];
         if (!array_key_exists($key, $current_options)) return null;
         return $current_options[$key];
     }

@@ -24,6 +24,12 @@ class BaseTest extends PHPUnit_Framework_TestCase {
         return json_decode($string,true);
     }
 
+    /**
+     * @param \Tml\Application $app
+     * @param $label
+     * @param $description
+     * @param $translations
+     */
     protected static function cacheTranslations($app, $label, $description, $translations) {
         $app->cacheTranslationKey(new \Tml\TranslationKey(array(
             "application" => $app,

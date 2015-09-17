@@ -252,6 +252,7 @@ class TranslationKey extends Base {
     public function setLanguageTranslations($language, $translations) {
         foreach($translations as $translation) {
             $translation->translation_key = $this;
+            $translation->language = $this->application->language($translation->locale);
         }
         $this->translations[$language->locale] = $translations;
     }
@@ -282,7 +283,6 @@ class TranslationKey extends Base {
      */
     protected function findFirstValidTranslation($language, $token_values) {
         $translations = $this->translations($language);
-
         usort($translations, array($this, 'compareTranslations'));
 
         foreach($translations as $translation) {

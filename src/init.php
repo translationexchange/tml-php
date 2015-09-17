@@ -34,6 +34,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+/**
+ * Require files in a specific order
+ */
 $files = array(
     "Tml/Utils",
     "Tml/Base.php",
@@ -45,8 +48,6 @@ $files = array(
     "Tml/Decorators",
     "Tml/Cache/Base.php",
     "Tml/Cache",
-    "Tml/Cache/Generators/Base.php",
-    "Tml/Cache/Generators",
     "Tml/Includes/Tags.php"
 );
 
@@ -94,9 +95,6 @@ function tml_init($options = array()) {
             Config::instance()->updateConfig($type, $options[$type]);
     }
 
-    # instead of passing a host, pass an options array
-    # options could include caching and logging specs that overwrite the config settings
-
     $locale = null;
     $translator = null;
     $cookie_params = null;
@@ -110,14 +108,11 @@ function tml_init($options = array()) {
 
     // check if cookie is set
     if (isset($_COOKIE[$cookie_name])) {
-//        Logger::instance()->info("Cookie file $cookie_name found!");
         $cookie_params = Config::instance()->decode($_COOKIE[$cookie_name], $token);
         $locale = $cookie_params['locale'];
         if (isset($cookie_params['translator'])) {
             $translator = new Translator(array_merge($cookie_params["translator"], array('application' => Config::instance()->application)));
         }
-    } else {
-//        Logger::instance()->info("Cookie file $cookie_name not found!");
     }
 
     if (!$cookie_params) $cookie_params = array();
@@ -157,16 +152,12 @@ function tml_init($options = array()) {
     Config::instance()->current_source = $source;
     Config::instance()->current_locale = $locale;
 
-//    Logger::instance()->debug("Current source: $source");
-
     try {
         $application->fetch();
     } catch (\Exception $e) {
         echo $e;
         Logger::instance()->error("Application failed to initialize: " . $e);
     }
-
-    // var_dump($application);
 
     $locale = $application->supportedLocale($locale);
 
@@ -192,33 +183,6 @@ function tml_complete_request($options = array()) {
 }
 
 /**
- * Finds the first available language based on browser and application combination
- */
-function tml_browser_default_locale() {
-    if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) return null;
-
-    $accepted = BrowserUtils::parseLanguageList($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-//    var_dump($accepted);
-
-    $locales = array();
-    foreach (tml_application()->languages as $lang) array_push($locales, $lang->locale);
-
-    $available = BrowserUtils::parseLanguageList(implode(', ', $locales));
-//    var_dump($available);
-
-    $matches = BrowserUtils::findMatches($accepted, $available);
-//    var_dump($matches);
-
-    $keys = array_keys($matches);
-    if (count($keys) == 0)
-        $locale = Config::instance()->default_locale;
-    else
-        $locale = $matches[$keys[0]][0];
-
-    return $locale;
-}
-
-/**
  * Includes Tml JavaScript library
  */
 function tml_scripts() {
@@ -236,7 +200,7 @@ function tml_footer() {
 }
 
 /**
- * @return null|Application
+ * @return \Tml\Application
  */
 function tml_application() {
     return Config::instance()->application;
@@ -264,7 +228,7 @@ function tml_current_language_direction() {
 }
 
 /**
- * @return Translator
+ * @return \Tml\Translator
  */
 function tml_current_translator() {
     return Config::instance()->current_translator;

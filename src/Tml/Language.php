@@ -251,7 +251,7 @@ class Language extends Base {
             }
 
             // most cache adapters use caching by source
-            if (Cache::isCachedBySource()) {
+            if (Cache::isCachedBySource() && !Config::instance()->blockOption("dry")) {
                 $source_key = $this->currentSource($options);
 //                Logger::instance()->notice($source_key . ": " . $label);
                 $source_path = $this->getSourcePath();

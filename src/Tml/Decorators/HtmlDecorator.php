@@ -49,21 +49,16 @@ class HtmlDecorator extends Base {
      * @return mixed|string|\Tml\Language
      */
     public function decorate($translated_label, $translation_language, $target_language, $translation_key, $options) {
-        if (array_key_exists("skip_decorations", $options)) return $translated_label;
+        if (!$this->isEnabled($options)) return $translated_label;
 
         if ($translation_key->application !== null &&
             $translation_key->application->isFeatureEnabled("lock_original_content") &&
             $translation_key->locale == $target_language->locale) return $translated_label;
 
-        $config = Config::instance();
-
-        if ($config->current_translator == null) return $translated_label;
-        if (!$config->current_translator->isInlineModeEnabled()) return $translated_label;
-
         $classes = array('tml_translatable');
 
         if ($translation_key->isLocked()) {
-            if ($config->current_translator->isFeatureEnabled('show_locked_keys')) {
+            if (Config::instance()->current_translator->isFeatureEnabled('show_locked_keys')) {
                 array_push($classes, 'tml_locked');
             } else {
                 return $translated_label;
@@ -123,7 +118,7 @@ class HtmlDecorator extends Base {
 
         $query = array();
         foreach($attributes as $name => $value) {
-            array_push($query, $name . "=\"" . str_replace("\"", '"', $value) . "\"");
+            array_push($query, $name . "='" . str_replace("'", "\\'", $value) . "'");
         }
 
         $element = $this->getDecorationElement("tml:case", $options);

@@ -127,7 +127,7 @@ class LanguageCase extends Base {
         if ($this->application == 'phrase') {
             $elements = array($sanitized_value);
         } else {
-            $elements = array_unique(preg_split('/[\s\/]/', $sanitized_value));
+            $elements = array_unique(mb_split('/[\s\/]/', $sanitized_value));
         }
 
         # replace html tokens with temporary placeholders {$h1}

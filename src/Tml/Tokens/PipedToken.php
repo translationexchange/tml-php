@@ -245,6 +245,8 @@ class PipedToken extends DataToken {
             return $label;
         }
 
+//        var_dump($language->locale);
+
         $context = $this->contextForLanguage($language);
 
         $piped_values = $this->generateValueMapForContext($context, $options);

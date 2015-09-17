@@ -97,11 +97,10 @@ abstract class Base {
      */
     protected function isEnabled($options) {
         if (array_key_exists("skip_decorations", $options)) return false;
+        if (Config::instance()->blockOption("force_decorations") == true) return true;
 
-        $config = Config::instance();
-
-        if ($config->current_translator == null) return false;
-        if (!$config->current_translator->isInlineModeEnabled()) return false;
+        if (Config::instance()->current_translator == null) return false;
+        if (!Config::instance()->current_translator->isInlineModeEnabled()) return false;
 
         return true;
     }

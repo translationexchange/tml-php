@@ -419,18 +419,11 @@ class Application extends Base {
      * @return null|TranslationKey
      */
     public function cacheTranslationKey($translation_key) {
-        $cached_key = $this->translationKey($translation_key->key);
-        if ($cached_key !== null) {
-            # move translations from tkey to the cached key
-            foreach($translation_key->translations as $locale => $translations) {
-                $language = $this->language($locale);
-                $cached_key->setLanguageTranslations($language, $translations);
-            }
-            return $cached_key;
-        }
-
         $translation_key->setApplication($this);
         $this->translation_keys[$translation_key->key] = $translation_key;
+        foreach($translation_key->translations as $locale => $translations) {
+            $translation_key->setLanguageTranslations($this->language($locale), $translations);
+        }
         return $translation_key;
     }
 
