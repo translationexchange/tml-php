@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2015 Translation Exchange, Inc
  *
@@ -33,91 +32,21 @@
 
 namespace Tml;
 
-class Translator extends Base {
+require_once(__DIR__."/../BaseTest.php");
 
-    /**
-     * @var Application
-     */
-    public $application;
-    /**
-     * @var integer
-     */
-    public $id;
-    /**
-     * @var string
-     */
-    public $name;
-    /**
-     * @var string
-     */
-    public $email;
-    /**
-     * @var boolean
-     */
-    public $inline;
-    /**
-     * @var boolean[]
-     */
-    public $features;
-    /**
-     * @var integer
-     */
-    public $voting_power;
-    /**
-     * @var integer
-     */
-    public $rank;
-    /**
-     * @var integer
-     */
-    public $level;
-    /**
-     * @var string
-     */
-    public $locale;
-    /**
-     * @var string
-     */
-    public $code;
-    /**
-     * @var string
-     */
-    public $access_token;
+class TranslatorTest extends \BaseTest {
 
-    /**
-     * @param array $attributes
-     */
-    public function __construct($attributes=array()) {
-        parent::__construct($attributes);
+    public function testMatchingWithOneToken() {
+        $translator = new Translator(array(
+            "inline" => true,
+            "features" => array("testing" => true),
+            "email" => "test@test.com"
+        ));
+
+        $this->assertTrue($translator->isInlineModeEnabled());
+        $this->assertTrue($translator->isFeatureEnabled("testing"));
+        $this->assertFalse($translator->isFeatureEnabled("testing1"));
+        $this->assertEquals("http://gravatar.com/avatar/b642b4217b34b1e8d3bd915fc65c4452.png?s=48", $translator->mugshot());
     }
 
-    /**
-     * @return bool
-     */
-    public function isInlineModeEnabled() {
-        return ($this->inline==true);
-    }
-
-    /**
-     * @return null|string
-     */
-    public function mugshot() {
-        if (!isset($this->email)) return null;
-        $gravatar_id = md5(strtolower($this->email));
-        return "http://gravatar.com/avatar/$gravatar_id.png?s=48";
-    }
-
-    /**
-     * @param $key string
-     * @return bool
-     */
-    public function isFeatureEnabled($key) {
-        if ($this->features == null)
-            return false;
-
-        if (!isset($this->features[$key])) {
-            return false;
-        }
-        return $this->features[$key];
-    }
 }
