@@ -34,6 +34,7 @@
 namespace Tml;
 
 use Tml\Cache;
+use Tml\Version;
 
 class ApiClient {
     const CDN_HOST = 'https://cdn.translationexchange.com';
@@ -54,8 +55,7 @@ class ApiClient {
     public static $CURL_OPTS = array(
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT        => 60,
-        CURLOPT_USERAGENT      => "tml-php v3.0.1 (CURL)",
+        CURLOPT_TIMEOUT        => 60
     );
 
     /**
@@ -87,6 +87,7 @@ class ApiClient {
         }
 
         $opts = self::$CURL_OPTS;
+        $opts[CURLOPT_USERAGENT] = "tml-php v" . Version::VERSION . " (CURL)";
 
         $api_host = isset($options['host']) ? $options['host'] : self::API_HOST;
 
