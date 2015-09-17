@@ -11,6 +11,7 @@ Tml for PHP
 [![Latest Unstable Version](https://poser.pugx.org/translationexchange/tml/v/unstable)](https://packagist.org/packages/translationexchange/tml)
 [![Dependency Status](https://www.versioneye.com/user/projects/54c9c297de7924f81a00000c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54c9c297de7924f81a00000c)
 [![Total Downloads](https://poser.pugx.org/translationexchange/tml/downloads)](https://packagist.org/packages/translationexchange/tml)
+[![Monthly Downloads](https://poser.pugx.org/translationexchange/tml/d/monthly)](https://packagist.org/packages/translationexchange/tml)
 [![License](https://poser.pugx.org/translationexchange/tml/license)](https://packagist.org/packages/translationexchange/tml)
 
 Installation

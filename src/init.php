@@ -132,7 +132,7 @@ function tml_init($options = array()) {
     }
 
     // use default browser locale(s)
-    if (!$locale)
+    if (!$locale && isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
         $locale = BrowserUtils::acceptedLocales($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
     // use our default locale
