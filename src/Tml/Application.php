@@ -289,6 +289,40 @@ class Application extends Base {
     }
 
     /**
+     * Checks if a give locale is supported by the application
+     *
+     * @param string $locale
+     * @return bool
+     */
+    public function isLocaleSupported($locale) {
+        foreach($this->languages as $language) {
+            if ($language->locale === $locale)
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Finds the first available supported locale or returns default locale
+     *
+     * @param string $locale
+     * @return mixed
+     */
+    public function supportedLocale($locales) {
+        if (is_string($locales))
+            $locales = explode(",", $locales);
+
+        foreach($locales as $l) {
+            if ($this->isLocaleSupported($l)) {
+                return $l;
+            }
+        }
+
+        return $this->default_locale;
+    }
+
+    /**
      * @param string|null $locale
      * @return Language
      */

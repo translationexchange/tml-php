@@ -170,8 +170,8 @@ abstract class Base {
      */
     function versionedKey($key) {
         return "tml_" .
-                substr(Config::instance()->accessToken(), 0, 5) .
-                ($key == self::TML_VERSION_KEY ? '' : ('' . $this->version())) .
+                Config::instance()->configValue("cache.namespace") .
+                ($key == self::TML_VERSION_KEY ? '' : ('_v' . $this->version())) .
                 "_" .
                 $key;
     }
@@ -217,6 +217,10 @@ abstract class Base {
         if (isset($json["extensions"])) {
             unset($json["extensions"]);
         }
-        return json_encode($json);
+        $json = json_encode($json);
+
+//        $this->info($json);
+
+        return $json;
     }
 }

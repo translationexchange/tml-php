@@ -38,6 +38,10 @@
         "version": 1,
         "timeout": 3600
     },
+  	"agent": {
+	  "enabled": true,
+	  "version": "stable"
+	},
 	"html_translator": {
 		"debug": false,
 		"debug_format": "<span style='font-size:20px;color:red;'>{<\/span> {$0} <span style='font-size:20px;color:red;'>}<\/span>",

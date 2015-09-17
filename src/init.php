@@ -89,7 +89,7 @@ function tml_init($options = array()) {
     $token = isset($options["token"]) ? $options["token"] : Config::instance()->configValue("application.token");
     $host = isset($options["host"]) ? $options["host"] : Config::instance()->configValue("application.host");
 
-    foreach(array("cache", "log", "local") as $type) {
+    foreach(array("cache", "log", "local", "agent") as $type) {
         if (isset($options[$type]))
             Config::instance()->updateConfig($type, $options[$type]);
     }
@@ -132,8 +132,8 @@ function tml_init($options = array()) {
     }
 
     // use default browser locale(s)
-//    if (!$locale)
-//        $locale = BrowserUtils::parseLanguageList($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    if (!$locale)
+        $locale = BrowserUtils::acceptedLocales($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
     // use our default locale
     if (!$locale)
@@ -162,8 +162,13 @@ function tml_init($options = array()) {
     try {
         $application->fetch();
     } catch (\Exception $e) {
+        echo $e;
         Logger::instance()->error("Application failed to initialize: " . $e);
     }
+
+    // var_dump($application);
+
+    $locale = $application->supportedLocale($locale);
 
     if (Config::instance()->isEnabled()) {
         $current_language = $application->language($locale);
@@ -172,8 +177,6 @@ function tml_init($options = array()) {
     }
 
     Config::instance()->current_language = $current_language;
-
-    // Config::instance()->initRequest(array('locale' => $locale, 'translator' => $translator, 'source' => $source));
 
     return true;
 }
@@ -219,7 +222,10 @@ function tml_browser_default_locale() {
  * Includes Tml JavaScript library
  */
 function tml_scripts() {
-  include(__DIR__ . '/Tml/Includes/HeaderScripts.php');
+    if (Config::instance()->configValue("agent.type", "agent") == "agent")
+        include(__DIR__ . '/Tml/Includes/AgentScripts.php');
+    else
+        include(__DIR__ . '/Tml/Includes/ToolsScripts.php');
 }
 
 /**

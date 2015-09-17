@@ -34,6 +34,20 @@ namespace Tml\Utils;
 
 class BrowserUtils {
 
+    public static function acceptedLocales($header = null) {
+        $weighted_locales = self::parseLanguageList($header);
+        $weights = array_keys($weighted_locales);
+        sort($weights);
+        $weights = array_reverse($weights);
+        $locales = array();
+        foreach($weights as $weight) {
+            foreach($weighted_locales[$weight] as $l) {
+              array_push($locales, $l);
+            }
+        }
+        return implode(',', $locales);
+    }
+
     public static function parseLanguageList($languageList = null) {
         if (is_null($languageList)) {
             if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {

@@ -1,5 +1,7 @@
 <?php
 
+use Tml\Config;
+
 /**
  * Copyright (c) 2015 Translation Exchange, Inc
  *
@@ -31,86 +33,25 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Tml\Cache;
-
-use Redis;
-use Tml\Config;
-
-class RedisAdapter extends MemcacheAdapter {
-
-    /**
-     * Creates Redis adapter
-     */
-    public function __construct() {
-        $this->cache = new Redis;
-        if (Config::instance()->configValue("socket")) {
-            $this->cache->connect(Config::instance()->configValue("socket"));
-        } else {
-            $this->cache->connect(
-                Config::instance()->configValue("cache.host", 'localhost'),
-                Config::instance()->configValue("cache.port", 6379)
+if (Config::instance()->isEnabled()) { ?>
+    <script>
+        <?php
+            $agent_host = Config::instance()->configValue("agent.host",
+                "https://cdn.translationexchange.com/tools/agent/" . Config::instance()->configValue("agent.version", "stable") . "/agent.min.js"
             );
-        }
-    }
+        ?>
 
-    /**
-     * Returns adapter key
-     *
-     * @return string
-     */
-    public function key() {
-        return "redis";
-    }
+        (function() {
+            var script = window.document.createElement('script');
+            script.setAttribute('id', 'tml-agent');
+            script.setAttribute('type', 'application/javascript');
+            script.setAttribute('src', '<?php echo $agent_host ?>');
+            script.setAttribute('charset', 'UTF-8');
+            script.onload = function() {
+                Trex.init("<?php echo tml_application()->key ?>", <?php echo json_encode(Config::instance()->configValue("agent", array()), JSON_UNESCAPED_SLASHES) ?>);
+            };
+            window.document.getElementsByTagName('head')[0].appendChild(script);
+        })();
+    </script>
 
-    public function fetch($key, $default = null) {
-        $value = $this->cache->get($this->versionedKey($key));
-        if ($value) {
-            $this->info("Cache hit " . $key);
-            return $value;
-        }
-
-        $this->info("Cache miss " . $key);
-
-        if ($default == null)
-            return null;
-
-        if (is_callable($default)) {
-            $value = $default();
-        } else {
-            $value = $default;
-        }
-
-        $this->store($key, $value);
-
-        return $value;
-    }
-
-    /**
-     * Stores data in Redis
-     *
-     * @param $key
-     * @param $value
-     * @return bool
-     */
-    public function store($key, $value) {
-        $this->info("Cache store " . $key);
-        // $this->info($value);
-
-        return $this->cache->set(
-            $this->versionedKey($key),
-            $this->stripExtensions($value)
-        );
-    }
-
-    /**
-     * Checks if key exists in Redis
-     * 
-     * @param $key
-     * @return bool
-     */
-    public function exists($key) {
-        $this->info("Cache exists " . $key);
-        return $this->cache->exists($this->versionedKey($key));
-    }
-
-}
+<?php } ?>
