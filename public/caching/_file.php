@@ -6,7 +6,8 @@
 <pre><code class="language-javascript">"cache": {
   "enabled": true,
   "adapter": "file",
-  "path": "/cache"
+  "path": "/cache",
+  "version": "12345"
 }</code></pre>
 
 <h4><?php tre("Generation") ?></h4>
@@ -15,7 +16,7 @@
     <?php tre("To generate the cache files, run the following script:") ?>
 </p>
 
-<pre><code class="language-bash">$ bin/generate_file_cache</code></pre>
+<pre><code class="language-bash">$ bin/tml cache</code></pre>
 <p>
     <?php tre("The files will be stored in the /cache/current folder.") ?>
 

@@ -145,7 +145,7 @@ class ApiClient {
      * @param $options
      * @return array
      */
-    public static function getCacheVersion($params, $options) {
+    public static function getCacheVersion($params = array(), $options = array()) {
         return self::executeRequest(self::API_PATH . "applications/current/version", $params, $options);
     }
 

@@ -16,6 +16,11 @@
     ),
     "cache" => array(
         "enabled"   => true,
+        "adapter"   => "file",
+        "version"   => "20150916212919"
+    ),
+    "cache_memcache" => array(
+        "enabled"   => true,
         "adapter"   => "memcached",
         "host"      => "localhost",
         "port"      => 11211

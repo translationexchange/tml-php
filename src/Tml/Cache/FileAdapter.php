@@ -33,10 +33,16 @@
 
 namespace Tml\Cache;
 
+use Tml\Config;
+
 class FileAdapter extends Base {
 
     public function key() {
         return "file";
+    }
+
+    function fetchVersion() {
+        return Config::instance()->configValue("cache.version", 'current');
     }
 
     public function fetch($key, $default = null) {

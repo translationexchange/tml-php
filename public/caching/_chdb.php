@@ -47,7 +47,7 @@ CHDB (constant hash database) is a fast key-value database for constant data, re
     <?php tre("To generate the cache files, run the following script:") ?>
 </p>
 
-<pre><code class="language-bash">$ bin/generate_chdb_cache</code></pre>
+<pre><code class="language-bash">$ bin/tml chdb</code></pre>
 
 <?php trhe("
 <p>

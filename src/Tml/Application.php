@@ -273,7 +273,6 @@ class Application extends Base {
     }
 
     /**
-     * @internal param string $key
      * @return string
      */
     public static function cacheKey() {
