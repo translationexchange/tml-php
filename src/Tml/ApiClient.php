@@ -55,7 +55,7 @@ class ApiClient {
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_TIMEOUT        => 60,
-        CURLOPT_USERAGENT      => "tml-php v3.0.0 (CURL)",
+        CURLOPT_USERAGENT      => "tml-php v3.0.1 (CURL)",
     );
 
     /**
