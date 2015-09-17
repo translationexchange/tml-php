@@ -42,7 +42,6 @@ class Cache {
         $adapter = Config::instance()->configValue("cache.adapter");
 
         switch($adapter) {
-            case "chdb": return '\Tml\Cache\ChdbAdapter';
             case "file": return '\Tml\Cache\FileAdapter';
             case "apc": return '\Tml\Cache\ApcAdapter';
             case "memcache": return '\Tml\Cache\MemcacheAdapter';
@@ -128,7 +127,7 @@ class Cache {
      */
     public static function isReadOnly() {
         $adapter = Config::instance()->configValue("cache.adapter");
-        return $adapter == "file" || $adapter == "chdb";
+        return $adapter == "file";
     }
 
     /**

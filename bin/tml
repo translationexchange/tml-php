@@ -65,6 +65,18 @@ function say($msg) {
 }
 
 if ($command == "init") {
+    function printOptions() {
+        say("Usage: tml init [options]\n");
+        say("Options:");
+        say("   --help            (optional) This screen ");
+        say("\n");
+    }
+
+    if (getOption($options, "--help") != null) {
+        printOptions();
+        exit;
+    }
+
     $default_config_path = __DIR__."/../config/defaults.json";
     $config_path = __DIR__."/../config/config.json";
 
@@ -80,7 +92,6 @@ if ($command == "cache") {
     function printOptions() {
         say("Usage: tml cache [options]\n");
         say("Options:");
-        say("   --help            (optional) This screen ");
         say("   -k(--key)         (required) Application key ");
         say("   -t(--token)       (required) Application token ");
         say("   -h(--host)        (optional) Application host ");
