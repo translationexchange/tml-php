@@ -155,11 +155,12 @@ function tml_init($options = array()) {
     try {
         $application->fetch();
     } catch (\Exception $e) {
-        echo $e;
         Logger::instance()->error("Application failed to initialize: " . $e);
     }
 
     $locale = $application->supportedLocale($locale);
+
+//    var_dump($application);
 
     if (Config::instance()->isEnabled()) {
         $current_language = $application->language($locale);

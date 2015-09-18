@@ -318,7 +318,10 @@ class Application extends Base {
             }
         }
 
-        return $this->default_locale;
+        if ($this->default_locale != null)
+            return $this->default_locale;
+
+        return 'en';
     }
 
     /**
