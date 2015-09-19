@@ -163,7 +163,7 @@ class ApiClient {
 
         $current_version = Cache::fetchVersion();
 
-        if ($current_version == 'undefined') {
+        if ($current_version == null || $current_version === "undefined") {
             Logger::instance()->info("Requesting current version...");
             $current_version = self::getCacheVersion($params, $options);
             if ($current_version == '0') $current_version = 'live';
