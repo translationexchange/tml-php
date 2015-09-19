@@ -34,6 +34,7 @@
 namespace Tml;
 
 use Tml\Cache;
+use Tml\Version;
 
 class ApiClient {
     const CDN_HOST = 'https://cdn.translationexchange.com';
@@ -54,8 +55,7 @@ class ApiClient {
     public static $CURL_OPTS = array(
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT        => 60,
-        CURLOPT_USERAGENT      => "tml-php v3.0.0 (CURL)",
+        CURLOPT_TIMEOUT        => 60
     );
 
     /**
@@ -87,6 +87,7 @@ class ApiClient {
         }
 
         $opts = self::$CURL_OPTS;
+        $opts[CURLOPT_USERAGENT] = "tml-php v" . Version::VERSION . " (CURL)";
 
         $api_host = isset($options['host']) ? $options['host'] : self::API_HOST;
 
@@ -162,7 +163,7 @@ class ApiClient {
 
         $current_version = Cache::fetchVersion();
 
-        if ($current_version == 'undefined') {
+        if ($current_version == null || $current_version === "undefined") {
             Logger::instance()->info("Requesting current version...");
             $current_version = self::getCacheVersion($params, $options);
             if ($current_version == '0') $current_version = 'live';
