@@ -437,13 +437,18 @@ class Application extends Base {
     public function verifySourcePath($source_key, $source_path) {
         if (Config::instance()->isCacheEnabled() && !Config::instance()->isInlineTranslationModeEnabled())
             return;
+
         if (!$this->extensions || !isset($this->extensions["sources"]))
             return;
+
         if (isset($this->extensions["sources"][$source_key]))
             return;
+
         if ($this->missing_keys_by_sources === null)
             $this->missing_keys_by_sources = array();
-        $this->missing_keys_by_sources[$source_path] = array();
+
+        if (!isset($this->missing_keys_by_sources[$source_path]))
+            $this->missing_keys_by_sources[$source_path] = array();
     }
 
     /**

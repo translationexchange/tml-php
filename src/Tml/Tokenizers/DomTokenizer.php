@@ -34,6 +34,7 @@
 namespace Tml\Tokenizers;
 
 use Tml\Config;
+use Tml\Utils\StringUtils;
 
 class DomTokenizer {
     /**
@@ -156,11 +157,26 @@ class DomTokenizer {
         return false;
     }
 
+    private function innerHtml($element) {
+        $innerHTML = "";
+        $children  = $element->childNodes;
+
+        foreach ($children as $child) {
+            $innerHTML .= $element->ownerDocument->saveHTML($child);
+        }
+
+        return $innerHTML;
+    }
+
     /**
      * @param $node
      * @return mixed|string
      */
     private function translateTree($node) {
+        if ($this->isNonTranslatableNode($node)) {
+            return $this->innerHtml($node);
+        }
+
         if ($node->nodeType == 3) {
             return $this->translateTml($node->wholeText);
         }
@@ -202,6 +218,49 @@ class DomTokenizer {
     }
 
     /**
+     * @param $node
+     * @return bool
+     */
+    private function isNoTranslate($node) {
+        if ($node->attributes) {
+            foreach($node->attributes as $attr) {
+                if ($attr->name == 'notranslate')
+                    return true;
+                if ($attr->name == 'class' && strpos($attr->value, 'notranslate') !== false)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if the node needs to be translated or ignored
+     *
+     * @param $node
+     * @return bool
+     */
+    private function isNonTranslatableNode($node) {
+        if (!$node) return false;
+
+        if ($node->nodeType == 8)
+            return true;
+
+        if ($node->nodeType == 1) {
+            if (in_array(strtolower($node->nodeName), $this->getOption("nodes.scripts")))
+                return true;
+
+            if (count($node->childNodes) === 0 && $node->nodeValue === '')
+                return true;
+
+            if ($this->isNoTranslate($node))
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
      * TML nodes can be nested - but they CANNOT contain non-inline nodes
      *
      * @param $node
@@ -240,7 +299,7 @@ class DomTokenizer {
         if (isset($this->options[$name])) {
             return $this->options[$name];
         }
-        return Config::instance()->configValue("html_translator." . $name);
+        return Config::instance()->configValue("translator_options." . $name);
     }
 
     /**

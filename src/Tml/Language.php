@@ -253,8 +253,12 @@ class Language extends Base {
             // most cache adapters use caching by source
             if (Cache::isCachedBySource() && !Config::instance()->blockOption("dry")) {
                 $source_key = $this->currentSource($options);
-//                Logger::instance()->notice($source_key . ": " . $label);
-                $source_path = $this->getSourcePath();
+                $source_path = $this->getSourcePath($source_key);
+
+//                var_dump($label);
+//                var_dump(Config::instance()->current_source);
+//                var_dump($source_key);
+//                var_dump($source_path);
 
                 if (Config::instance()->blockOption("dynamic")) {
                     $source_path = $source_key;
@@ -264,6 +268,7 @@ class Language extends Base {
 
                 $source = $this->application->source($source_key, $this->locale);
                 $matched_translations = $source->getCachedTranslations($this->locale, $translation_key->key);
+
                 if ($matched_translations !== false) {
                     $translation_key->setTranslations($this->locale, $matched_translations);
                     return $translation_key->translate($this, $token_values, $options);
@@ -284,7 +289,7 @@ class Language extends Base {
         }
 	}
 
-    function getSourcePath() {
+    function getSourcePath($current_source) {
         $source_path = array();
         $blocks = Config::instance()->block_options;
         if (!$blocks) $blocks = array();
@@ -294,7 +299,10 @@ class Language extends Base {
                 array_unshift($source_path, $opts["source"]);
         }
 
-        array_unshift($source_path, Config::instance()->current_source);
+        array_unshift($source_path, $current_source);
+        if (Config::instance()->current_source != $current_source) {
+            array_unshift($source_path, Config::instance()->current_source);
+        }
         return implode("@:@", $source_path);
     }
 

@@ -42,10 +42,10 @@
 	  "enabled": true,
 	  "version": "stable"
 	},
-	"html_translator": {
+	"translator_options": {
 		"debug": false,
 		"debug_format": "<span style='font-size:20px;color:red;'>{<\/span> {$0} <span style='font-size:20px;color:red;'>}<\/span>",
-		"split_sentences": false,
+		"split_sentences": true,
 		"nodes": {
 			"ignored": [
 				"html",

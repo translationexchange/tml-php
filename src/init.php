@@ -106,6 +106,8 @@ function tml_init($options = array()) {
     // get cookie name
     $cookie_name = "trex_" . $key;
 
+//    var_dump($cookie_name);
+
     // check if cookie is set
     if (isset($_COOKIE[$cookie_name])) {
         $cookie_params = Config::instance()->decode($_COOKIE[$cookie_name], $token);
@@ -151,6 +153,8 @@ function tml_init($options = array()) {
     Config::instance()->current_translator = $translator;
     Config::instance()->current_source = $source;
     Config::instance()->current_locale = $locale;
+
+//    var_dump($cookie_params);
 
     try {
         $application->fetch();
@@ -358,7 +362,6 @@ function trle($label, $description = "", $tokens = array(), $options = array()) 
  * @param array $tokens
  * @param array $options
  * @return array
- * @internal param string $html
  */
 function trh($label, $description = "", $tokens = array(), $options = array()) {
     $params = ArrayUtils::normalizeTmlParameters($label, $description, $tokens, $options);
@@ -375,7 +378,6 @@ function trh($label, $description = "", $tokens = array(), $options = array()) {
  * @param string $description
  * @param array $tokens
  * @param array $options
- * @internal param string $html
  */
 function trhe($label, $description = "", $tokens = array(), $options = array()) {
     $params = ArrayUtils::normalizeTmlParameters($label, $description, $tokens, $options);
