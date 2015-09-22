@@ -289,6 +289,12 @@ class Language extends Base {
         }
 	}
 
+    /**
+     * Returns full path of the source
+     *
+     * @param $current_source
+     * @return string
+     */
     function getSourcePath($current_source) {
         $source_path = array();
         $blocks = Config::instance()->block_options;
@@ -299,13 +305,22 @@ class Language extends Base {
                 array_unshift($source_path, $opts["source"]);
         }
 
-        array_unshift($source_path, $current_source);
-        if (Config::instance()->current_source != $current_source) {
+        if (!in_array($current_source, $source_path)) {
+            array_unshift($source_path, $current_source);
+        }
+
+        if (!in_array(Config::instance()->current_source, $source_path)) {
             array_unshift($source_path, Config::instance()->current_source);
         }
+
         return implode("@:@", $source_path);
     }
 
+    /**
+     * Returns string representation of the class
+     * 
+     * @return string
+     */
     function __toString() {
         return $this->locale;
     }

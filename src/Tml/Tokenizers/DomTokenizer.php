@@ -169,6 +169,17 @@ class DomTokenizer {
     }
 
     /**
+     * Return source name for a given element
+     *
+     * @param $node
+     * @return null
+     */
+    private function getSourceBlock($node) {
+        if (!$node->attributes) return null;
+        return $node->getAttribute('data-tml-source');
+    }
+
+    /**
      * @param $node
      * @return mixed|string
      */
@@ -179,6 +190,12 @@ class DomTokenizer {
 
         if ($node->nodeType == 3) {
             return $this->translateTml($node->wholeText);
+        }
+
+        $source = null;
+        if ($node->nodeType == 1) {
+            $source = $this->getSourceBlock($node);
+            if ($source) tml_begin_source($source);
         }
 
         $html = "";
@@ -213,6 +230,8 @@ class DomTokenizer {
         if ($buffer != "") {
             $html = $html . $this->translateTml($buffer);
         }
+
+        if ($source) tml_finish_source();
 
         return $html;
     }
