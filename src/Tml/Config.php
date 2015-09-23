@@ -195,9 +195,6 @@ class Config {
         if (!$this->isCacheEnabled())
             return true;
 
-        if (Cache::isVersionLive())
-            return true;
-
         if ($this->isInlineTranslationModeEnabled())
             return true;
 

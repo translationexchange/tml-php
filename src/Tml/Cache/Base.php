@@ -210,9 +210,12 @@ abstract class Base {
      * @return string
      */
     function stripExtensions($data) {
-        if (!is_string($data)) {
+        if (!is_string($data))
             $data = json_encode($data);
-        }
+
+        if (!preg_match("/^{/", $data))
+            return $data;
+
         $json = json_decode($data, true);
         if (isset($json["extensions"])) {
             unset($json["extensions"]);

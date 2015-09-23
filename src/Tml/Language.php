@@ -243,6 +243,8 @@ class Language extends Base {
      */
     public function translate($label, $description = "", $token_values = array(), $options = array()) {
         try {
+//            if (strpos($label, '<tml:tr') !== false) return $label;
+
             $translation_key = $this->createTranslationKey($label, $description, $options);
             $token_values = array_merge($token_values, array("viewing_user" => Config::instance()->current_user));
 
