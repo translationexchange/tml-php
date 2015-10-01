@@ -31,8 +31,9 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+/** Enabble Following lines in Debug mode only  **/
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 /**
  * Require files in a specific order
