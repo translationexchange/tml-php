@@ -37,7 +37,7 @@ if (Config::instance()->isEnabled()) { ?>
     <script>
         <?php
             $agent_host = Config::instance()->configValue("agent.host",
-                "https://cdn.translationexchange.com/tools/agent/" . Config::instance()->configValue("agent.version", "stable") . "/agent.min.js"
+                "https://tools.translationexchange.com/agent/agent.min.js"
             );
         ?>
 
