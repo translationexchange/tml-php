@@ -53,6 +53,8 @@ if ARGV.include?('release')
   execute("git add #{version_file_path}")
   execute("git commit -m 'Updated version to #{version}'")
   execute('git push')
+
+  execute('open https://packagist.org/packages/translationexchange/tml')
 end
 
 
