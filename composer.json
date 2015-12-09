@@ -3,14 +3,14 @@
     "type": "library",
     "description": "Translation Markup Language for PHP",
     "keywords": ["tml","translation","internationalization","i18n","localization","l10n","t9n", "tr8n", "translation markup language"],
-    "homepage": "http://welcome.translationexchange.com",
+    "homepage": "https://translationexchange.com",
     "license": "MIT",
     "minimum-stability": "dev",
     "authors": [
         {
             "name": "Michael Berkovich",
-            "email": "michael@translationexchange.com",
-            "homepage": "http://translationexchange.com"
+            "email": "support@translationexchange.com",
+            "homepage": "https://translationexchange.com"
         }
     ],
     "require": {
