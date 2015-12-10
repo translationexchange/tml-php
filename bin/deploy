@@ -51,6 +51,7 @@ puts "\nBuilding tml-php #{version}..."
 execute('phpunit')
 
 if ARGV.include?('release')
+  update_readme
   execute('git checkout master')
   execute('git merge develop')
   execute("git tag #{version}")
@@ -58,7 +59,6 @@ if ARGV.include?('release')
 
   execute('git checkout develop')
 
-  update_readme
   increment_version
   execute("git add #{readme_file_path} #{version_file_path}")
   execute("git commit -m 'Updated version to #{version}'")
