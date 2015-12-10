@@ -33,13 +33,16 @@ def increment_version
   @version = nil
 end
 
+def readme_file_path
+  './README.md'
+end
+
 def update_readme
-  md_file_path = './README.md'
-  md_file = File.read(md_file_path)
-  previous_version = md_file.match(/"translationexchange\/tml"\s*:\s*"([^"]*)"/)[1]
-  md_file.gsub!(previous_version, version)
-  File.open(md_file_path, 'w') do |file|
-    file.write(md_file)
+  readme_file = File.read(readme_file_path)
+  previous_version = readme_file.match(/"translationexchange\/tml"\s*:\s*"([^"]*)"/)[1]
+  readme_file.gsub!(previous_version, version)
+  File.open(readme_file_path, 'w') do |file|
+    file.write(readme_file)
   end
 end
 
@@ -57,7 +60,7 @@ if ARGV.include?('release')
 
   update_readme
   increment_version
-  execute("git add #{version_file_path}")
+  execute("git add #{readme_file_path} #{version_file_path}")
   execute("git commit -m 'Updated version to #{version}'")
   execute('git push')
 
