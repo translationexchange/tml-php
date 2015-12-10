@@ -29,8 +29,6 @@ def increment_version
     file.write(version_file)
   end
 
-  update_readme(current_version, new_version)
-
   @version_file = nil
   @version = nil
 end
