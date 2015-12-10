@@ -40,7 +40,8 @@
     },
   	"agent": {
 	  "enabled": true,
-	  "version": "stable"
+	  "type": "agent",
+	  "cache": 86400
 	},
 	"translator_options": {
 		"debug": false,

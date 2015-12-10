@@ -36,9 +36,13 @@ use Tml\Config;
 if (Config::instance()->isEnabled()) { ?>
     <script>
         <?php
+            $cache_interval =  Config::instance()->configValue("agent.cache", 86400);
             $agent_host = Config::instance()->configValue("agent.host",
-                "https://tools.translationexchange.com/agent/agent.min.js"
+                "https://tools.translationexchange.com/agent/stable/agent.min.js"
             );
+            $t = time();
+            $t = $t - ($t % $cache_interval);
+            $agent_host = $agent_host . '?ts=' . $t;
         ?>
 
         (function() {
