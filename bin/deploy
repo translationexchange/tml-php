@@ -35,15 +35,11 @@ end
 
 puts "\nBuilding tml-php #{version}..."
 
-if ARGV.include?('release')
-  execute('git checkout master')
-  execute('git merge develop')
-  execute('git push')
-end
-
 execute('phpunit')
 
 if ARGV.include?('release')
+  execute('git checkout master')
+  execute('git merge develop')
   execute("git tag #{version}")
   execute('git push')
 
