@@ -53,7 +53,7 @@ execute('phpunit')
 if ARGV.include?('release')
   update_readme
   execute("git add #{readme_file_path}")
-  execute("git commit -m 'Updated version to #{version}'")
+  execute("git commit -m 'Updated readme version to #{version}'")
   execute('git push')
 
   execute('git checkout master')
