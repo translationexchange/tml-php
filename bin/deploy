@@ -29,8 +29,20 @@ def increment_version
     file.write(version_file)
   end
 
+  update_readme(current_version, new_version)
+
   @version_file = nil
   @version = nil
+end
+
+def update_readme
+  md_file_path = './README.md'
+  md_file = File.read(md_file_path)
+  previous_version = md_file.match(/"translationexchange\/tml"\s*:\s*"([^"]*)"/)[1]
+  md_file.gsub!(previous_version, version)
+  File.open(md_file_path, 'w') do |file|
+    file.write(md_file)
+  end
 end
 
 puts "\nBuilding tml-php #{version}..."
@@ -45,6 +57,7 @@ if ARGV.include?('release')
 
   execute('git checkout develop')
 
+  update_readme
   increment_version
   execute("git add #{version_file_path}")
   execute("git commit -m 'Updated version to #{version}'")
