@@ -1,28 +1,19 @@
-<?php require_once(__DIR__ . '/../../src/init.php'); ?>
+<?php
+    require_once(__DIR__ . '/../../src/init.php');
 
-<?php tml_init(array(
+    tml_init(array(
 //    "key"   => "c5d1005ced6df79cd2f7e78410134a68ec5546812013518a02402cfba1797eba",
 //    "token" => "04165d184608f9e2ada04b35d995a39703031aba4b76627dfa4164318b21a7d9",
 //    "host"  => "http://localhost:3000",
     "key"   => "70b41a860df8c211d",
     "token" => "6de77deffe1809b61e54f5d0da1add436815f4cd85a1c98d141aebf5f328702e",
 
-    "agent" => array(
-        "enabled" => true,
-        "type"    => "agent",
-        "version" => "stable",
-        "domains_local" => array(
-            "api"       => "http://localhost:3000",
-            "tools"     => "http://localhost:3002",
-            "analytics" => "https://analyst.translationexchange.com"
-        )
-    ),
     "cache_file" => array(
         "enabled"   => true,
         "adapter"   => "file",
         "version"   => "20150916212919"
     ),
-    "cache" => array(
+    "cache_memcache" => array(
         "enabled"   => true,
         "adapter"   => "memcached",
         "host"      => "localhost",
