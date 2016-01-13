@@ -324,7 +324,7 @@ class Session {
      * @param string $name
      */
     static function beginSource($name) {
-        self::beginBlockWithOptions(array("source" => $name));
+        self::instance()->beginBlockWithOptions(array("source" => $name));
     }
 
     /**
