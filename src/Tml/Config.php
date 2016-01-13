@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -43,11 +43,6 @@ class Config {
     public $config;
 
     /**
-     * @var Application
-     */
-    public $application;
-
-    /**
      * @var string
      */
     public $default_locale;
@@ -63,39 +58,9 @@ class Config {
     public $default_tokens;
 
     /**
-     * @var mixed
-     */
-    public $current_user;
-
-    /**
-     * @var string
-     */
-    public $current_locale;
-
-    /**
-     * @var Language
-     */
-    public $current_language;
-
-    /**
      * @var Language
      */
     public $default_language;
-
-    /**
-     * @var Translator
-     */
-    public $current_translator;
-
-    /**
-     * @var Source
-     */
-    public $current_source;
-
-    /**
-     * @var array
-     */
-    public $block_options;
 
     /**
      * @param $config
@@ -122,10 +87,8 @@ class Config {
      *
      */
     function __construct() {
-        $this->application = null;
         $this->default_locale = 'en';
         $this->default_level = 0;
-        $this->block_options = array();
     }
 
     /**
@@ -178,79 +141,6 @@ class Config {
     }
 
     /**
-     * Returns access token
-     *
-     * @return string
-     */
-    public function accessToken() {
-        return $this->application->access_token;
-    }
-
-    /**
-     * Checks if keys should be sent to the server
-     *
-     * @return bool
-     */
-    public function isKeyRegistrationEnabled() {
-        if (!$this->isCacheEnabled())
-            return true;
-
-        if ($this->isInlineTranslationModeEnabled())
-            return true;
-
-        return false;
-    }
-
-    /**
-     * @param array $options
-     */
-    public function completeRequest(/** @noinspection PhpUnusedParameterInspection */
-        $options = array()) {
-        if (!isset($this->application)) return;
-        $this->application->submitMissingKeys();
-    }
-
-    /**
-     * @param array $options
-     */
-    public function beginBlockWithOptions($options = array()) {
-        array_push($this->block_options, $options);
-    }
-
-    /**
-     * @param $key
-     * @return null
-     */
-    public function blockOption($key) {
-        if (count($this->block_options) == 0) return null;
-        $current_options = $this->block_options[count($this->block_options)-1];
-        if (!array_key_exists($key, $current_options)) return null;
-        return $current_options[$key];
-    }
-
-    /**
-     * @return null
-     */
-    public function finishBlockWithOptions() {
-        if (count($this->block_options) == 0) return null;
-        array_pop($this->block_options);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEnabled() {
-        return ($this->application != null && $this->application->key != null);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDisabled() {
-        return !self::isEnabled();
-    }
-
-    /**
      * @return mixed|null|string|\string[]
      */
     public function isLoggerEnabled() {
@@ -295,14 +185,6 @@ class Config {
 
         return Logger::DEBUG;
     }
-
-    /**
-     * @return bool
-     */
-    public function isInlineTranslationModeEnabled() {
-        return ($this->current_translator && $this->current_translator->isInlineModeEnabled());
-    }
-
 
     /**
      * Updates default settings
@@ -499,7 +381,7 @@ class Config {
      * @param array $params
      * @return string
      */
-    public function encode($params, $token = null) {
+    public function encode($params) {
         $data = json_encode($params);
         $payload_json = base64_encode($data);
         $request = urlencode($payload_json);
@@ -510,7 +392,7 @@ class Config {
      * @param $request
      * @return mixed
      */
-    public function decode($request, $token = null) {
+    public function decode($request) {
         $request = urldecode($request);
         $payload_json = base64_decode($request);
         $data = json_decode($payload_json, true);
@@ -542,4 +424,22 @@ class Config {
         $data = json_decode($payload_json, true);
         return $data;
     }
+
+    /**
+     * Includes Tml JavaScript library
+     */
+    public function scripts() {
+        if (Config::instance()->configValue("agent.type", "agent") == "agent")
+            include(__DIR__ . '/Includes/AgentScripts.php');
+        else
+            include(__DIR__ . '/Includes/ToolsScripts.php');
+    }
+
+    /**
+     * Includes Tml footer scripts
+     */
+    public function footer() {
+        include(__DIR__ . '/Includes/FooterScripts.php');
+    }
+
 }

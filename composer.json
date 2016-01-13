@@ -20,8 +20,8 @@
         "satooshi/php-coveralls": "dev-master"
     },
     "autoload": {
-        "psr-0": {
-            "tml": "src"
+        "psr-4": {
+            "Tml": "src"
         }
     }
 }

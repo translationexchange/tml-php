@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -32,9 +32,6 @@
  */
 
 namespace Tml;
-
-use Tml\Cache;
-use Tml\Version;
 
 class ApiClient {
     const CDN_HOST = 'https://cdn.translationexchange.com';
@@ -205,7 +202,7 @@ class ApiClient {
      * @throws TmlException
      */
     public static function fetch($path, $params = array(), $options = array()) {
-        if (!Config::instance()->isInlineTranslationModeEnabled() && Config::instance()->isCacheEnabled() && isset($options["cache_key"])) {
+        if (Config::instance()->isCacheEnabled() && !Session::instance()->isInlineTranslationModeEnabled() && isset($options["cache_key"])) {
             self::verifyCacheVersion($params, $options);
             $data = Cache::fetch($options["cache_key"]);
             if (!$data) {

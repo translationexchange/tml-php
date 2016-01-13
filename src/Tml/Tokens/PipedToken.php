@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -33,6 +33,7 @@
 
 namespace Tml\Tokens;
 
+use Tml\Decorators\Base;
 use Tml\TmlException;
 use Tml\Utils\ArrayUtils;
 use Tml\Logger;
@@ -139,10 +140,10 @@ class PipedToken extends DataToken {
      * results in: {"one": "likes", "other": "like"}
      *
      *
-     * @param string[] $params
      * @param \Tml\LanguageContext $context
+     * @param array $options
      * @return array
-     * @throws TmlException
+     * @internal param \string[] $params
      */
     public function generateValueMapForContext($context, $options = array()) {
         $values = array();
@@ -271,7 +272,7 @@ class PipedToken extends DataToken {
 
         $token_value = array();
 
-        $decorated_value = \Tml\Decorators\Base::decorator()->decorateToken($this, $this->tokenValue($token_values, $language, $options), $options);
+        $decorated_value = Base::decorator()->decorateToken($this, $this->tokenValue($token_values, $language, $options), $options);
 
         if ($this->isValueDisplayedInTranslation()) {
             array_push($token_value, $decorated_value);

@@ -1,4 +1,6 @@
-<?php include dirname(__FILE__)."/"."LanguageSelectorJs.php" ?>
+<?php use Tml\Session;
+
+include dirname(__FILE__)."/"."LanguageSelectorJs.php" ?>
 
 <?php
 
@@ -8,7 +10,7 @@ $type = isset($opts['type']) ? $opts['type'] : 'english';
 
 echo "<select id='tml_language_selector' onchange='tml_change_locale(this.options[this.selectedIndex].value)' style='$style' class='$class'>";
 
-$languages = \Tml\Config::instance()->application->languages;
+$languages = Session::application()->languages;
 foreach($languages as $lang) {
     echo "<option dir='ltr' value='$lang->locale' " . ($lang->locale == tml_current_language()->locale ? 'selected' : '') . ">";
     if ($type == "native")

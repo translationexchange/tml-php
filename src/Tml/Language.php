@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -205,8 +205,8 @@ class Language extends Base {
      * @return null|Source
      */
     public function currentSource($options = array()) {
-        $source_key = isset($options['source']) ? $options["source"] : Config::instance()->blockOption('source');
-        if ($source_key == null) $source_key = Config::instance()->current_source;
+        $source_key = isset($options['source']) ? $options["source"] : Session::blockOption('source');
+        if ($source_key == null) $source_key = Session::currentSource();
         return $source_key;
     }
 
@@ -218,10 +218,10 @@ class Language extends Base {
      * @return TranslationKey
      */
     private function createTranslationKey($label, $description = "", $options = array()) {
-        $locale = isset($options["locale"]) ? $options["locale"] : Config::instance()->blockOption("locale");
+        $locale = isset($options["locale"]) ? $options["locale"] : Session::blockOption("locale");
         if ($locale == null) $locale = Config::instance()->default_locale;
 
-        $level = isset($options["level"]) ? $options["level"] : Config::instance()->blockOption("level");
+        $level = isset($options["level"]) ? $options["level"] : Session::blockOption("level");
         if ($level == null) $level = Config::instance()->default_level;
 
         return new TranslationKey(array(
@@ -246,23 +246,23 @@ class Language extends Base {
 //            if (strpos($label, '<tml:tr') !== false) return $label;
 
             $translation_key = $this->createTranslationKey($label, $description, $options);
-            $token_values = array_merge($token_values, array("viewing_user" => Config::instance()->current_user));
+            $token_values = array_merge($token_values, array("viewing_user" => Session::instance()->current_user));
 
-            if (Config::instance()->isDisabled()) {
+            if (Session::isInactive()) {
                 return $translation_key->substituteTokens($label, $token_values, $this, $options);
             }
 
             // most cache adapters use caching by source
-            if (Cache::isCachedBySource() && !Config::instance()->blockOption("dry")) {
+            if (Cache::isCachedBySource() && !Session::blockOption("dry")) {
                 $source_key = $this->currentSource($options);
                 $source_path = $this->getSourcePath($source_key);
 
 //                var_dump($label);
-//                var_dump(Config::instance()->current_source);
+//                var_dump(Session::instance()->current_source);
 //                var_dump($source_key);
 //                var_dump($source_path);
 
-                if (Config::instance()->blockOption("dynamic")) {
+                if (Session::blockOption("dynamic")) {
                     $source_path = $source_key;
                 } else {
                     $this->application->verifySourcePath($source_key, $source_path);
@@ -299,7 +299,7 @@ class Language extends Base {
      */
     function getSourcePath($current_source) {
         $source_path = array();
-        $blocks = Config::instance()->block_options;
+        $blocks = Session::instance()->block_options;
         if (!$blocks) $blocks = array();
 
         foreach($blocks as $opts) {
@@ -311,8 +311,8 @@ class Language extends Base {
             array_unshift($source_path, $current_source);
         }
 
-        if (!in_array(Config::instance()->current_source, $source_path)) {
-            array_unshift($source_path, Config::instance()->current_source);
+        if (!in_array(Session::instance()->current_source, $source_path)) {
+            array_unshift($source_path, Session::instance()->current_source);
         }
 
         return implode("@:@", $source_path);

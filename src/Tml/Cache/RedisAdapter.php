@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -42,6 +42,7 @@ class RedisAdapter extends MemcacheAdapter {
      * Creates Redis adapter
      */
     public function __construct() {
+        parent::__construct();
         $this->cache = new Redis;
         if (Config::instance()->configValue("socket")) {
             $this->cache->connect(Config::instance()->configValue("socket"));

@@ -1,9 +1,9 @@
 <?php
 
-use Tml\Config;
+use Tml\Session;
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -33,6 +33,6 @@ use Tml\Config;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-if (Config::instance()->isEnabled()) { ?>
-    <?php tml_complete_request() ?>
-<?php } ?>
+if (Session::isActive()) { ?>
+    <?php Session::finalize() ?>
+<?php }

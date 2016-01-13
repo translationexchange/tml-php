@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -34,12 +34,19 @@
 namespace Tml\Cache;
 
 class MemcachedAdapter extends MemcacheAdapter {
-	
-	public function __construct() {
+
+    /**
+     * Default constructor
+     */
+    public function __construct() {
+        parent::__construct();
 		$this->cache = new \Memcached;
         $this->addHosts();
 	}
 
+    /**
+     * @return string
+     */
     public function key() {
         return "memcached";
     }

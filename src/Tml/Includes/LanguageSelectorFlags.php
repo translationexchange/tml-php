@@ -1,4 +1,6 @@
-<?php include dirname(__FILE__)."/"."LanguageSelectorJs.php" ?>
+<?php use Tml\Session;
+
+include dirname(__FILE__)."/"."LanguageSelectorJs.php" ?>
 
 <?php
 
@@ -8,7 +10,7 @@ $opts['flag'] = true;
 
 echo "<div id='tml_language_selector' style='$style' class='$class'>";
 
-$languages = \Tml\Config::instance()->application->languages;
+$languages = Session::application()->languages;
 foreach($languages as $lang) {
     echo "<a href='#' onclick=\"tml_change_locale('" . $lang->locale . "')\">";
     tml_language_flag_tag($lang, $opts);

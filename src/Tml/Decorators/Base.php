@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -34,6 +34,7 @@
 namespace Tml\Decorators;
 
 use Tml\Config;
+use Tml\Session;
 
 abstract class Base {
 
@@ -97,10 +98,10 @@ abstract class Base {
      */
     protected function isEnabled($options) {
         if (array_key_exists("skip_decorations", $options)) return false;
-        if (Config::instance()->blockOption("force_decorations") == true) return true;
+        if (Session::blockOption("force_decorations") == true) return true;
 
-        if (Config::instance()->current_translator == null) return false;
-        if (!Config::instance()->current_translator->isInlineModeEnabled()) return false;
+        if (Session::currentTranslator() == null) return false;
+        if (!Session::currentTranslator()->isInlineModeEnabled()) return false;
 
         return true;
     }

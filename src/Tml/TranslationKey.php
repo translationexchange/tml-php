@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -118,7 +118,7 @@ class TranslationKey extends Base {
         }
 
         if ($this->locale == null) {
-            $this->locale = Config::instance()->blockOption("locale");
+            $this->locale = Session::blockOption("locale");
             if ($this->locale == null && $this->application)
                 $this->locale = $this->application->default_locale;
         }
@@ -208,7 +208,7 @@ class TranslationKey extends Base {
         if ($this->id && $this->hasTranslations($language))
             return $this;
 
-        if (array_key_exists("dry", $options) ? $options["dry"] : Config::instance()->blockOption("dry")) {
+        if (array_key_exists("dry", $options) ? $options["dry"] : Session::blockOption("dry")) {
             return $this->application->cacheTranslationKey($this);
         }
 
@@ -303,7 +303,7 @@ class TranslationKey extends Base {
     public function translate($language, $token_values = array(), $options = array()) {
 //        Logger::instance()->debug("Translating $this->label from $this->locale to $language->locale");
 
-        if (Config::instance()->isDisabled()) {
+        if (Session::isInactive()) {
             return $this->substituteTokens($this->label, $token_values, $language, $options);
         }
 

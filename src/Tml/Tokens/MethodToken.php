@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -42,6 +42,7 @@ namespace Tml\Tokens;
 #
 #######################################################################
 
+use Tml\Decorators\Base;
 use Tml\TmlException;
 
 class MethodToken extends DataToken {
@@ -111,7 +112,7 @@ class MethodToken extends DataToken {
             $token_value = $object->$method;
 
         $token_value = $this->sanitize($token_value, $object, $language, array_merge($options, array("safe" => false)));
-        $token_value = \Tml\Decorators\Base::decorator()->decorateToken($this, $token_value, $options);
+        $token_value = Base::decorator()->decorateToken($this, $token_value, $options);
         return str_replace($this->full_name, $token_value, $label);
     }
 

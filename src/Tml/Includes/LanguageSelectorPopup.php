@@ -1,4 +1,6 @@
-<?php include dirname(__FILE__)."/"."LanguageSelectorJs.php" ?>
+<?php use Tml\Session;
+
+include dirname(__FILE__)."/"."LanguageSelectorJs.php" ?>
 
 <?php
     $element = isset($opts['element']) ? $opts['element'] : 'div';
@@ -42,7 +44,7 @@
         <?php tml_language_name_tag(tml_current_language(), array("flag" => true)) ?>
     </a>
     <ul class="trex-dropdown-menu">
-        <?php $languages = \Tml\Config::instance()->application->languages; ?>
+        <?php $languages = Session::instance()->application->languages; ?>
 
         <?php foreach($languages as $lang) { ?>
             <li class="trex-language-item">

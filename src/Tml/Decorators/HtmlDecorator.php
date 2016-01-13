@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -33,8 +33,7 @@
 
 namespace Tml\Decorators;
 
-use Tml\Config;
-use Tml\Logger;
+use Tml\Session;
 
 class HtmlDecorator extends Base {
 
@@ -58,7 +57,7 @@ class HtmlDecorator extends Base {
         $classes = array('tml_translatable');
 
         if ($translation_key->isLocked()) {
-            if (Config::instance()->current_translator->isFeatureEnabled('show_locked_keys')) {
+            if (Session::instance()->current_translator->isFeatureEnabled('show_locked_keys')) {
                 array_push($classes, 'tml_locked');
             } else {
                 return $translated_label;

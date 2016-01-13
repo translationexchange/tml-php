@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -147,10 +147,10 @@ class Application extends Base {
         Logger::instance()->info("Initializing application...");
 
         $data = $this->apiClient()->get("projects/current/definition",
-            array(
-                'locale' => Config::instance()->current_locale,
-                'source' => Config::instance()->current_source
-            ),
+            [
+                'locale' => Session::instance()->current_locale,
+                'source' => Session::instance()->current_source
+            ],
             array('cache_key' => self::cacheKey())
         );
 
@@ -240,7 +240,7 @@ class Application extends Base {
      */
     function loadExtensions($extensions) {
         $source_locale = $this->default_locale;
-        $use_cache = (Config::instance()->isCacheEnabled() && !Config::instance()->isInlineTranslationModeEnabled());
+        $use_cache = (Config::instance()->isCacheEnabled() && !Session::instance()->isInlineTranslationModeEnabled());
 
         if (isset($extensions['languages'])) {
             $this->languages_by_locale = array();
@@ -305,7 +305,7 @@ class Application extends Base {
     /**
      * Finds the first available supported locale or returns default locale
      *
-     * @param string $locale
+     * @param $locales
      * @return mixed
      */
     public function supportedLocale($locales) {
@@ -391,7 +391,7 @@ class Application extends Base {
     }
 
     /**
-     * @param $source
+     * @param $key
      * @param $locale
      * @return null|Source
      */
@@ -435,7 +435,7 @@ class Application extends Base {
      * @param $source_path
      */
     public function verifySourcePath($source_key, $source_path) {
-        if (Config::instance()->isCacheEnabled() && !Config::instance()->isInlineTranslationModeEnabled())
+        if (Config::instance()->isCacheEnabled() && !Session::instance()->isInlineTranslationModeEnabled())
             return;
 
         if (!$this->extensions || !isset($this->extensions["sources"]))
@@ -453,10 +453,10 @@ class Application extends Base {
 
     /**
      * @param TranslationKey $translation_key
-     * @param string $source_key
+     * @param string $source_path
      */
     public function registerMissingKey($translation_key, $source_path = 'index') {
-        if (!Config::instance()->isKeyRegistrationEnabled())
+        if (!Session::instance()->isKeyRegistrationEnabled())
             return;
 
         if ($this->missing_keys_by_sources === null) {

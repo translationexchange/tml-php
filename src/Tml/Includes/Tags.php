@@ -1,9 +1,10 @@
 <?php
 
+use Tml\Session;
 use Tml\Utils\ArrayUtils;
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -82,7 +83,7 @@ function tml_toggle_inline_mode_tag($opts = array()) {
     $toggle_off = isset($opts['toggle_off']) ? $opts['toggle_off'] : "Help Us Translate";
     $toggle_on = isset($opts['toggle_on']) ? $opts['toggle_on'] : "Deactivate Translation Mode";
     echo "<a href='javascript:void(0);' onclick='Tml.Utils.toggleInlineTranslations()'>";
-    if (\Tml\Config::instance()->isInlineTranslationModeEnabled())
+    if (Session::instance()->isInlineTranslationModeEnabled())
         tre($toggle_on);
     else
         tre($toggle_off);

@@ -1,4 +1,6 @@
-<?php include dirname(__FILE__)."/"."LanguageSelectorJs.php" ?>
+<?php use Tml\Session;
+
+include dirname(__FILE__)."/"."LanguageSelectorJs.php" ?>
 
 <?php
     $element = isset($opts['element']) ? $opts['element'] : 'div';
@@ -10,11 +12,11 @@
 
 <?php echo "<$element class='$class' style='$style'>" ?>
   <a href='#' role='button' class='<?php echo $class ?>-toggle' data-toggle='<?php echo $class ?>'>
-    <?php tml_language_name_tag(tml_current_language(), $opts) ?>
+    <?php tml_language_name_tag(Session::currentLanguage(), $opts) ?>
   </a>
 
   <ul class='<?php echo $class ?>-menu' role='menu'>
-    <?php $languages = \Tml\Config::instance()->application->languages; ?>
+    <?php $languages = Session::application()->languages; ?>
 
     <?php foreach($languages as $lang) { ?>
         <li role='presentation'>

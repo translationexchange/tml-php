@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -34,6 +34,7 @@
 namespace Tml\Tokenizers;
 
 use Tml\Config;
+use Tml\Session;
 use Tml\Utils\StringUtils;
 
 class DomTokenizer {
@@ -195,7 +196,7 @@ class DomTokenizer {
         $source = null;
         if ($node->nodeType == 1) {
             $source = $this->getSourceBlock($node);
-            if ($source) tml_begin_source($source);
+            if ($source) Session::beginSource($source);
         }
 
         $html = "";
@@ -231,7 +232,7 @@ class DomTokenizer {
             $html = $html . $this->translateTml($buffer);
         }
 
-        if ($source) tml_finish_source();
+        if ($source) Session::finishSource();
 
         return $html;
     }
@@ -358,7 +359,7 @@ class DomTokenizer {
 
         $tml = $this->generateDataTokens($tml);
 
-        $language = Config::instance()->current_language;
+        $language = Session::instance()->current_language;
         if ($language == null) $language = Config::instance()->defaultLanguage();
 
         if ($this->getOption("split_sentences")) {

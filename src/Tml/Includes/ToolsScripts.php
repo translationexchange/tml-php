@@ -1,9 +1,10 @@
 <?php
 
 use Tml\Config;
+use Tml\Session;
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -33,7 +34,7 @@ use Tml\Config;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-if (Config::instance()->isEnabled()) { ?>
+if (Session::isActive()) { ?>
     <script>
         function tml_add_css(doc, value, inline) {
             var css = null;
@@ -80,8 +81,8 @@ if (Config::instance()->isEnabled()) { ?>
                     Tml.app_key = '<?php echo tml_application()->key ?>';
                     Tml.host = '<?php echo tml_application()->tools["host"] ?>';
                     Tml.default_locale = '<?php echo tml_application()->default_locale ?>';
-                    Tml.page_locale = '<?php echo Config::instance()->current_language->locale ?>';
-                    Tml.locale = '<?php echo Config::instance()->current_language->locale ?>';
+                    Tml.page_locale = '<?php echo Session::instance()->current_language->locale ?>';
+                    Tml.locale = '<?php echo Session::instance()->current_language->locale ?>';
 
                     <?php
                         if (tml_application()->isFeatureEnabled("shortcuts")) {

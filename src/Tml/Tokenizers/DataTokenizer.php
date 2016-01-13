@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -60,9 +60,9 @@ class DataTokenizer {
      */
     public static function supportedTokens() {
         return array(
-            '\Tml\tokens\DataToken',
-            '\Tml\tokens\MethodToken',
-            '\Tml\tokens\PipedToken');
+            '\Tml\Tokens\DataToken',
+            '\Tml\Tokens\MethodToken',
+            '\Tml\Tokens\PipedToken');
     }
 
     /**

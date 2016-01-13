@@ -1,9 +1,10 @@
 <?php
 
 use Tml\Config;
+use Tml\Session;
 
 /**
- * Copyright (c) 2015 Translation Exchange, Inc
+ * Copyright (c) 2016 Translation Exchange, Inc
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
@@ -33,7 +34,7 @@ use Tml\Config;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-if (Config::instance()->isEnabled()) { ?>
+if (Session::isActive()) { ?>
     <script>
         <?php
             $cache_interval =  Config::instance()->configValue("agent.cache", 86400);
@@ -52,7 +53,7 @@ if (Config::instance()->isEnabled()) { ?>
             script.setAttribute('src', '<?php echo $agent_host ?>');
             script.setAttribute('charset', 'UTF-8');
             script.onload = function() {
-                Trex.init("<?php echo tml_application()->key ?>", <?php echo json_encode(Config::instance()->configValue("agent", array()), JSON_UNESCAPED_SLASHES) ?>);
+                Trex.init("<?php echo Session::application()->key ?>", <?php echo json_encode(Config::instance()->configValue("agent", array()), JSON_UNESCAPED_SLASHES) ?>);
             };
             window.document.getElementsByTagName('head')[0].appendChild(script);
         })();
