@@ -41,15 +41,10 @@
                                         <img src="<?php echo tml_current_translator()->mugshot() ?>" style="width:80px;height:80px;border:1px solid #eee" class="img-circle">
                                     <?php } ?>
                                 </li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation"><?php link_to_function('Toggle Inline Translations', 'Tml.Utils.toggleInlineTranslations()') ?></li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation"><?php link_to_function('Shortcuts', 'Tml.Utils.openShortcuts()') ?></li>
                                 <?php if (\Tml\Config::instance()->isCacheEnabled() && !\Tml\Cache::isReadOnly()) { ?>
+                                    <li role="presentation" class="divider"></li>
                                     <li role="presentation"><?php link_to("Reset Cache (" . \Tml\Cache::version() . ")", "reset_cache.php") ?></li>
                                 <?php } ?>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation"><?php link_to_function('Log Out', 'Tml.Utils.logout()') ?></li>
                             </ul>
                         </li>
                     <?php } ?>
