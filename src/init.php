@@ -66,16 +66,8 @@ foreach($files as $dir) {
     }
 }
 
-use Tml\Application;
 use Tml\Config;
-use Tml\Logger;
 use Tml\Session;
-use Tml\TmlException;
-use Tml\Translator;
-use Tml\Utils\ArrayUtils;
-use Tml\Utils\BrowserUtils;
-use Tml\Tokenizers\DomTokenizer;
-use Tml\Utils\StringUtils;
 
 /**
  * Initializes the TML library
