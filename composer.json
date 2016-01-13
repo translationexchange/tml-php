@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tml": "src"
+            "Tml\\": "src/Tml"
         }
     }
 }

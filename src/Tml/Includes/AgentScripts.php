@@ -44,6 +44,10 @@ if (Session::isActive()) { ?>
             $t = time();
             $t = $t - ($t % $cache_interval);
             $agent_host = $agent_host . '?ts=' . $t;
+
+            $agent_config = Config::instance()->configValue("agent", array());
+
+            Session::application()->languages
         ?>
 
         (function() {
@@ -53,7 +57,7 @@ if (Session::isActive()) { ?>
             script.setAttribute('src', '<?php echo $agent_host ?>');
             script.setAttribute('charset', 'UTF-8');
             script.onload = function() {
-                Trex.init("<?php echo Session::application()->key ?>", <?php echo json_encode(Config::instance()->configValue("agent", array()), JSON_UNESCAPED_SLASHES) ?>);
+                Trex.init("<?php echo Session::application()->key ?>", <?php echo json_encode($agent_config, JSON_UNESCAPED_SLASHES) ?>);
             };
             window.document.getElementsByTagName('head')[0].appendChild(script);
         })();

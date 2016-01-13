@@ -42,18 +42,18 @@ class LanguageTest extends \BaseTest
 
     protected function setUp() {
         $this->app = new Application(self::loadJSON('application.json'));
-        Config::instance()->application = $this->app;
+        Session::instance()->application = $this->app;
         $this->english = $this->app->addLanguage(new Language(self::loadJSON('languages/en.json')));
         $this->russian = $this->app->addLanguage(new Language(self::loadJSON('languages/ru.json')));
         $this->male = new \User("Michael", "male");
         $this->female = new \User("Anna", "female");
         $this->unknown = new \User("Anna", "unknown");
 
-        Config::instance()->beginBlockWithOptions(array("dry" => true));
+        Session::instance()->beginBlockWithOptions(array("dry" => true));
     }
 
     protected function tearDown() {
-        Config::instance()->finishBlockWithOptions();
+        Session::instance()->finishBlockWithOptions();
     }
 
     public function testLoadingLanguage() {
@@ -302,7 +302,7 @@ class LanguageTest extends \BaseTest
 
 
     public function testForeignLanguageAsDefaultLanguage() {
-        Config::instance()->beginBlockWithOptions(array("locale" => 'ru'));
+        Session::instance()->beginBlockWithOptions(array("locale" => 'ru'));
 
         $user = new \User("Михаил");
 
@@ -351,7 +351,7 @@ class LanguageTest extends \BaseTest
             ))
         );
 
-        Config::instance()->finishBlockWithOptions();
+        Session::instance()->finishBlockWithOptions();
     }
 
     public function testForeignTranslationsWithTransformTokens() {
@@ -474,7 +474,7 @@ class LanguageTest extends \BaseTest
             ))
         );
 
-        Config::instance()->beginBlockWithOptions(array("force_decorations" => true, "dry" => true));
+        Session::instance()->beginBlockWithOptions(array("force_decorations" => true, "dry" => true));
 
         $this->assertEquals("<tml:label class='tml_translatable tml_translated' data-translation_key='1b165fc36a5fb5d7b1f1f45a7ff0f7fd' data-target_locale='ru'><tml:token class='tml_token tml_token_data' data-name='user'>Михаил</tml:token>, у вас есть <strong><tml:token class='tml_token tml_token_data' data-name='count'>5</tml:token> <italic>сообщений</italic></strong></tml:label>",
             $this->russian->translate('{user}, you have [strong: {count} [italic: {count|message}]]', '', array(
@@ -494,7 +494,7 @@ class LanguageTest extends \BaseTest
             ))
         );
 
-        Config::instance()->finishBlockWithOptions();
+        Session::instance()->finishBlockWithOptions();
 
         // Gender transform tokens
         $michael = new \User("Michael", "male");

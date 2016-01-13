@@ -36,13 +36,6 @@ require_once(__DIR__."/../BaseTest.php");
 
 class ConfigTest extends \BaseTest {
 
-    public function testConfigInstance() {
-        $config = Config::instance();
-
-        $this->assertEquals(false, $config->isEnabled());
-//        $this->assertEquals(false, $config->isLoggerEnabled());
-   }
-
     public function testDefaultTokens() {
         $config = Config::instance();
 
