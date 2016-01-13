@@ -46,17 +46,25 @@ if (Session::isActive()) { ?>
             $agent_host = $agent_host . '?ts=' . $t;
 
             $agent_config = Config::instance()->configValue("agent", array());
+            $agent_config['languages'] = array();
 
-            Session::application()->languages
+            foreach(Session::application()->languages as $lang) {
+                array_push($agent_config['languages'], array(
+                    "locale" => $lang->locale,
+                    "english_name" => $lang->english_name,
+                    "native_name" => $lang->native_name,
+                    "flag_url" => $lang->flag_url
+                ));
+            }
         ?>
 
-        (function() {
+        (function () {
             var script = window.document.createElement('script');
             script.setAttribute('id', 'tml-agent');
             script.setAttribute('type', 'application/javascript');
             script.setAttribute('src', '<?php echo $agent_host ?>');
             script.setAttribute('charset', 'UTF-8');
-            script.onload = function() {
+            script.onload = function () {
                 Trex.init("<?php echo Session::application()->key ?>", <?php echo json_encode($agent_config, JSON_UNESCAPED_SLASHES) ?>);
             };
             window.document.getElementsByTagName('head')[0].appendChild(script);
