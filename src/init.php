@@ -137,6 +137,13 @@ function tml_current_translator() {
 }
 
 /**
+ * @return null|\Tml\Source
+ */
+function tml_current_source() {
+    return Session::instance()->current_source;
+}
+
+/**
  * Opens the source block
  *
  * @param string $name

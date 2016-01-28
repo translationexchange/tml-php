@@ -123,23 +123,12 @@ function tml_language_selector_footer_tag($opts = array()) {
  * Language selector
  */
 function tml_language_selector_tag($style, $opts = array()) {
-  if ($style == 'default') {
-    echo "<a href='#' onClick='Tml.UI.LanguageSelector.show()' ";
-    echo  ArrayUtils::toHTMLAttributes($opts). " >";
-    tml_language_name_tag(tml_current_language(), array("flag" => true));
-    echo "</a>";
-  } elseif ($style == 'dropdown') {
-      include dirname(__FILE__)."/"."LanguageSelectorDropdown.php";
-  } elseif ($style == "popup") {
-      include dirname(__FILE__)."/"."LanguageSelectorPopup.php";
-  } elseif ($style == "bootstrap") {
-      include dirname(__FILE__)."/"."LanguageSelectorBootstrap.php";
-  } elseif ($style == "list") {
-      include dirname(__FILE__)."/"."LanguageSelectorList.php";
-  } elseif ($style == "flags") {
-      include dirname(__FILE__)."/"."LanguageSelectorFlags.php";
-  }
-
+    $options = array();
+    foreach($opts as $key => $value) {
+        array_push($options, "data-tml-" . $key . "='" . $value . "'");
+    }
+    $options = implode("&", $options);
+    echo "<div data-tml-language-selector='$style' $options></div>";
 }
 
 

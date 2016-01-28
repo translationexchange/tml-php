@@ -269,6 +269,9 @@ class Language extends Base {
                 }
 
                 $source = $this->application->source($source_key, $this->locale);
+
+                // TODO: add ingore features
+
                 $matched_translations = $source->getCachedTranslations($this->locale, $translation_key->key);
 
                 if ($matched_translations !== false) {

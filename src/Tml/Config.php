@@ -429,10 +429,7 @@ class Config {
      * Includes Tml JavaScript library
      */
     public function scripts() {
-        if (Config::instance()->configValue("agent.type", "agent") == "agent")
-            include(__DIR__ . '/Includes/AgentScripts.php');
-        else
-            include(__DIR__ . '/Includes/ToolsScripts.php');
+        include(__DIR__ . '/Includes/AgentScripts.php');
     }
 
     /**

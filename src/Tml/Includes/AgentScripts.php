@@ -47,6 +47,10 @@ if (Session::isActive()) { ?>
 
             $agent_config = Config::instance()->configValue("agent", array());
             $agent_config['languages'] = array();
+            $agent_config['locale'] = tml_current_locale();
+            $agent_config['css'] = tml_application()->css;
+            $agent_config['sdk'] = "tml-php v" . Tml\Version::VERSION;
+            $agent_config['source'] = tml_current_source();
 
             foreach(Session::application()->languages as $lang) {
                 array_push($agent_config['languages'], array(
