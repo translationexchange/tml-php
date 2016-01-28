@@ -149,7 +149,8 @@ class Application extends Base {
         $data = $this->apiClient()->get("projects/current/definition",
             [
                 'locale' => Session::instance()->current_locale,
-                'source' => Session::instance()->current_source
+                'source' => Session::instance()->current_source,
+                'ignored' => 'true'
             ],
             array('cache_key' => self::cacheKey())
         );
@@ -265,8 +266,7 @@ class Application extends Base {
             foreach($extensions['sources'] as $key => $data) {
                 if ($use_cache) Cache::store(Source::cacheKey($key, $source_locale), $data);
                 $source = new Source(array("application" => $this, "source" => $key));
-                if (isset($data["results"]))
-                $source->addTranslations($source_locale, $data["results"]);
+                $source->addTranslations($source_locale, $data);
                 $this->sources_by_key[$key] = $source;
             }
         }
@@ -535,7 +535,7 @@ class Application extends Base {
             try {
                 $results = $this->apiClient()->get(
                     'applications/current/translations',
-                    array('locale' => $locale, 'per_page' => 10000),
+                    array('locale' => $locale, 'all' => 'true', 'ignored' => 'true'),
                     array('cache_key' => self::translationsCacheKey($locale))
                 );
             } catch (TmlException $e) {

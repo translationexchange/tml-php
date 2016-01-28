@@ -240,6 +240,9 @@ class ApiClient {
      * @return array
      */
     public static function processResponse($data, $options = array()) {
+        if (isset($options['raw_json']))
+            return $data;
+
         if (isset($data['results'])) {
             // Logger::instance()->info("Received " . count($data["results"]) ." result(s)");
 

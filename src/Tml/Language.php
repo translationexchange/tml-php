@@ -270,7 +270,10 @@ class Language extends Base {
 
                 $source = $this->application->source($source_key, $this->locale);
 
-                // TODO: add ingore features
+                if ($source->isIgnoredKey($translation_key->key)) {
+                    $options['skip_decorations'] = true;
+                    return $translation_key->substituteTokens($label, $token_values, $this, $options);
+                }
 
                 $matched_translations = $source->getCachedTranslations($this->locale, $translation_key->key);
 

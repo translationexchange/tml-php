@@ -71,6 +71,11 @@ class Source extends Base {
     public $translations;
 
     /**
+     * @var array
+     */
+    public $ignored_keys;
+
+    /**
      * @param array $attributes
      */
     function __construct($attributes=array()) {
@@ -110,8 +115,8 @@ class Source extends Base {
         try {
             $results = $this->application->apiClient()->get(
                 'sources/' . $this->key . '/translations',
-                array('locale' => $locale, 'per_page' => 10000),
-                array('cache_key' => self::cacheKey($this->source, $locale))
+                array('locale' => $locale, 'all' => 'true', 'ignored' => 'true'),
+                array('cache_key' => self::cacheKey($this->source, $locale), 'raw_json' => true)
             );
         } catch (TmlException $e) {
 //            Logger::instance()->debug("Failed to get the source: $e");
@@ -138,6 +143,19 @@ class Source extends Base {
     }
 
     /**
+     * Check if a key is ignored
+     *
+     * @param $key
+     * @return bool
+     */
+    public function isIgnoredKey($key) {
+        if (!$this->ignored_keys)
+            return false;
+
+        return in_array($key, $this->ignored_keys);
+    }
+
+    /**
      * Adds translations for locale
      *
      * @param $locale
@@ -148,6 +166,13 @@ class Source extends Base {
             $this->translations = array();
 
         $this->translations[$locale] = array();
+
+        if (isset($translations['ignored_keys'])) {
+            $this->ignored_keys = $translations['ignored_keys'];
+        }
+
+        if (isset($translations['results']))
+            $translations = $translations['results'];
 
         foreach($translations as $key => $data) {
             // cache export comes with original labels {original: {}, translations: []}
