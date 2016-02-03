@@ -29,7 +29,7 @@ Create composer.json in the root folder of your application, and add the followi
 ```json
 {
     "require": {
-        "translationexchange/tml": "3.1.1"
+        "translationexchange/tml": "3.1.2"
     }
 }
 ```
