@@ -19,7 +19,7 @@
                     <li <?php active_link("editor.php")?>><?php link_to(tr("Blog Translator"), "editor.php") ?></li>
                 </ul>
                 <div class="nav navbar-nav pull-right navbar-text">
-                    <?php tml_language_selector_tag("popup", array("toggle" => true)) ?>
+                    <?php tml_language_selector_tag("sideflags", array("toggle" => true)) ?>
                 </div>
             </div><!--/.nav-collapse -->
         </div>

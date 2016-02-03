@@ -28,13 +28,6 @@
         </footer>
     <?php tml_finish_block_with_options() ?>
 
-    <div style="padding-top:40px; color: #ccc; text-align:center; width:100%">
-        Powered by <a href="http://wiki.tml.io" style="color:#ccc;">TranslationExchange.com</a>
-        <div style="padding-top:5px;">
-            <a href="http://translationexchange.com"><?php image_tag('tml_logo.png', array("style" => "width:50px;")) ?></a>
-        </div>
-    </div>
-
 </div>
 
 <?php include('foot.php'); ?>
