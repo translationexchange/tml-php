@@ -35,15 +35,34 @@ namespace Tml\Cache;
 
 use Tml\Config;
 
+/**
+ * Class MemcacheAdapter
+ *
+ * Cache adapter based on Memcache
+ *
+ * @package Tml\Cache
+ */
 class MemcacheAdapter extends Base {
-	
+
+    /**
+     * Stores the Memcache object
+     *
+     * @var \Memcache
+     */
 	protected $cache;
 
+    /**
+     * Constructs the Memcache object
+     */
 	public function __construct() {
+//        echo var_dump(debug_backtrace());
 		$this->cache = new \Memcache;
         $this->addHosts();
 	}
 
+    /**
+     * Adds Memcache hosts
+     */
     protected function addHosts() {
         if (Config::instance()->configValue("cache.servers") != null) {
             foreach (Config::instance()->configValue("cache.servers") as $host) {
@@ -57,12 +76,24 @@ class MemcacheAdapter extends Base {
         }
     }
 
+    /**
+     * Returns the key of the cache
+     *
+     * @return string
+     */
     public function key() {
         return "memcache";
     }
 
+    /**
+     * Fetches data from Memcache
+     *
+     * @param $key
+     * @param null $default
+     * @return array|null|string
+     */
     public function fetch($key, $default = null) {
-        $value = $this->cache->get($this->versionedKey($key));
+        $value = $this->cache->get($key);
         if ($value) {
             $this->info("Cache hit " . $key);
             return $value;
@@ -84,28 +115,43 @@ class MemcacheAdapter extends Base {
         return $value;
     }
 
+    /**
+     * Stores data in Memcache
+     *
+     * @param $key
+     * @param $value
+     * @return bool
+     */
     public function store($key, $value) {
         $this->info("Cache store " . $key);
         return $this->cache->set(
-            $this->versionedKey($key),
+            $key,
             $this->stripExtensions($value),
             false,
             Config::instance()->configValue("cache.timeout", 0)
         );
     }
 
+    /**
+     * Deletes data from Memcache
+     *
+     * @param $key
+     * @return bool
+     */
     public function delete($key) {
         $this->info("Cache delete " . $key);
-        return $this->cache->delete($this->versionedKey($key));
+        return $this->cache->delete($key);
     }
 
+    /**
+     * Checks if key exists in Memcache
+     *
+     * @param $key
+     * @return array|string
+     */
     public function exists($key) {
         $this->info("Cache exists " . $key);
-        return $this->cache->get($this->versionedKey($key));
-    }
-
-    public function isReadOnly() {
-        return false;
+        return $this->cache->get($key);
     }
 
 }

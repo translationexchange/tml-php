@@ -36,10 +36,6 @@ namespace Tml;
 class Translator extends Base {
 
     /**
-     * @var Application
-     */
-    public $application;
-    /**
      * @var integer
      */
     public $id;
@@ -64,25 +60,9 @@ class Translator extends Base {
      */
     public $voting_power;
     /**
-     * @var integer
-     */
-    public $rank;
-    /**
-     * @var integer
-     */
-    public $level;
-    /**
      * @var string
      */
     public $locale;
-    /**
-     * @var string
-     */
-    public $code;
-    /**
-     * @var string
-     */
-    public $access_token;
 
     /**
      * @param array $attributes

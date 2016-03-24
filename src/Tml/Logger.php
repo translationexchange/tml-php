@@ -125,15 +125,16 @@ class Logger {
      *
      */
     function __construct() {
-        if (!Config::instance()->isLoggerEnabled()) {
-            return;
-        }
+//        if (!Config::instance()->isLoggerEnabled()) {
+//            return;
+//        }
 
         if (Config::instance()->loggerSeverity() === self::OFF) {
             return;
         }
 
         $this->_logFilePath = Config::instance()->loggerFilePath();
+
         $logDirectory = explode(DIRECTORY_SEPARATOR, $this->_logFilePath);
         array_pop($logDirectory);
         $logDirectory = implode(DIRECTORY_SEPARATOR, $logDirectory);

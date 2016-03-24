@@ -33,13 +33,26 @@
 
 namespace Tml;
 
+use Tml\Api\Client;
 use Tml\Utils\ArrayUtils;
 
+/**
+ * Class Application
+ *
+ * Contains all information related to the current application
+ *
+ * @package Tml
+ */
 class Application extends Base {
     /**
      * @var string
      */
     public $host;
+
+    /**
+     * @var
+     */
+    public $cdn_host;
 
     /**
      * @var string
@@ -71,19 +84,9 @@ class Application extends Base {
     public $threshold;
 
     /**
-     * @var int
-     */
-    public $translator_level;
-
-    /**
      * @var boolean[]
      */
     public $features;
-
-    /**
-     * @var string[]
-     */
-    public $shortcuts;
 
     /**
      * @var string
@@ -126,11 +129,6 @@ class Application extends Base {
     public $missing_keys_by_sources;
 
     /**
-     * @var string[]
-     */
-    public $tools;
-
-    /**
      * @var ApiClient
      */
     private $api_client;
@@ -155,7 +153,9 @@ class Application extends Base {
             array('cache_key' => self::cacheKey())
         );
 
-        if ($data !== null) {
+        if ($data === null) {
+            $this->addLanguage(Config::instance()->defaultLanguage());
+        } else {
             $this->updateAttributes($data);
         }
 
@@ -196,9 +196,6 @@ class Application extends Base {
         if (isset($attributes['key']))
             $this->key = $attributes['key'];
 
-        if (isset($attributes['tools']))
-            $this->tools = $attributes['tools'];
-
         $this->languages = array();
         if (isset($attributes['languages'])) {
             foreach($attributes['languages'] as $l) {
@@ -215,10 +212,6 @@ class Application extends Base {
 
         if (isset($attributes['features'])) {
             $this->features = $attributes['features'];
-        }
-
-        if (isset($attributes['shortcuts'])) {
-            $this->shortcuts = $attributes['shortcuts'];
         }
 
         if (isset($attributes['css'])) {
@@ -600,7 +593,7 @@ class Application extends Base {
      * @return array
      */
     public function toArray($keys=array()) {
-        $hash = parent::toArray(array("key", "host", "name", "default_locale", "threshold", "translator_level", "features", "shortcuts", "css", "languages", "description"));
+        $hash = parent::toArray(array("key", "host", "name", "default_locale", "threshold", "features", "css", "languages", "description"));
         $hash["languages"] = array();
         foreach($this->languages as $l) {
             array_push($hash["languages"], $l->toArray(array("locale", "name", "english_name", "native_name", "right_to_left", "flag_url")));
@@ -613,7 +606,7 @@ class Application extends Base {
      */
     public function apiClient() {
         if ($this->api_client == null) {
-            $this->api_client = new ApiClient($this);
+            $this->api_client = new Client($this);
         }
         return $this->api_client;
     }

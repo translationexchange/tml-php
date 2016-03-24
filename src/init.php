@@ -42,6 +42,7 @@ $files = array(
     "Tml/Utils",
     "Tml/Base.php",
     "Tml",
+    "Tml/Api",
     "Tml/Tokens",
     "Tml/Tokenizers",
     "Tml/RulesEngine",

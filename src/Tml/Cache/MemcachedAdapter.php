@@ -33,13 +33,19 @@
 
 namespace Tml\Cache;
 
+/**
+ * Class MemcachedAdapter
+ *
+ * Cache adapter based on Memcached
+ *
+ * @package Tml\Cache
+ */
 class MemcachedAdapter extends MemcacheAdapter {
 
     /**
      * Default constructor
      */
     public function __construct() {
-        parent::__construct();
 		$this->cache = new \Memcached;
         $this->addHosts();
 	}

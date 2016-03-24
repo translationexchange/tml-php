@@ -33,9 +33,24 @@
 
 namespace Tml;
 
+/**
+ * Class Cache
+ *
+ * Convenience cache wrapper for exposing the cache interface:
+ *
+ * Cache::fetch, Cache::store, etc...
+ *
+ * @package Tml
+ */
 class Cache {
 
+    private static $instance = null;
+
+    private static $version = null;
+
     /**
+     * Returns an adapter by name
+     *
      * @return null|string
      */
     public static function cacheAdapterClass() {
@@ -56,12 +71,11 @@ class Cache {
      * @return \Tml\Cache\Base
      */
     public static function instance() {
-        static $inst = null;
-        if ($inst === null) {
+        if (self::$instance === null) {
             $class = self::cacheAdapterClass();
-            if ($class) $inst = new $class();
+            if ($class) self::$instance = new $class();
         }
-        return $inst;
+        return self::$instance;
     }
 
     /**
@@ -76,7 +90,7 @@ class Cache {
             }
             return $default;
         }
-        return self::instance()->fetch($key, $default);
+        return self::instance()->fetch(self::version()->getVersionedKey($key), $default);
     }
 
     /**
@@ -88,7 +102,7 @@ class Cache {
         if (!Config::instance()->isCacheEnabled()) {
             return false;
         }
-        return self::instance()->store($key, $value);
+        return self::instance()->store(self::version()->getVersionedKey($key), $value);
     }
 
     /**
@@ -99,7 +113,7 @@ class Cache {
         if (!Config::instance()->isCacheEnabled()) {
             return false;
         }
-        return self::instance()->delete($key);
+        return self::instance()->delete(self::version()->getVersionedKey($key));
     }
 
     /**
@@ -110,7 +124,7 @@ class Cache {
         if (!Config::instance()->isCacheEnabled()) {
             return false;
         }
-        return self::instance()->exists($key);
+        return self::instance()->exists(self::version()->getVersionedKey($key));
     }
 
     /**
@@ -131,94 +145,18 @@ class Cache {
     }
 
     /**
-     * Current cache version
+     * Returns cache version
      *
-     * @return int
+     * @return null|Cache\Version
      */
     public static function version() {
-        if (!Config::instance()->isCacheEnabled()) {
-            return '0';
-        }
-        return self::instance()->version();
-    }
+        if (!Config::instance()->isCacheEnabled() || self::instance() == null)
+            return null;
 
-    /**
-     * Sets current version
-     *
-     * @param $new_version
-     */
-    public static function setVersion($new_version) {
-        if (!Config::instance()->isCacheEnabled()) {
-            return;
+        if (self::$version === null) {
+            self::$version = new Cache\Version(self::instance());
         }
-        self::instance()->setVersion($new_version);
-    }
-
-    /**
-     * Fetches cache version from cache
-     *
-     * @return mixed|string
-     */
-    public static function fetchVersion() {
-        if (!Config::instance()->isCacheEnabled()) {
-            return '0';
-        }
-        return self::instance()->fetchVersion();
-    }
-
-    /**
-     * Stores version in the cache
-     *
-     * @param $new_version
-     */
-    public static function storeVersion($new_version) {
-        if (!Config::instance()->isCacheEnabled()) {
-            return;
-        }
-        self::instance()->storeVersion($new_version);
-    }
-
-    /**
-     * Invalidates current version in cache
-     */
-    public static function invalidateVersion() {
-        if (!Config::instance()->isCacheEnabled()) {
-            return;
-        }
-        self::instance()->invalidateVersion();
-    }
-
-    /**
-     * Checks if the version is present in the cache
-     * @return bool
-     */
-    public static function isVersionUndefined() {
-        if (!Config::instance()->isCacheEnabled()) {
-            return true;
-        }
-        return self::instance()->isVersionUndefined();
-    }
-
-    /**
-     * Checks if the cache version is disabled
-     * @return bool
-     */
-    public static function isVersionLive() {
-        if (!Config::instance()->isCacheEnabled()) {
-            return false;
-        }
-        return self::instance()->isVersionLive();
-    }
-
-    /**
-     * Checks if CDN needs to be used
-     * @return bool
-     */
-    public static function isCdnVersion() {
-        if (!Config::instance()->isCacheEnabled()) {
-            return false;
-        }
-        return self::instance()->isCdnVersion();
+        return self::$version;
     }
 
 }

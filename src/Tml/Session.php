@@ -176,37 +176,47 @@ class Session {
         $tml_page_t0 = microtime(true);
 
         $key = isset($options["key"]) ? $options["key"] : Config::instance()->configValue("application.key");
-        $token = isset($options["token"]) ? $options["token"] : Config::instance()->configValue("application.token");
         $host = isset($options["host"]) ? $options["host"] : Config::instance()->configValue("application.host");
-
-        foreach(array("cache", "log", "local", "agent") as $type) {
-            if (isset($options[$type]))
-                Config::instance()->updateConfig($type, $options[$type]);
-        }
-
-        $locale = null;
-        $translator = null;
-        $cookie_params = null;
-
-        // create application instance, but don't initialize it yet
-        $application = new Application(array("name" => "", "key" => $key, "access_token" => $token, "host" => $host));
-        self::instance()->application = $application;
+        $cdn_host = isset($options["cdn_host"]) ? $options["cdn_host"] : Config::instance()->configValue("application.cdn_host");
 
         // get cookie name
         $cookie_name = "trex_" . $key;
 
-        // var_dump($cookie_name);
+        Logger::instance()->debug("Cookie name: " . $cookie_name);
+
+        $locale = null;
+        $translator = null;
+        $cookie_params = null;
+        $token = null;
 
         // check if cookie is set
         if (isset($_COOKIE[$cookie_name])) {
             $cookie_params = Config::instance()->decode($_COOKIE[$cookie_name]);
             $locale = $cookie_params['locale'];
             if (isset($cookie_params['translator'])) {
-                $translator = new Translator(array_merge($cookie_params["translator"], array('application' => Session::instance()->application)));
+                $translator = new Translator(array_merge($cookie_params["translator"]));
+            }
+            if (isset($cookie_params['oauth'])) {
+                $token = $cookie_params['oauth']['token'];
             }
         }
 
         if (!$cookie_params) $cookie_params = array();
+
+        Logger::instance()->debug("Cookie params: " . json_encode($cookie_params));
+
+        # by default always use the access token of the translator
+        if (!$token)
+            $token = isset($options["token"]) ? $options["token"] : Config::instance()->configValue("application.token");
+
+        foreach(array("cache", "log", "local", "agent") as $type) {
+            if (isset($options[$type]))
+                Config::instance()->updateConfig($type, $options[$type]);
+        }
+
+        // create application instance, but don't initialize it yet
+        $application = new Application(array("key" => $key, "access_token" => $token, "host" => $host, "cdn_host" => $cdn_host));
+        self::instance()->application = $application;
 
         // options locale always takes over
         if (isset($options["locale"])) {
@@ -243,8 +253,6 @@ class Session {
         Session::instance()->current_source = $source;
         Session::instance()->current_locale = $locale;
 
-//    var_dump($cookie_params);
-
         try {
             $application->fetch();
         } catch (\Exception $e) {
@@ -252,6 +260,8 @@ class Session {
         }
 
         $locale = $application->supportedLocale($locale);
+
+        Logger::instance()->debug("Application initialized");
 
 //    var_dump($application);
 

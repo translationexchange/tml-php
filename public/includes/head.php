@@ -4,7 +4,6 @@ require_once(__DIR__ . '/../../src/init.php');
 
 tml_init(array(
     "key"   => "c5d1005ced6df79cd2f7e78410134a68ec5546812013518a02402cfba1797eba",
-    "token" => "a7277114dd64a91e3ae0b5cdb4f9ef5ad78c5eee85d511465ab08edd0cb8ab5c",
     "host"  => "http://localhost:3000",
 //    "key" => "70b41a860df8c211d",
 //    "token" => "6de77deffe1809b61e54f5d0da1add436815f4cd85a1c98d141aebf5f328702e",
@@ -13,28 +12,29 @@ tml_init(array(
         "host" => "http://localhost:8282/dist/agent.js"
     ),
 
-    "cache_file" => array(
+    "cache1" => array(
         "enabled" => true,
         "adapter" => "file",
-        "version" => "20150916212919"
+        "version" => "20160323211903"
     ),
-    "cache_memcache" => array(
+    "cache1" => array(
         "enabled" => true,
         "adapter" => "memcached",
         "host" => "localhost",
-        "namespace" => "70b41a860df8c211d1",
+        "namespace" => "c5d1005ced6df79cd2f7e78410134a68ec5546812013518a02402cfba1797eba",
         "port" => 11211
     ),
-    "cache_redis" => array(
+    "cache" => array(
         "enabled" => true,
         "adapter" => "redis",
         "host" => "localhost",
-        "namespace" => "c5d1005ced6df79cd2f7e78410134a68ec5546812013518a02402cfba1797eba",
-        "port" => 6379
+        "namespace" => "c5d1005",
+        "port" => 6379,
+        "version_check_interval" => 30
     ),
     "log" => array(
         "enabled" => true,
-        "severity" => "debug"
+        "severity" => "info"
     )
 )); ?>
 

@@ -36,13 +36,26 @@ namespace Tml\Cache;
 use Redis;
 use Tml\Config;
 
-class RedisAdapter extends MemcacheAdapter {
+/**
+ * Class RedisAdapter
+ *
+ * Cache adapter based on Redis
+ *
+ * @package Tml\Cache
+ */
+class RedisAdapter extends Base {
+
+    /**
+     * Stores the Redis object
+     *
+     * @var \Memcache
+     */
+    protected $cache;
 
     /**
      * Creates Redis adapter
      */
     public function __construct() {
-        parent::__construct();
         $this->cache = new Redis;
         if (Config::instance()->configValue("socket")) {
             $this->cache->connect(Config::instance()->configValue("socket"));
@@ -63,8 +76,15 @@ class RedisAdapter extends MemcacheAdapter {
         return "redis";
     }
 
+    /**
+     * Fetches data from Redis
+     *
+     * @param $key
+     * @param null $default
+     * @return bool|null|string
+     */
     public function fetch($key, $default = null) {
-        $value = $this->cache->get($this->versionedKey($key));
+        $value = $this->cache->get($key);
         if ($value) {
             $this->info("Cache hit " . $key);
             return $value;
@@ -98,7 +118,7 @@ class RedisAdapter extends MemcacheAdapter {
         // $this->info($value);
 
         return $this->cache->set(
-            $this->versionedKey($key),
+            $key,
             $this->stripExtensions($value)
         );
     }
@@ -111,7 +131,17 @@ class RedisAdapter extends MemcacheAdapter {
      */
     public function exists($key) {
         $this->info("Cache exists " . $key);
-        return $this->cache->exists($this->versionedKey($key));
+        return $this->cache->exists($key);
     }
 
+    /**
+     * Deletes data from Memcache
+     *
+     * @param $key
+     * @return bool
+     */
+    public function delete($key) {
+        $this->info("Cache delete " . $key);
+        return $this->cache->delete($key);
+    }
 }

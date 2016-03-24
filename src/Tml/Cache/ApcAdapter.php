@@ -35,6 +35,13 @@ namespace Tml\Cache;
 
 use Tml\Config;
 
+/**
+ * Class ApcAdapter
+ *
+ * Cache client based on APC
+ *
+ * @package Tml\Cache
+ */
 class ApcAdapter extends Base {
 
     /**
@@ -56,7 +63,7 @@ class ApcAdapter extends Base {
     public function fetch($key, $default = null) {
         $success = false;
 
-        $value = apc_fetch($this->versionedKey($key), $success);
+        $value = apc_fetch($key, $success);
 
         if ($success === TRUE) {
             $this->info("Cache hit " . $key);
@@ -90,7 +97,7 @@ class ApcAdapter extends Base {
         $this->info("Cache store " . $key);
 
         return apc_store(
-            $this->versionedKey($key),
+            $key,
             $this->stripExtensions($value),
             Config::instance()->configValue("cache.timeout", 0)
         );
@@ -104,7 +111,7 @@ class ApcAdapter extends Base {
      */
     public function delete($key) {
         $this->info("Cache delete " . $key);
-        return apc_delete($this->versionedKey($key));
+        return apc_delete($key);
     }
 
     /**
@@ -115,6 +122,6 @@ class ApcAdapter extends Base {
      */
     public function exists($key) {
         $this->info("Cache exists " . $key);
-        return apc_exists($this->versionedKey($key));
+        return apc_exists($key);
     }
 }

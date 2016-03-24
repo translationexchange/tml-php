@@ -36,25 +36,23 @@ namespace Tml\Cache;
 use Tml\Logger;
 use Tml\Config;
 
+/**
+ * Class Base
+ *
+ * Base cache client class
+ *
+ * @package Tml\Cache
+ */
 abstract class Base {
     public abstract function fetch($key, $default = null);
     public abstract function store($key, $value);
     public abstract function delete($key);
     public abstract function exists($key);
 
-    const TML_VERSION_KEY = 'current_version';
-
     /**
      * @var string
      */
     private $base_cache_path;
-
-    /**
-     * Holds the current cache version
-     *
-     * @var string
-     */
-    private $version;
 
     /**
      * @return bool
@@ -93,90 +91,6 @@ abstract class Base {
     }
 
     /**
-     * Returns current cache version
-     *
-     * @return integer
-     */
-    function version() {
-        return $this->version;
-    }
-
-    /**
-     * Checks if the cache should pull from API
-     *
-     * @return bool
-     */
-    function isVersionLive() {
-        return ($this->version == "live");
-    }
-
-    /**
-     * Checks if the cache should pull version from API
-     *
-     * @return bool
-     */
-    function isVersionUndefined() {
-        return ($this->version == null || $this->version == 'undefined');
-    }
-
-    /**
-     * Should fetch from CDN
-     * @return bool
-     */
-    function isCdnVersion() {
-        return !($this->isVersionLive() || $this->isVersionUndefined());
-    }
-
-    /**
-     * Fetches current version from cache
-     * @return mixed
-     */
-    function fetchVersion() {
-        $this->version = $this->fetch(self::TML_VERSION_KEY, 'undefined');
-        return $this->version;
-    }
-
-    /**
-     * Sets current version
-     *
-     * @param $new_version
-     */
-    function setVersion($new_version) {
-        $this->version = $new_version;
-    }
-
-    /**
-     * Upgrades version, by marking it as undefined
-     */
-    function invalidateVersion() {
-        $this->store(self::TML_VERSION_KEY, 'undefined');
-    }
-
-    /**
-     * Stores version in cache
-     *
-     * @param $new_version
-     */
-    function storeVersion($new_version) {
-        $this->setVersion($new_version);
-        $this->store(self::TML_VERSION_KEY, $new_version);
-    }
-
-    /**
-     * Appends version to a key
-     *
-     * @param string $key
-     * @return string
-     */
-    function versionedKey($key) {
-        return "tml_" .
-                Config::instance()->configValue("cache.namespace") .
-                ($key == self::TML_VERSION_KEY ? '' : ('_v' . $this->version())) .
-                "_" .
-                $key;
-    }
-
-    /**
      * @return string
      */
     function baseCachePath() {
@@ -201,7 +115,6 @@ abstract class Base {
     function currentCachePath() {
         return $this->baseCachePath() . DIRECTORY_SEPARATOR . Config::instance()->configValue("cache.version", 'current');
     }
-
 
     /**
      * Removes extensions from data

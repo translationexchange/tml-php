@@ -100,10 +100,6 @@
 </p>
 
 <p>
-  Press the following keys:  Ctrl+Shift+S
-</p>
-
-<p>
   You should see a lightbox with Tml's default shortcuts. You can configure those shortcuts in the application administration section.
 </p>
 
