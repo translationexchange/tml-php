@@ -43,7 +43,7 @@ tml_init(array(
     ),
     "log" => array(
         "enabled" => true,
-        "severity" => "info"
+        "severity" => "debug"
     )
 )); ?>
 
