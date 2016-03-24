@@ -61,8 +61,7 @@ Paste the following content into the file:
 ```php
 <?php require_once(__DIR__ . '/vendor/translationexchange/tml/src/init.php'); ?>
 <?php tml_init(array(
-    "key" => YOUR_APPLICATION_TOKEN,
-    "token" => YOUR_APPLICATION_TOKEN
+    "key" => YOUR_APPLICATION_TOKEN
 )); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
@@ -94,8 +93,6 @@ http://localhost:8080/index.php
 
 If everything was configured correctly, you should see a phrase "Hello World" on your page.
 
-Press the following keys:  Ctrl+Shift+S
-
 You should see a lightbox with TML's default shortcuts. To close the lightbox, click on the top-right corner or simply press the Esc button.
 
 Press Ctrl+Shift+L to switch to a different language.
@@ -112,7 +109,7 @@ To learn about various integration options and TML features, visit our online in
 Links
 ==================
 
-* Register at TranslationExchange.com: http://translationexchange.com
+* Register at TranslationExchange.com: https://translationexchange.com
 
 * Follow TranslationExchange on Twitter: https://twitter.com/translationx
 
@@ -124,7 +121,7 @@ Links
 Copyright and license
 ==================
 
-Copyright (c) 2015 Translation Exchange, Inc.
+Copyright (c) 2016 Translation Exchange, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
