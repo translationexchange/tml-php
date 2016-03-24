@@ -15,7 +15,7 @@
 
 <div class="hero-unit">
     <p class="text-center">
-        <?php image_tag('tml_logo.png') ?>
+        <?php image_tag('logo.png') ?>
     </p>
     <h2 class="text-center"><?php tre("Welcome to Tml For PHP") ?></h2>
     <p class="text-center">

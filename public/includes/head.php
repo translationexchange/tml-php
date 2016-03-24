@@ -12,7 +12,7 @@ tml_init(array(
         "host" => "http://localhost:8282/dist/agent.js"
     ),
 
-    "cache1" => array(
+    "cache_file" => array(
         "enabled" => true,
         "adapter" => "file",
         "version" => "20160323211903"
@@ -21,10 +21,19 @@ tml_init(array(
         "enabled" => true,
         "adapter" => "memcached",
         "host" => "localhost",
-        "namespace" => "c5d1005ced6df79cd2f7e78410134a68ec5546812013518a02402cfba1797eba",
-        "port" => 11211
+        "namespace" => "c5d1005",
+        "port" => 11211,
+        "version_check_interval" => 30
     ),
     "cache" => array(
+        "enabled" => true,
+        "adapter" => "memcache",
+        "host" => "localhost",
+        "namespace" => "c5d10051",
+        "port" => 11211,
+        "version_check_interval" => 30
+    ),
+    "cache_redis" => array(
         "enabled" => true,
         "adapter" => "redis",
         "host" => "localhost",
