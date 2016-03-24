@@ -175,6 +175,11 @@ class Session {
         global $tml_page_t0;
         $tml_page_t0 = microtime(true);
 
+        foreach(array("cache", "log", "agent") as $type) {
+            if (isset($options[$type]))
+                Config::instance()->updateConfig($type, $options[$type]);
+        }
+
         $key = isset($options["key"]) ? $options["key"] : Config::instance()->configValue("application.key");
         $host = isset($options["host"]) ? $options["host"] : Config::instance()->configValue("application.host");
         $cdn_host = isset($options["cdn_host"]) ? $options["cdn_host"] : Config::instance()->configValue("application.cdn_host");
@@ -203,16 +208,12 @@ class Session {
 
         if (!$cookie_params) $cookie_params = array();
 
-        Logger::instance()->debug("Cookie params: " . json_encode($cookie_params));
+//        Logger::instance()->debug("Cookie params: " . json_encode($cookie_params));
+//        Logger::instance()->debug("Options: " . json_encode($options));
 
         # by default always use the access token of the translator
         if (!$token)
             $token = isset($options["token"]) ? $options["token"] : Config::instance()->configValue("application.token");
-
-        foreach(array("cache", "log", "local", "agent") as $type) {
-            if (isset($options[$type]))
-                Config::instance()->updateConfig($type, $options[$type]);
-        }
 
         // create application instance, but don't initialize it yet
         $application = new Application(array("key" => $key, "access_token" => $token, "host" => $host, "cdn_host" => $cdn_host));
@@ -237,13 +238,7 @@ class Session {
 
         $source = null;
         if (isset($_SERVER["REQUEST_URI"])) {
-            $source = $_SERVER["REQUEST_URI"];
-            $source = explode("#", $source);
-            $source = $source[0];
-            $source = explode("?", $source);
-            $source = $source[0];
-            $source = str_replace('.php', '', $source);
-            $source = preg_replace('/\/$/', '', $source);
+            $source = StringUtils::normalizeSource($_SERVER["REQUEST_URI"]);
         }
 
         if (!$source || $source == '' || $source == '/')
@@ -262,8 +257,6 @@ class Session {
         $locale = $application->supportedLocale($locale);
 
         Logger::instance()->debug("Application initialized");
-
-//    var_dump($application);
 
         if (self::isActive()) {
             $current_language = $application->language($locale);

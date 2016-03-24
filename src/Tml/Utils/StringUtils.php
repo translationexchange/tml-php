@@ -81,6 +81,20 @@ class StringUtils {
     }
 
     /**
+     * @param $source
+     * @return array|mixed
+     */
+    public static function normalizeSource($source) {
+        $source = explode("#", $source);
+        $source = $source[0];
+        $source = explode("?", $source);
+        $source = $source[0];
+        $source = str_replace('.php', '', $source);
+        $source = preg_replace('/\/$/', '', $source);
+        return $source;
+    }
+
+    /**
      * @param $json
      * @return string
      */
