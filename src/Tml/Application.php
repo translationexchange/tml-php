@@ -129,7 +129,7 @@ class Application extends Base {
     public $missing_keys_by_sources;
 
     /**
-     * @var ApiClient
+     * @var Api\Client
      */
     private $api_client;
 
@@ -602,7 +602,7 @@ class Application extends Base {
     }
 
     /**
-     * @return ApiClient
+     * @return Api\Client
      */
     public function apiClient() {
         if ($this->api_client == null) {

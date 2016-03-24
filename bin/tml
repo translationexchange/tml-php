@@ -29,7 +29,6 @@ use Tml\Session;
 use Tml\Utils\FileUtils;
 
 require dirname(__FILE__) . '/../vendor/autoload.php';
-require dirname(__FILE__) . '/../src/init.php';
 
 $options = array();
 
@@ -94,8 +93,6 @@ if ($command == "cache") {
         say("Usage: tml cache [options]\n");
         say("Options:");
         say("   -k(--key)         (required) Application key ");
-        say("   -t(--token)       (required) Application token ");
-        say("   -h(--host)        (optional) Application host ");
         say("   -v(--version)     (optional) Snapshot version to be downloaded ");
         say("   -d(--dest)        (optional) Destination where to download the snapshot ");
         say("\n");
@@ -107,38 +104,39 @@ if ($command == "cache") {
     }
 
     $key = getOption($options, array("-k", "--key"));
-    $token = getOption($options, array("-t", "--token"));
 
-    if ($key == null || $token == null) {
+    if ($key == null) {
         printOptions();
         exit;
     }
 
-    $host = getOption($options, array("-h", "--host"), "https://api.translationexchage.com");
+    $cdn_host = getOption($options, array("-cdn"));
+    $cdn_host = $cdn_host;
+    if ($cdn_host === null)
+        $cdn_host = Tml\Api\Client::CDN_HOST;
+
     tml_init(array(
         "key"   => $key,
-        "token" => $token,
-        "host"  => $host,
+        "cdn_host" => $cdn_host
     ));
 
     $version = getOption($options, array("-v", "--version"));
     if ($version==null)
-        $version = Session::application()->apiClient()->getCacheVersion(array("access_token" => $token), array("host" => $host));
+        $version = Session::application()->apiClient()->fetchFromCdn(\Tml\Cache\Version::TML_VERSION_KEY);
 
     if ($version==null) {
         say("No releases have been generated");
         exit;
     }
 
-    $snapshot = Session::application()->apiClient()->get("applications/current/snapshots/$version");
-    if ($snapshot==null) {
-        say("Invalid release version");
-        exit;
-    }
+    $version = json_decode($version, true);
+    $version = $version["version"];
 
     $dest = getOption($options, array("-d", "--dest"), "./cache");
-    $data = file_get_contents($snapshot['url']);
-    $version_path = $dest . "/" . $snapshot['version'];
+
+    $archive_url = $cdn_host . "/" . $key . "/" . $version . ".tar.gz";
+    $data = file_get_contents($archive_url);
+    $version_path = $dest . "/" . $version;
     $file_path = $version_path . ".tar.gz";
 
     try {
@@ -151,7 +149,6 @@ if ($command == "cache") {
         say("Failed to store snapshot. Please make sure that " . $dest . " has write permissions.");
     } else {
         say("Downloaded version " . $version . " ($result bytes).");
-        say("Summary: " . $snapshot['metrics']['language_count'] . " languages, " . $snapshot['metrics']['key_count'] . " phrases, " . $snapshot['metrics']['translation_count'] . " translations");
         say("Extracting content...");
         try {
             $phar = new PharData($file_path);

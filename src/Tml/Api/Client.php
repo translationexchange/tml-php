@@ -155,9 +155,6 @@ class Client {
      * @return array
      */
     public function fetchFromCdn($cache_key) {
-        if (Cache::version() == null)
-            return null;
-
         if ($cache_key == Cache\Version::TML_VERSION_KEY)
             $cdn_path = "/" . $this->application->key . "/version.json";
         else
