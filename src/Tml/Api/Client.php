@@ -42,8 +42,7 @@ use Tml\Version;
 use Tml\Session;
 
 class Client {
-    const CDN_HOST = 'https://trex-snapshots-dev.s3-us-west-1.amazonaws.com';
-//    const CDN_HOST = 'https://cdn.translationexchange.com';
+    const CDN_HOST = 'https://cdn.translationexchange.com';
     const API_HOST = 'https://api.translationexchange.com';
     const API_PATH = '/v1/';
 

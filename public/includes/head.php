@@ -5,8 +5,7 @@ require_once(__DIR__ . '/../../src/init.php');
 tml_init(array(
     "key"   => "c5d1005ced6df79cd2f7e78410134a68ec5546812013518a02402cfba1797eba",
     "host"  => "http://localhost:3000",
-//    "key" => "70b41a860df8c211d",
-//    "token" => "6de77deffe1809b61e54f5d0da1add436815f4cd85a1c98d141aebf5f328702e",
+    "cdn_host" => "https://trex-snapshots-dev.s3-us-west-1.amazonaws.com",
 
     "agent" => array(
         "host" => "http://localhost:8282/dist/agent.js"
