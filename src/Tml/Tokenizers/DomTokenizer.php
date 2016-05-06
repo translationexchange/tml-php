@@ -308,7 +308,7 @@ class DomTokenizer {
         if ($this->isShortToken($token, $value))
             return '['.$token.': '.$value.']';
 
-        return '['.$token.']'.$value.'[/'.$token.']';
+        return '<'.$token.'>'.$value.'</'.$token.'>';
     }
 
     /**
