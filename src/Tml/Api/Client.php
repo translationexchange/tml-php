@@ -159,7 +159,9 @@ class Client {
         else
             $cdn_path = "/" . $this->application->key . "/" . Cache::version()->version . "/" . $cache_key . ".json";
 
-        $cdn_host = isset($options['cdn_host']) ? $options['cdn_host'] : self::CDN_HOST;
+        $cdn_host = $this->application->cdn_host;
+        if (!$cdn_host) $cdn_host = self::CDN_HOST;
+
         $data = self::executeRequest($cdn_path, array(), array("host" => $cdn_host, "compressed" => false));
 
         // AWS returns XML messages when data is not found
