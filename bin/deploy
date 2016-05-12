@@ -59,14 +59,14 @@ if ARGV.include?('release')
   execute('git checkout master')
   execute('git merge develop')
   execute("git tag #{version}")
-  execute('git push')
+  execute('git push origin master')
 
   execute('git checkout develop')
 
   increment_version
   execute("git add #{version_file_path}")
   execute("git commit -m 'Updated version to #{version}'")
-  execute('git push')
+  execute('git push origin develop')
 
   execute('open https://packagist.org/packages/translationexchange/tml')
 end
