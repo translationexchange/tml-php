@@ -98,6 +98,11 @@ class Version {
      * @return string
      */
     private function validate($version_data) {
+        // If the version is hardcoded in the config, use it
+        if (Config::instance()->configValue("cache.version") !== null) {
+            return Config::instance()->configValue("cache.version");
+        }
+
         try {
             $version_data = json_decode($version_data, true);
         } catch (Exception $e) {
@@ -112,7 +117,13 @@ class Version {
         if ($this->cache->isReadOnly())
             return $version_data['version'];
 
-        $expires_at = $version_data['t'] + $this->getVersionCheckInterval();
+        $interval = $this->getVersionCheckInterval();
+        if ($interval == -1) {
+            Logger::instance()->debug('Cache version check is disabled');
+            return $version_data['version'];
+        }
+
+        $expires_at = $version_data['t'] + $interval;
         $now = time();
         if ($expires_at < $now) {
             Logger::instance()->debug('Cache version is outdated, needs refresh');
