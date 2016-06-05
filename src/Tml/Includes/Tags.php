@@ -127,7 +127,7 @@ function tml_language_selector_tag($style, $opts = array()) {
     foreach($opts as $key => $value) {
         array_push($options, "data-tml-" . $key . "='" . $value . "'");
     }
-    $options = implode("&", $options);
+    $options = implode(" ", $options);
     echo "<div data-tml-language-selector='$style' $options></div>";
 }
 
