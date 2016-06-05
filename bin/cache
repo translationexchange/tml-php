@@ -39,7 +39,7 @@ if ($argc < 2) {
 
 $command = $argv[1];
 
-for ($i = 2; $i <= $argc-1; ++$i) {
+for ($i = 2; $i <= $argc - 1; ++$i) {
     $parts = explode("=", $argv[$i]);
     if (count($parts) == 1)
         $parts = array($argv[$i], $argv[$i]);
@@ -47,7 +47,8 @@ for ($i = 2; $i <= $argc-1; ++$i) {
 }
 
 
-function getOption($options, $keys, $default = null) {
+function getOption($options, $keys, $default = null)
+{
     if (is_array($keys)) {
         foreach ($keys as $key) {
             if (isset($options[$key]))
@@ -60,111 +61,88 @@ function getOption($options, $keys, $default = null) {
     return $default;
 }
 
-function say($msg) {
+function say($msg)
+{
     print "$msg\n";
 }
 
-if ($command == "init") {
-    function printOptions() {
-        say("Usage: tml init [options]\n");
-        say("Options:");
-        say("   --help            (optional) This screen ");
-        say("\n");
-    }
+function printOptions()
+{
+    say("Usage: tml cache [options]\n");
+    say("Options:");
+    say("   -k(--key)         (required) Application key ");
+    say("   -a(--action)      (action) Action to perform (download or warmup)");
+    say("   -v(--version)     (optional) Snapshot version to be downloaded ");
+    say("   -d(--dest)        (optional) Destination where to download the snapshot ");
+    say("\n");
+}
 
-    if (getOption($options, "--help") != null) {
-        printOptions();
-        exit;
-    }
-
-    $default_config_path = __DIR__."/../config/defaults.json";
-    $config_path = __DIR__."/../config/config.json";
-
-    if (!file_exists($config_path)) {
-        copy($default_config_path, $config_path);
-    }
-
-    say("Default configuration file has been created.");
+if (getOption($options, "--help") != null) {
+    printOptions();
     exit;
 }
 
-if ($command == "cache") {
-    function printOptions() {
-        say("Usage: tml cache [options]\n");
-        say("Options:");
-        say("   -k(--key)         (required) Application key ");
-        say("   -v(--version)     (optional) Snapshot version to be downloaded ");
-        say("   -d(--dest)        (optional) Destination where to download the snapshot ");
-        say("\n");
-    }
+$key = getOption($options, array("-k", "--key"));
 
-    if (getOption($options, "--help") != null) {
-        printOptions();
-        exit;
-    }
+if ($key == null) {
+    printOptions();
+    exit;
+}
 
-    $key = getOption($options, array("-k", "--key"));
+$cdn_host = getOption($options, array("-cdn"));
+$cdn_host = $cdn_host;
+if ($cdn_host === null)
+    $cdn_host = Tml\Api\Client::CDN_HOST;
 
-    if ($key == null) {
-        printOptions();
-        exit;
-    }
+tml_init(array(
+    "key" => $key,
+    "cdn_host" => $cdn_host
+));
 
-    $cdn_host = getOption($options, array("-cdn"));
-    $cdn_host = $cdn_host;
-    if ($cdn_host === null)
-        $cdn_host = Tml\Api\Client::CDN_HOST;
+$version = getOption($options, array("-v", "--version"));
+if ($version == null)
+    $version = Session::application()->apiClient()->fetchFromCdn(\Tml\Cache\Version::TML_VERSION_KEY);
 
-    tml_init(array(
-        "key"   => $key,
-        "cdn_host" => $cdn_host
-    ));
+if ($version == null) {
+    say("No releases have been generated");
+    exit;
+}
 
-    $version = getOption($options, array("-v", "--version"));
-    if ($version==null)
-        $version = Session::application()->apiClient()->fetchFromCdn(\Tml\Cache\Version::TML_VERSION_KEY);
+$version = json_decode($version, true);
+$version = $version["version"];
 
-    if ($version==null) {
-        say("No releases have been generated");
-        exit;
-    }
+$dest = getOption($options, array("-d", "--dest"), "./cache");
 
-    $version = json_decode($version, true);
-    $version = $version["version"];
+$archive_url = $cdn_host . "/" . $key . "/" . $version . ".tar.gz";
+$data = file_get_contents($archive_url);
+$version_path = $dest . "/" . $version;
+$file_path = $version_path . ".tar.gz";
 
-    $dest = getOption($options, array("-d", "--dest"), "./cache");
+try {
+    $result = file_put_contents($file_path, $data);
+} catch (Exception $e) {
+    $result = false;
+}
 
-    $archive_url = $cdn_host . "/" . $key . "/" . $version . ".tar.gz";
-    $data = file_get_contents($archive_url);
-    $version_path = $dest . "/" . $version;
-    $file_path = $version_path . ".tar.gz";
-
+if (!$result) {
+    say("Failed to store snapshot. Please make sure that " . $dest . " has write permissions.");
+} else {
+    say("Downloaded version " . $version . " ($result bytes).");
+    say("Extracting content...");
     try {
-        $result = file_put_contents($file_path, $data);
+        $phar = new PharData($file_path);
+        FileUtils::rrmdir($version_path);
+        $phar->extractTo($version_path);
+        unlink($file_path);
+        $result = true;
     } catch (Exception $e) {
         $result = false;
     }
 
-    if (!$result) {
-        say("Failed to store snapshot. Please make sure that " . $dest . " has write permissions.");
+    if ($result) {
+        say("Snapshot has been extracted and is ready for use.");
     } else {
-        say("Downloaded version " . $version . " ($result bytes).");
-        say("Extracting content...");
-        try {
-            $phar = new PharData($file_path);
-            FileUtils::rrmdir($version_path);
-            $phar->extractTo($version_path);
-            unlink($file_path);
-            $result = true;
-        } catch (Exception $e) {
-            $result = false;
-        }
-
-        if ($result) {
-            say("Snapshot has been extracted and is ready for use.");
-        } else {
-            say("Failed to extract snapshot. Please make sure that " . $dest . " has write permissions and has enough space...");
-        }
+        say("Failed to extract snapshot. Please make sure that " . $dest . " has write permissions and has enough space...");
     }
 }
 
