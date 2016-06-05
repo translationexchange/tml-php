@@ -1,0 +1,170 @@
+#!/usr/bin/env php
+
+<?php
+/**
+ * Copyright (c) 2016 Translation Exchange, Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+use Tml\Config;
+use Tml\Session;
+use Tml\Utils\FileUtils;
+
+require dirname(__FILE__) . '/../src/init.php';
+
+$options = array();
+
+if ($argc < 2) {
+    print "Usage: tml [init|cache] [arguments]\n\n";
+    exit;
+}
+
+$command = $argv[1];
+
+for ($i = 2; $i <= $argc-1; ++$i) {
+    $parts = explode("=", $argv[$i]);
+    if (count($parts) == 1)
+        $parts = array($argv[$i], $argv[$i]);
+    $options[$parts[0]] = $parts[1];
+}
+
+
+function getOption($options, $keys, $default = null) {
+    if (is_array($keys)) {
+        foreach ($keys as $key) {
+            if (isset($options[$key]))
+                return $options[$key];
+        }
+    } else {
+        if (isset($options[$keys]))
+            return $options[$keys];
+    }
+    return $default;
+}
+
+function say($msg) {
+    print "$msg\n";
+}
+
+if ($command == "init") {
+    function printOptions() {
+        say("Usage: tml init [options]\n");
+        say("Options:");
+        say("   --help            (optional) This screen ");
+        say("\n");
+    }
+
+    if (getOption($options, "--help") != null) {
+        printOptions();
+        exit;
+    }
+
+    $default_config_path = __DIR__."/../config/defaults.json";
+    $config_path = __DIR__."/../config/config.json";
+
+    if (!file_exists($config_path)) {
+        copy($default_config_path, $config_path);
+    }
+
+    say("Default configuration file has been created.");
+    exit;
+}
+
+if ($command == "cache") {
+    function printOptions() {
+        say("Usage: tml cache [options]\n");
+        say("Options:");
+        say("   -k(--key)         (required) Application key ");
+        say("   -v(--version)     (optional) Snapshot version to be downloaded ");
+        say("   -d(--dest)        (optional) Destination where to download the snapshot ");
+        say("\n");
+    }
+
+    if (getOption($options, "--help") != null) {
+        printOptions();
+        exit;
+    }
+
+    $key = getOption($options, array("-k", "--key"));
+
+    if ($key == null) {
+        printOptions();
+        exit;
+    }
+
+    $cdn_host = getOption($options, array("-cdn"));
+    $cdn_host = $cdn_host;
+    if ($cdn_host === null)
+        $cdn_host = Tml\Api\Client::CDN_HOST;
+
+    tml_init(array(
+        "key"   => $key,
+        "cdn_host" => $cdn_host
+    ));
+
+    $version = getOption($options, array("-v", "--version"));
+    if ($version==null)
+        $version = Session::application()->apiClient()->fetchFromCdn(\Tml\Cache\Version::TML_VERSION_KEY);
+
+    if ($version==null) {
+        say("No releases have been generated");
+        exit;
+    }
+
+    $version = json_decode($version, true);
+    $version = $version["version"];
+
+    $dest = getOption($options, array("-d", "--dest"), "./cache");
+
+    $archive_url = $cdn_host . "/" . $key . "/" . $version . ".tar.gz";
+    $data = file_get_contents($archive_url);
+    $version_path = $dest . "/" . $version;
+    $file_path = $version_path . ".tar.gz";
+
+    try {
+        $result = file_put_contents($file_path, $data);
+    } catch (Exception $e) {
+        $result = false;
+    }
+
+    if (!$result) {
+        say("Failed to store snapshot. Please make sure that " . $dest . " has write permissions.");
+    } else {
+        say("Downloaded version " . $version . " ($result bytes).");
+        say("Extracting content...");
+        try {
+            $phar = new PharData($file_path);
+            FileUtils::rrmdir($version_path);
+            $phar->extractTo($version_path);
+            unlink($file_path);
+            $result = true;
+        } catch (Exception $e) {
+            $result = false;
+        }
+
+        if ($result) {
+            say("Snapshot has been extracted and is ready for use.");
+        } else {
+            say("Failed to extract snapshot. Please make sure that " . $dest . " has write permissions and has enough space...");
+        }
+    }
+}
+

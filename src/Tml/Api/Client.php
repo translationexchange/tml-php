@@ -162,10 +162,14 @@ class Client {
         $cdn_host = $this->application->cdn_host;
         if (!$cdn_host) $cdn_host = self::CDN_HOST;
 
-        $data = self::executeRequest($cdn_path, array(), array("host" => $cdn_host, "compressed" => false));
+        try {
+            $data = self::executeRequest($cdn_path, array(), array("host" => $cdn_host, "compressed" => false));
+        } catch (\Exception $ex) {
+            $data = null;
+        }
 
         // AWS returns XML messages when data is not found
-        if (preg_match("/xml/", $data)) return null;
+        if (!$data || preg_match("/xml/", $data)) return null;
 
         return $data;
     }
