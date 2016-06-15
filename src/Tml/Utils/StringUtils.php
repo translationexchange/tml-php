@@ -81,6 +81,21 @@ class StringUtils {
     }
 
     /**
+     * Find the first match in the hash of mapped sources
+     *
+     * @param $source_mapping
+     * @param $source
+     * @return mixed
+     */
+    public static function matchSource($source_mapping, $source) {
+        foreach ($source_mapping as $expr => $value) {
+            if (preg_match($expr, $source) == 1)
+                return $value;
+        }
+        return $source;
+    }
+
+    /**
      * @param $source
      * @return array|mixed
      */

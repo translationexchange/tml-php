@@ -1,7 +1,5 @@
 <?php include('includes/header.php'); ?>
 
-<?php tml_begin_block_with_options(array("source" => "welcome")) ?>
-
 <style>
     h3.hr {
         background: url('<?php echo url_for("assets/img/hr.png")?>') center center no-repeat;
@@ -115,7 +113,5 @@
         <p><?php tre("Administration tools allow you to configure every aspect of your application.") ?></p>
     </div>
 </div>
-
-<?php tml_finish_block_with_options() ?>
 
 <?php include('includes/footer.php'); ?>

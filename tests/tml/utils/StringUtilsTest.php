@@ -106,4 +106,23 @@ Genealogical societies are essential to family history researchers. </p>
 ]', $result);
 
     }
+
+    public function testMatchStrings() {
+        $source_mapping = array(
+            "/\\/viewitinerary\\/[\\d]*/" => "/viewitinerary/show",
+            "/\\/guide\\/scope\\/[\\d]*/" => "/guide/scope/show",
+        );
+
+        $result = StringUtils::matchSource($source_mapping, "/viewitinerary/158029");
+        $this->assertEquals("/viewitinerary/show", $result);
+
+        $result = StringUtils::matchSource($source_mapping, "/guide/scope/223");
+        $this->assertEquals("/guide/scope/show", $result);
+
+        $result = StringUtils::matchSource($source_mapping, "/guide/scopes");
+        $this->assertEquals("/guide/scopes", $result);
+
+        $result = StringUtils::matchSource($source_mapping, "other");
+        $this->assertEquals("other", $result);
+    }
 }

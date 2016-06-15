@@ -7,6 +7,15 @@ tml_init(array(
     "host"  => "http://localhost:3000",
     "cdn_host" => "https://trex-snapshots-dev.s3-us-west-1.amazonaws.com",
 
+//    "source" => function($original) {
+//        // do anything you want
+//        return "my_source";
+//    },
+
+//    "source" => array(
+//        "/\\/index\\/[\\d]*.*$/" => "/index",
+//    ),
+
     "agent" => array(
         "host" => "http://localhost:8282/dist/agent.js"
     ),

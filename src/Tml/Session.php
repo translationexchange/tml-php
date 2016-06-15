@@ -183,6 +183,7 @@ class Session {
         $key = isset($options["key"]) ? $options["key"] : Config::instance()->configValue("application.key");
         $host = isset($options["host"]) ? $options["host"] : Config::instance()->configValue("application.host");
         $cdn_host = isset($options["cdn_host"]) ? $options["cdn_host"] : Config::instance()->configValue("application.cdn_host");
+        $source = isset($options["source"]) ? $options["source"] : null;
 
         // get cookie name
         $cookie_name = "trex_" . $key;
@@ -236,9 +237,18 @@ class Session {
         if (!$locale)
             $locale = Config::instance()->default_locale;
 
-        $source = null;
-        if (isset($_SERVER["REQUEST_URI"])) {
-            $source = StringUtils::normalizeSource($_SERVER["REQUEST_URI"]);
+        $url_path = isset($_SERVER["REQUEST_URI"]) ? StringUtils::normalizeSource($_SERVER["REQUEST_URI"]) : 'index';
+
+        if ($source) {
+            if (is_callable($source)) {
+                $source_mapping = $source;
+                $source = $source_mapping($url_path);
+            } elseif (ArrayUtils::isHash($source)) {
+                $source_mapping = $source;
+                $source = StringUtils::matchSource($source_mapping, $url_path);
+            }
+        } else {
+            $source = $url_path;
         }
 
         if (!$source || $source == '' || $source == '/')
