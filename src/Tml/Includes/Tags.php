@@ -40,7 +40,8 @@ use Tml\Utils\ArrayUtils;
  * @param \Tml\Language $language
  * @param array $opts
  */
-function tml_language_name_tag($language = null, $opts = array()) {
+function tml_language_name_tag($language = null, $opts = array())
+{
     $flag = isset($opts["flag"]) ? $opts["flag"] : true;
     $type = isset($opts["type"]) ? $opts["type"] : 'native';
 
@@ -67,8 +68,9 @@ function tml_language_name_tag($language = null, $opts = array()) {
  *
  * @param array $opts
  */
-function tml_powered_by_tag($opts = array()) {
-    echo "<a href='http://welcome.translationexchange.com' style='color: #888; font-size: 12px;'>";
+function tml_powered_by_tag($opts = array())
+{
+    echo "<a href='http://translationexchange.com' style='color: #888; font-size: 12px;'>";
     tre("Powered by {company}", array("company" => "Translation Exchange"));
     echo "</a>";
 }
@@ -79,7 +81,8 @@ function tml_powered_by_tag($opts = array()) {
  * @param null $language
  * @param array $opts
  */
-function tml_toggle_inline_mode_tag($opts = array()) {
+function tml_toggle_inline_mode_tag($opts = array())
+{
     $toggle_off = isset($opts['toggle_off']) ? $opts['toggle_off'] : "Help Us Translate";
     $toggle_on = isset($opts['toggle_on']) ? $opts['toggle_on'] : "Deactivate Translation Mode";
     echo "<a href='javascript:void(0);' onclick='Tml.Utils.toggleInlineTranslations()'>";
@@ -93,9 +96,36 @@ function tml_toggle_inline_mode_tag($opts = array()) {
 /**
  * @param null $language
  */
-function tml_language_dir_attr($language = null) {
+function tml_language_attribute($language = null)
+{
+    if ($language == null) $language = tml_current_language();
+    echo "lang='" . $language->locale . "'";
+}
+
+/**
+ * @param null $language
+ */
+function tml_language_dir_attribute($language = null)
+{
     if ($language == null) $language = tml_current_language();
     echo "dir='" . $language->direction() . "'";
+}
+
+/**
+ * @param null $language
+ */
+function tml_language_dir_attr($language = null)
+{
+    tml_language_dir_attribute($language);
+}
+
+/**
+ * @param null $language
+ */
+function tml_html_attributes($language = null)
+{
+    if ($language == null) $language = tml_current_language();
+    echo "xml:lang='$language->locale' " . tml_language_dir_attribute($language) . " " . tml_language_attribute($language);
 }
 
 /**
@@ -103,7 +133,8 @@ function tml_language_dir_attr($language = null) {
  *
  * @param \Tml\Language $language
  */
-function tml_language_flag_tag($language = null, $opts = array()) {
+function tml_language_flag_tag($language = null, $opts = array())
+{
     if ($language == null) $language = tml_current_language();
     $name = $language->english_name;
     if (isset($opts['language']) && $opts['language'] == 'native')
@@ -115,16 +146,18 @@ function tml_language_flag_tag($language = null, $opts = array()) {
  * @param $language
  * @param array $opts
  */
-function tml_language_selector_footer_tag($opts = array()) {
-    include dirname(__FILE__)."/"."LanguageSelectorFooter.php";
+function tml_language_selector_footer_tag($opts = array())
+{
+    include dirname(__FILE__) . "/" . "FooterScripts.php";
 }
 
 /**
  * Language selector
  */
-function tml_language_selector_tag($style, $opts = array()) {
+function tml_language_selector_tag($style, $opts = array())
+{
     $options = array();
-    foreach($opts as $key => $value) {
+    foreach ($opts as $key => $value) {
         array_push($options, "data-tml-" . $key . "='" . $value . "'");
     }
     $options = implode(" ", $options);
@@ -132,3 +165,19 @@ function tml_language_selector_tag($style, $opts = array()) {
 }
 
 
+/**
+ * Stylesheet alternator for RTL and LTR languages
+ *
+ * @param $ltr
+ * @param $rtl
+ * @param array $opts
+ */
+function tml_stylesheet_link_tag($ltr, $rtl, $opts = array())
+{
+    $language = tml_current_language();
+
+    if ($language->right_to_left)
+        echo '<link rel="stylesheet" href="' . $rtl . '">';
+    else
+        echo '<link rel="stylesheet" href="' . $ltr . '">';
+}
