@@ -34,46 +34,19 @@ namespace Tml;
 
 require_once(__DIR__ . "/../BaseTest.php");
 
-class ConfigTest extends \BaseTest
+class SessionTest extends \BaseTest
 {
-
-    public function testDefaultTokens()
+    public function testURLs()
     {
-        $config = Config::instance();
+        $session = Session::instance();
 
-        $this->assertEquals(
-            '<strong>{$0}</strong>',
-            $config->defaultToken("bold", "decoration", "html")
-        );
+        $this->assertEquals(explode('/', '/'), array('', ''));
+        $this->assertEquals(explode('/', '/ru'), array('', 'ru'));
+        $this->assertEquals(explode('/', 'ru'), array('ru'));
 
-        $this->assertEquals(
-            '<strong>{$0}</strong>',
-            $config->defaultToken("bold", "decoration")
-        );
-
-        $this->assertEquals(
-            '{$0}',
-            $config->defaultToken("bold", "decoration", "plain")
-        );
-
-        $this->assertEquals(
-            '&ndash;',
-            $config->defaultToken("ndash")
-        );
-
-    }
-
-    public function testLocales()
-    {
-        $config = Config::instance();
-        $this->assertTrue($config->isValidLocale('en'));
-        $this->assertTrue($config->isValidLocale('en-US'));
-        $this->assertTrue($config->isValidLocale('ru-RU'));
-        $this->assertFalse($config->isValidLocale('en-'));
-        $this->assertFalse($config->isValidLocale('e'));
-        $this->assertFalse($config->isValidLocale('eng'));
-        $this->assertFalse($config->isValidLocale('en-ru'));
-        $this->assertFalse($config->isValidLocale('en-rio'));
+        $this->assertEquals(array_filter(explode('/', '/')), array());
+        $this->assertEquals(array_filter(explode('/', '/ru')), array(1 => 'ru'));
+        $this->assertEquals(array_filter(explode('/', 'ru')), array('ru'));
     }
 
 }

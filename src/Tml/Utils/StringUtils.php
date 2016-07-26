@@ -66,6 +66,28 @@ class StringUtils {
     }
 
     /**
+     * Splits a value by delimiter
+     *
+     * @param $value
+     * @param string $delimiter
+     * @return array
+     */
+    public static function split($value, $delimiter = '/') {
+        return array_values(array_filter(explode($delimiter, $value)));
+    }
+
+    /**
+     * Joins elements together
+     *
+     * @param $array
+     * @param string $joiner
+     * @return string
+     */
+    public static function join($array, $joiner = '/') {
+        return implode($joiner, $array);
+    }
+
+    /**
      * @param $text
      * @param array $opts
      * @return array

@@ -235,6 +235,16 @@ class Config {
     }
 
     /**
+     * Checks if the locale is valid
+     *
+     * @param $locale
+     * @return int
+     */
+    public function isValidLocale($locale) {
+        if ($locale == null) return false;
+        return (preg_match('/^[a-z]{2}(-[A-Z]{2,3})?$/', $locale) == 1);
+    }
+    /**
      * If SDK is not initialized, we can use the fallback, default language to process TML
      *
      * @return Language
@@ -384,8 +394,10 @@ class Config {
     public function encode($params) {
         $data = json_encode($params);
         $payload_json = base64_encode($data);
-        $request = urlencode($payload_json);
-        return $request;
+        return $payload_json;
+//        $request = $payload_json;
+//        $request = urlencode($payload_json);
+//        return $request;
     }
 
     /**

@@ -5,7 +5,7 @@
 <br>
 
 <?php
-    $path = dirname(__FILE__)."/../tests/fixtures/html/examples";
+    $path = dirname(__DIR__)."/../tests/fixtures/html/examples";
 
     $content = isset($_POST["content"]) ? $_POST["content"] : null;
     $selected_sample = null;
@@ -90,7 +90,7 @@
             <textarea id="content" name="content" style="width:100%; height:400px;"><?php echo $content ?></textarea>
         </div>
 
-        <?php if (\Tml\Config::instance()->current_translator) { ?>
+        <?php if (\Tml\Session::instance()->current_translator) { ?>
             <div style="padding-top:10px;">
                 <div style="float:right">
                     <button type="button" class="btn" onClick="newSample()">
@@ -154,7 +154,7 @@
     $params["special_tokens"] = isset($_POST["special_tokens"]);
     $params["numeric_tokens"] = isset($_POST["numeric_tokens"]);
 ?>
-<iframe id="translations" src="editor_content.php?<?php echo http_build_query($params) ?>" name="results" style="width:100%;height:500px;background:white;border:1px solid #eee;"></iframe>
+<iframe id="translations" src="editor_content?<?php echo http_build_query($params) ?>" name="results" style="width:100%;height:500px;background:white;border:1px solid #eee;"></iframe>
 
 <?php if ($selected_editor == 'ckeditor') { ?>
     <?php javascript_tag('../editors/ckeditor/ckeditor.js') ?>
@@ -274,7 +274,7 @@
         params["special_tokens"] = asParam('special_tokens');
         params["numeric_tokens"] = asParam('numeric_tokens');
 
-        return "editor_content.php?sample=<?php echo $selected_sample ?>&" + $.param(params);
+        return "editor_content?sample=<?php echo $selected_sample ?>&" + $.param(params);
     }
 
     function reloadTranslations() {

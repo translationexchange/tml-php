@@ -144,7 +144,7 @@ class Application extends Base {
     public function fetch() {
         Logger::instance()->info("Initializing application...");
 
-        $data = $this->apiClient()->get("projects/current/definition",
+        $data = $this->apiClient()->get("projects/" . $this->key . "/definition",
             [
                 'locale' => Session::instance()->current_locale,
                 'source' => Session::instance()->current_source,
@@ -527,7 +527,7 @@ class Application extends Base {
 
             try {
                 $results = $this->apiClient()->get(
-                    'applications/current/translations',
+                    "projects/" . $this->key . "/translations",
                     array('locale' => $locale, 'all' => 'true', 'ignored' => 'true'),
                     array('cache_key' => self::translationsCacheKey($locale))
                 );

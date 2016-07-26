@@ -3,7 +3,7 @@
 <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
 
 <?php
-$path = dirname(__FILE__)."/../tests/fixtures/html/examples";
+$path = dirname(__DIR__)."/../tests/fixtures/html/examples";
 $selected_sample = $_GET["sample"];
 $selected_file_path = $path.'/'.$selected_sample.'.html';
 $content = file_get_contents($selected_file_path);
