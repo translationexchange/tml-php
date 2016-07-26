@@ -9,17 +9,17 @@ tml_init(array(
 
     "locale" => array(
         "default" => 'en',
-        "strategy" => 'pre-path',
-        "redirect" => false,
-        "cookie" => false
+        "strategy" => 'param',
+        "redirect" => true,
+        "cookie" => true
     ),
 
-    "source" => function($original) {
-        $fragments = \Tml\Utils\StringUtils::split($original, '/');
-        array_shift($fragments);
-        $source = \Tml\Utils\StringUtils::join($fragments, '/');
-        return $source;
-    },
+//    "source" => function($original) {
+//        $fragments = \Tml\Utils\StringUtils::split($original, '/');
+//        array_shift($fragments);
+//        $source = \Tml\Utils\StringUtils::join($fragments, '/');
+//        return $source;
+//    },
 
 //    "source" => array(
 //        "/\\/index\\/[\\d]*.*$/" => "/index",
@@ -67,23 +67,27 @@ tml_init(array(
 
 $router = new AltoRouter();
 
-$router->map('GET', '/[:locale]?/docs', function ($locale = null) {
+$router->map('GET', '/[:locale]?/docs/?', function ($locale = null) {
     require __DIR__ . '/www/docs.php';
 });
 
-$router->map('GET', '/[:locale]?/tml', function ($locale = null) {
+$router->map('GET', '/[:locale]?/tml/?', function ($locale = null) {
     require __DIR__ . '/www/tml.php';
 });
 
-$router->map('GET', '/[:locale]?/editor', function ($locale = null) {
+$router->map('GET', '/[:locale]?/editor/?', function ($locale = null) {
     require __DIR__ . '/www/editor.php';
 });
 
-$router->map('GET', '/[:locale]?/editor_content', function ($locale = null) {
+$router->map('POST', '/[:locale]?/editor/?', function ($locale = null) {
+    require __DIR__ . '/www/editor.php';
+});
+
+$router->map('GET', '/[:locale]?/editor_content/?', function ($locale = null) {
     require __DIR__ . '/www/editor_content.php';
 });
 
-$router->map('GET', '/[:locale]?/', function ($locale = null) {
+$router->map('GET', '/[:locale]?/?', function ($locale = null) {
     require __DIR__ . '/www/index.php';
 });
 

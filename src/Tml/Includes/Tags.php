@@ -2,6 +2,8 @@
 
 use Tml\Session;
 use Tml\Utils\ArrayUtils;
+use Tml\Utils\StringUtils;
+use Tml\Utils\UrlUtils;
 
 /**
  * Copyright (c) 2016 Translation Exchange, Inc
@@ -180,4 +182,50 @@ function tml_stylesheet_link_tag($ltr, $rtl, $opts = array())
         echo '<link rel="stylesheet" href="' . $rtl . '">';
     else
         echo '<link rel="stylesheet" href="' . $ltr . '">';
+}
+
+/**
+ * Generates a url with locale based on the strategy
+ *
+ * @param $url
+ * @param array $opts
+ * @return string
+ */
+function tml_url_for($url, $opts = array())
+{
+    if (preg_match('#^https?://#i', $url) !== 1) {
+        if (Session::localeStrategy() == 'pre-path') {
+            $fragments = StringUtils::split($url);
+            array_unshift($fragments, tml_current_locale());
+            $url = UrlUtils::urlFor(null, StringUtils::join($fragments, '/'));
+        }
+    }
+
+   return $url;
+}
+
+/**
+ * Creates a link with a locale based on the strategy
+ *
+ * @param $label
+ * @param string $url
+ * @param array $opts
+ */
+function tml_link_to($label, $url = '#', $opts = array())
+{
+    if (preg_match('#^https?://#i', $url) !== 1) {
+        if (Session::localeStrategy() == 'pre-path') {
+            $fragments = StringUtils::split($url);
+            array_unshift($fragments, tml_current_locale());
+            $url = UrlUtils::urlFor(null, StringUtils::join($fragments, '/'));
+        }
+    }
+
+    $html = '<a href="' . tml_url_for($url, $opts) . '"';
+    foreach ($opts as $key => $value) {
+        $html = $html . ' ' . $key . '="' . str_replace('"', '\"', $value) . '"';
+    }
+    $html = $html . '>' . $label . '</a>';
+
+    echo $html;
 }

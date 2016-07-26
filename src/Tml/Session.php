@@ -37,6 +37,7 @@ use Tml\Utils\ArrayUtils;
 use Tml\Utils\BrowserUtils;
 use Tml\Tokenizers\DomTokenizer;
 use Tml\Utils\StringUtils;
+use Tml\Utils\UrlUtils;
 
 class Session
 {
@@ -323,6 +324,15 @@ class Session
         if (!$redirect_enabled)
             return false;
 
+        $ignore_urls = isset($locale_options['ignore_urls']) ? $locale_options['ignore_urls'] : null;
+        if ($ignore_urls != null) {
+            if (is_string($ignore_urls))
+                $ignore_urls = array($ignore_urls);
+            foreach ($ignore_urls as $rule)
+                if (preg_match($rule, $_SERVER['REQUEST_URI']) == 1)
+                    return false;
+        }
+
         $skip_default = isset($locale_options['skip_default']) ? $locale_options['skip_default'] : true;
         $default_locale = isset($locale_options['default']) ? $locale_options['default'] : Config::instance()->default_locale;
         $default_subdomain = self::localeDefaultSubdomain();
@@ -334,7 +344,7 @@ class Session
                 $fragments = StringUtils::split($_SERVER['REQUEST_URI'], '/');
                 if (count($fragments) > 0 && Config::instance()->isValidLocale($fragments[0])) {
                     array_shift($fragments);
-                    self::redirect(self::urlFor(null, StringUtils::join($fragments, '/')));
+                    UrlUtils::redirect(UrlUtils::urlFor(null, StringUtils::join($fragments, '/')));
                     return true;
                 }
                 return false;
@@ -348,14 +358,14 @@ class Session
                     } else {
                         array_shift($subdomains);
                     }
-                    self::redirect(self::urlFor(StringUtils::join($subdomains, '.')));
+                    UrlUtils::redirect(UrlUtils::urlFor(StringUtils::join($subdomains, '.')));
                     return true;
                 }
                 return false;
             }
 
             if ($strategy == 'custom-domain' && isset($mapping[$default_locale])) {
-                self::redirect(self::urlFor($mapping[$default_locale]));
+                UrlUtils::redirect(UrlUtils::urlFor($mapping[$default_locale]));
                 return true;
             }
 
@@ -373,7 +383,7 @@ class Session
             } else {
                 array_unshift($fragments, $current_locale);
             }
-            self::redirect(self::urlFor(null, StringUtils::join($fragments, '/')));
+            UrlUtils::redirect(UrlUtils::urlFor(null, StringUtils::join($fragments, '/')));
             return true;
         }
 
@@ -384,7 +394,7 @@ class Session
             else
                 array_unshift($subdomains, $current_locale);
 
-            self::redirect(self::urlFor(StringUtils::join($subdomains, '.')));
+            UrlUtils::redirect(UrlUtils::urlFor(StringUtils::join($subdomains, '.')));
             return true;
         }
 
@@ -394,7 +404,7 @@ class Session
             );
 
             if ($host != null) {
-                self::redirect(self::urlFor($host));
+                UrlUtils::redirect(UrlUtils::urlFor($host));
                 return true;
             }
         }
@@ -402,35 +412,7 @@ class Session
         return false;
     }
 
-    /**
-     * Generates a URL for a specific host or path
-     *
-     * @param null $host
-     * @param null $path
-     * @return string
-     */
-    static function urlFor($host = null, $path = null)
-    {
-        $ssl = isset($_SERVER['HTTPS']) && (strcasecmp('off', $_SERVER['HTTPS']) !== 0);
-        $host = ($host == null ? $_SERVER['SERVER_ADDR'] : $host);
-        $path = ($path == null ? $_SERVER['REQUEST_URI'] : $path);
-        $port = $_SERVER['SERVER_PORT'];
-        $port = ($port == 80 || $port == 553) ? '' : (':' . $port);
 
-        return ($ssl ? 'https://' : 'http://') . $host . $port . $path;
-    }
-
-    /**
-     * Redirects to a specific URL
-     *
-     * @param $url
-     * @param bool|false $permanent
-     */
-    static function redirect($url, $permanent = false)
-    {
-        header('Location: ' . $url, true, $permanent ? 301 : 302);
-        exit();
-    }
 
     /**
      * Return desired locale based on either requested locale, cookie or browser locale
@@ -518,9 +500,6 @@ class Session
         if ($strategy == 'custom-domain') {
             $mapping = array_flip(self::localeMapping());
             $host = $_SERVER["HTTP_HOST"];
-            $port = $_SERVER['SERVER_PORT'];
-            if ($port != 80 && $port != 443)
-                $host = $host . ':' . $port;
             return isset($mapping[$host]) ? $mapping[$host] : null;
         }
 

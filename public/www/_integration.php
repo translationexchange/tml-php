@@ -3,7 +3,7 @@
 
     <h2>Integration</h2>
     <p>
-      Before you can proceed with the integration, you need to <a href='https://dashboard.translationexchange.com'>register a new application on TranslationExchange.com</a> and copy the key and the secret for the app.
+      Before you can proceed with the integration, you need to register a new application on TranslationExchange.com and copy the key and the secret for the app.
       You will need to enter them in the initialization function of the Tml SDK.
     </p>
 
@@ -95,8 +95,10 @@
     <?php tre("Make sure you replace {token} with the token you copied from TranslationExchange", array("token"=>"YOUR_APPLICATION_TOKEN")) ?>
 </p>
 
+<?php trhe("
+
 <p>
-  Now you can open up your browser and navigate to the file you created. If everything was configured correctly, you should see a phrase "Hello World" on your page.
+  Now you can open up your browser and navigate to the file you created. If everything was configured correctly, you should see a phrase \"Hello World\" on your page.
 </p>
 
 <p>
@@ -119,4 +121,4 @@
   Right-Mouse-Click (or Ctrl+Click on Mac) on any phrase and you will see an inline translator window that will allow you to translate the phrase.
 </p>
 
-
+") ?>

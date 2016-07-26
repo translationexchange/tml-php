@@ -60,7 +60,7 @@
     $selected_editor = (isset($_GET["editor"]) ? $_GET["editor"] : (isset($_POST["editor"]) ? $_POST["editor"] : "ckeditor"));
 ?>
 
-<form action="editor.php" method="post" id="editor_form">
+<form action="/editor" method="post" id="editor_form">
 
 <div style="margin-top:20px;" class="yui-skin-sam">
         <input type="hidden" id="file_action" name="file_action">
@@ -227,7 +227,7 @@
     function updateSelection() {
         var edt = $('#editor').find(":selected").val();
         var sel = $('#sample').find(":selected").val();
-        location.href = "editor.php?editor=" +  edt + "&sample=" + sel;
+        location.href = "<?php tml_url_for("/editor")?>?editor=" +  edt + "&sample=" + sel;
     }
 
     function newSample() {
@@ -274,7 +274,7 @@
         params["special_tokens"] = asParam('special_tokens');
         params["numeric_tokens"] = asParam('numeric_tokens');
 
-        return "editor_content?sample=<?php echo $selected_sample ?>&" + $.param(params);
+        return "<?php tml_url_for("/editor_content")?>?sample=<?php echo $selected_sample ?>&" + $.param(params);
     }
 
     function reloadTranslations() {
