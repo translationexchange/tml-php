@@ -9,7 +9,7 @@ tml_init(array(
 
     "locale" => array(
         "default" => 'en',
-        "strategy" => 'param',
+        "strategy" => 'pre-path',
         "redirect" => true,
         "cookie" => true
     ),
