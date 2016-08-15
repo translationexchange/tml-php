@@ -1,5 +1,7 @@
 <?php
 
+use Tml\Logger;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 tml_init(array(
@@ -14,12 +16,15 @@ tml_init(array(
         "cookie" => true
     ),
 
-//    "source" => function($original) {
-//        $fragments = \Tml\Utils\StringUtils::split($original, '/');
-//        array_shift($fragments);
-//        $source = \Tml\Utils\StringUtils::join($fragments, '/');
-//        return $source;
-//    },
+    "source" => function($original) {
+        $fragments = \Tml\Utils\StringUtils::split($original, '/');
+        if (count($fragments) > 0 && preg_match('/^[a-z]{2}(-[A-Z]{2,3})?$/', $fragments[0]) == 1) {
+            array_shift($fragments);
+        }
+//        Logger::instance()->debug(json_encode($fragments));
+        $source = \Tml\Utils\StringUtils::join($fragments, '/');
+        return $source;
+    },
 
 //    "source" => array(
 //        "/\\/index\\/[\\d]*.*$/" => "/index",
