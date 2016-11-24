@@ -144,12 +144,11 @@ class Application extends Base {
     public function fetch() {
         Logger::instance()->info("Initializing application...");
 
-        $data = $this->apiClient()->get("projects/" . $this->key . "/definition",
-            [
+        $data = $this->apiClient()->get("projects/" . $this->key . "/definition", array(
                 'locale' => Session::instance()->current_locale,
                 'source' => Session::instance()->current_source,
                 'ignored' => 'true'
-            ],
+            ),
             array('cache_key' => self::cacheKey())
         );
 
