@@ -37,14 +37,9 @@ use Tml\Session;
 if (Session::isActive()) { ?>
     <script>
         <?php
-            $cache_interval =  Config::instance()->configValue("agent.cache", 86400);
             $agent_host = Config::instance()->configValue("agent.host",
                 "https://tools.translationexchange.com/agent/stable/agent.min.js"
             );
-            $t = time();
-            $t = $t - ($t % $cache_interval);
-            $agent_host = $agent_host . '?ts=' . $t;
-
             $agent_config = Config::instance()->configValue("agent", array());
             $agent_config['languages'] = array();
             $agent_config['locale'] = tml_current_locale();
@@ -75,5 +70,4 @@ if (Session::isActive()) { ?>
             window.document.getElementsByTagName('head')[0].appendChild(script);
         })();
     </script>
-
 <?php } ?>
