@@ -10,10 +10,10 @@ tml_init(array(
     "cdn_host" => "https://trex-snapshots-dev.s3-us-west-1.amazonaws.com",
 
     "locale" => array(
-        "default" => 'en',
-        "strategy" => 'pre-path',
-        "redirect" => true,
-        "cookie" => true
+//        "default" => 'en',
+        "strategy" => 'param'
+//        "redirect" => true,
+//        "cookie" => true
     ),
 
     "source" => function($original) {
