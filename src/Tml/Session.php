@@ -339,9 +339,17 @@ class Session
         $mapping = self::localeMapping();
 
         if ($skip_default && $current_locale == $default_locale) {
+
             # first lets see if we are in default locale and user doesn't want to show locale in url
             if ($strategy == 'pre-path' && $requested_locale !== null) {
-                $fragments = StringUtils::split($_SERVER['REQUEST_URI'], '/');
+                $path = $_SERVER['REQUEST_URI'];
+                $prefix = self::localePathPrefix();
+
+                if ($prefix !== null) {
+                    $path = preg_replace('/^' . str_replace('/', '\/', $prefix) . '/', '', $path);
+                }
+
+                $fragments = StringUtils::split($path, '/');
                 if (count($fragments) > 0 && Config::instance()->isValidLocale($fragments[0])) {
                     array_shift($fragments);
                     UrlUtils::redirect(UrlUtils::urlFor(null, StringUtils::join($fragments, '/')));
@@ -377,12 +385,24 @@ class Session
 
         # otherwise, the locale is not the same as what was requested, deal with it
         if ($strategy == 'pre-path') {
-            $fragments = StringUtils::split($_SERVER['REQUEST_URI'], '/');
+            $path = $_SERVER['REQUEST_URI'];
+            $prefix = self::localePathPrefix();
+
+            if ($prefix !== null) {
+                $path = preg_replace('/^' . str_replace('/', '\/', $prefix) . '/', '', $path);
+            }
+
+            $fragments = StringUtils::split($path, '/');
             if (count($fragments) > 0 && Config::instance()->isValidLocale($fragments[0])) {
                 $fragments[0] = $current_locale;
             } else {
                 array_unshift($fragments, $current_locale);
             }
+
+            if ($prefix !== null) {
+                array_unshift($fragments, $prefix);
+            }
+
             UrlUtils::redirect(UrlUtils::urlFor(null, StringUtils::join($fragments, '/')));
             return true;
         }
@@ -411,7 +431,6 @@ class Session
 
         return false;
     }
-
 
 
     /**
@@ -486,7 +505,15 @@ class Session
         if ($strategy == 'pre-path') {
             if ($_SERVER["REQUEST_URI"] === '')
                 return null;
-            $fragments = StringUtils::split($_SERVER["REQUEST_URI"], '/');
+
+            $path = $_SERVER["REQUEST_URI"];
+            $prefix = self::localePathPrefix();
+
+            if ($prefix !== null) {
+                $path = preg_replace('/^' . str_replace('/', '\/', $prefix) . '/', '', $path);
+            }
+
+            $fragments = StringUtils::split($path, '/');
             if (count($fragments) == 0)
                 return null;
             return Config::instance()->isValidLocale($fragments[0]) ? $fragments[0] : null;
@@ -521,6 +548,7 @@ class Session
         return array(
             "strategy" => self::localeStrategy(),
             "param" => self::localeParam(),
+            "prefix" => self::localePathPrefix(),
             "mapping" => self::localeMapping(),
             "default_subdomain" => self::localeDefaultSubdomain(),
             "skip_default" => self::localeSkipDefault(),
@@ -546,6 +574,11 @@ class Session
     static function localeStrategy()
     {
         return self::localeOption('strategy', 'param');
+    }
+
+    static function localePathPrefix()
+    {
+        return self::localeOption('prefix');
     }
 
     static function localeParam()
