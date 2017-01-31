@@ -215,6 +215,16 @@ class DomTokenizerTest extends \BaseTest {
                     "tokens"  => array('strong' => '<strong>{$0}</strong>')
               ),
 
+              array("html"    => "We have <a href='%s'>short links</a> here.",
+                  "tml"     => "<p>{{ We have [link: short links] here. }}</p>",
+                  "tokens"  => array('link' => array("href" => "http://www.google.com"))
+              ),
+
+              array("html"    => "We have <a href='%s'>some seriously very very very long links</a> here.",
+                  "tml"     => "<p>{{ We have <link>some seriously very very very long links</link> here. }}</p>",
+                  "tokens"  => array('link' => array("href" => "http://www.google.com"))
+              ),
+
 //              "Special characters: &nbsp; &frac34;"
 //              => "<p>{{ Special characters: {nbsp} {frac34} }}</p>",
 //
