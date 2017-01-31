@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2016 Translation Exchange, Inc
+ * Copyright (c) 2017 Translation Exchange, Inc. https://translationexchange.com
  *
  *  _______                  _       _   _             ______          _
  * |__   __|                | |     | | (_)           |  ____|        | |
