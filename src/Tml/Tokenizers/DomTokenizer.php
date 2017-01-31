@@ -364,6 +364,9 @@ class DomTokenizer {
 
         if ($this->getOption("split_sentences")) {
             $sentences = StringUtils::splitSentences($tml);
+
+//            \Tml\Logger::instance()->info(json_encode($sentences));
+
             $translation = $tml;
             foreach($sentences as $sentence) {
                 $sentence_translation = $this->getOption("debug") ? $this->debugTranslation($sentence) : $language->translate($sentence, null, $this->tokens, $this->options);

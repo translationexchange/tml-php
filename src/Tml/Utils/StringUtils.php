@@ -96,7 +96,7 @@ class StringUtils {
         $sentence_regex = '/[^.!?\s][^.!?]*(?:[.!?](?![\'"]?\s|$)[^.!?]*)*[.!?]?[\'"]?(?=\s|$)/';
 
         $matches = array();
-        preg_match_all($sentence_regex, strip_tags($text), $matches);
+        preg_match_all($sentence_regex, $text, $matches);
         $matches = array_unique($matches[0]);
 
         return $matches;
