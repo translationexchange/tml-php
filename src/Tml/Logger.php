@@ -236,7 +236,6 @@ class Logger {
      * @return string
      */
     private function formatMessage($msg, /** @noinspection PhpUnusedParameterInspection */ $severity) {
-        date_default_timezone_set('America/Los_Angeles');
         $time = date(self::$_dateFormat);
         return "$time: $msg";
     }
