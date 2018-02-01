@@ -13,6 +13,7 @@ Tml for PHP
 [![Total Downloads](https://poser.pugx.org/translationexchange/tml/downloads)](https://packagist.org/packages/translationexchange/tml)
 [![Monthly Downloads](https://poser.pugx.org/translationexchange/tml/d/monthly)](https://packagist.org/packages/translationexchange/tml)
 [![License](https://poser.pugx.org/translationexchange/tml/license)](https://packagist.org/packages/translationexchange/tml)
+[![Open Source Helpers](https://www.codetriage.com/translationexchange/tml-php/badges/users.svg)](https://www.codetriage.com/translationexchange/tml-php)
 
 Installation
 ==================
